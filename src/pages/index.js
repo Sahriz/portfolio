@@ -68,14 +68,16 @@ export default function Portfolio() {
       </div>
 
       {/* Projects grid */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 p-4">
-        {projects.map((project, index) => (
-          <a key={index} href={project.link} className="bg-gray-800 p-4 rounded-lg shadow-md hover:scale-105 transition">
-            <img src={project.image} alt={project.title} className="w-full h-40 object-cover rounded-md" />
-            <h2 className="text-xl font-semibold mt-2">{project.title}</h2>
-            <p className="text-sm text-gray-400">{project.description}</p>
-          </a>
-        ))}
+      <div className='padder'>
+        <div className="projectContainer projectsGrid">
+          {projects.map((project, index) => (
+            <a key={index} href={project.link} className="projectLink">
+              <img src={project.image} alt={project.title} className="projectImage" />
+              <h2 className="projectTitle">{project.title}</h2>
+              <p className="projectDescription">{project.description}</p>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );
