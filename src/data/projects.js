@@ -13,7 +13,7 @@ const projects = [
     },
     {
       title: "Solar system simulation",
-      description: "A Blender Python addon that adds an UI and allow the user to simulates and animates a solar system. It also adds materials to the planets. Blender has a tendacy to update their API, so the code might not work with the latest version of Blender.",
+      description: "A Blender Python addon that adds an UI and allow the user to simulate and automatically animate a solar system. It also adds materials to the planets. Blender has a tendacy to update their API, so the code might not work with the latest version of Blender.",
       image: "/RedoVisning4.png",
       link: "https://github.com/Sahriz/BlenderSolarsystemSim?tab=readme-ov-file"
     },
