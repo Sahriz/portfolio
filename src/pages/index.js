@@ -90,8 +90,8 @@ export default function Portfolio() {
         <>
        {/* Overlay Text */}
        <div className="overlayText">
-        <h1 className="title" style={{color: 'white'}}>Jonatan Ebenholms Portfolio</h1>
-        <p className="subtitle">A list of my more recent and interesting projects.</p>
+        <h1 className="title" style={{color: 'white'}}>Jonatan Ebenholm's Portfolio</h1>
+        <p className="subtitle">Please scroll down to see an overview of my most recent projects</p>
       </div>
 
       {/* Projects grid */}

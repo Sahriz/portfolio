@@ -47,17 +47,19 @@
     -1px -1px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
     1px -1px 0 rgba(0, 0, 0, 0.8),  /* Top right shadow */
     -1px 1px 0 rgba(0, 0, 0, 0.8);  /* Bottom left shadow */
+    font : arial;
   }
   
   .subtitle {
     font-size: 1.75rem;
     margin-top: 0.5rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 1.0);
     text-shadow: 
     1px 1px 0 rgba(0, 0, 0, 0.8),  /* Bottom right shadow */
     -1px -1px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
     1px -1px 0 rgba(0, 0, 0, 0.8),  /* Top right shadow */
     -1px 1px 0 rgba(0, 0, 0, 0.8);  /* Bottom left shadow */
+    font : arial;
   }
   
   .canvas-container canvas {
@@ -101,11 +103,13 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 1rem;
+    font : arial;
   }
   
   .projectDescription {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.7);
+    font : arial;
   }
   .projectContainer {
     margin-top: 50px;
@@ -136,11 +140,13 @@
     font-size: 1.25rem; /* text-xl */
     font-weight: 600; /* font-semibold */
     margin-top: 0.5rem; /* mt-2 */
+    font : arial;
   }
   
   .projectDescription {
     font-size: 0.875rem; /* text-sm */
     color: #a0aec0; /* text-gray-400 */
+    font : arial;
   }
 
   .move-down {
