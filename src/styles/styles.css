@@ -141,12 +141,22 @@
     font-weight: 600; /* font-semibold */
     margin-top: 0.5rem; /* mt-2 */
     font : arial;
+    text-shadow: 
+    1px 1px 0 rgba(0, 0, 0, 0.8),  /* Bottom right shadow */
+    -1px -1px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
+    1px -1px 0 rgba(0, 0, 0, 0.8),  /* Top right shadow */
+    -1px 1px 0 rgba(0, 0, 0, 0.8);  /* Bottom left shadow */
   }
   
   .projectDescription {
     font-size: 0.875rem; /* text-sm */
-    color: #a0aec0; /* text-gray-400 */
+    color: #ffffff; /* text-gray-400 */
     font : arial;
+    text-shadow: 
+    1px 1px 0 rgba(0, 0, 0, 0.8),  /* Bottom right shadow */
+    -1px -1px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
+    1px -1px 0 rgba(0, 0, 0, 0.8),  /* Top right shadow */
+    -1px 1px 0 rgba(0, 0, 0, 0.8);  /* Bottom left shadow */
   }
 
   .move-down {
