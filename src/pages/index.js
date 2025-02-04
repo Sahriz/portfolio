@@ -39,7 +39,7 @@ export default function Portfolio() {
         overlayText.style.transition = "opacity 2s ease-out"; // Smooth fade-in
         overlayText.style.opacity = 1; // Set opacity to 1 after 5 seconds
       }
-    }, 5000); // 5 seconds delay for the fade-in
+    }, 2500); // 5 seconds delay for the fade-in
 
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
