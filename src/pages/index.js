@@ -85,14 +85,21 @@ export default function Portfolio() {
           {/* Overlay Text */}
           <div className="overlayText">
             <h1 className="title" style={{ color: 'white' }}>Jonatan Ebenholm's Portfolio</h1>
-            <a href = "#scroll-target">
-            <p className="subtitle">Please scroll down to see an overview of my most recent projects</p>
+            <a href = "#scroll-target-projects">
+              <div style={{ display: 'inline-block', backgroundColor: 'black', width: '45%', opacity: '0.8', marginRight: '10px' , borderRadius: '10px', border: '1px solid white'}}>
+                <p className="subtitle">My projects</p>
+            ¨ </div>
+            </a>
+            <a href = "#scroll-target-aboutme">
+              <div style={{ display: 'inline-block', backgroundColor: 'black', width: '45%', opacity: '0.8', marginRight: '10px' , borderRadius: '10px', border: '1px solid white'}}>
+                <p className="subtitle">About me</p>
+            ¨ </div>
             </a>
           </div>
 
           {/* Projects grid */}
          
-            <div className="projectContainer projectsGrid move-down" id="scroll-target">
+            <div className="projectContainer projectsGrid move-down" id="scroll-target-projects">
               {projects.map((project, index) => (
                 <Link key={project.id} href={`/projects/${project.id}`} className="projectLink">
                   <div>
@@ -103,7 +110,38 @@ export default function Portfolio() {
                 </Link>
               ))}
             </div>
-        
+            {/*About Me */}
+            <div className="Aboutme-Container" id="scroll-target-aboutme">
+              <h1 className="Aboutme-Title">About Me</h1>
+              <p className="Aboutme-Content">I am a fourth year student at Linköpings University studying to
+                become a Master of Science in Media Technology and Enginering.
+                During my masters program i am specializing in Computer Graphics,
+                video game programming and fill in the gaps with machine learning and AI. I originally
+                got into computer graphics as a way to combine my love for drawing with coding,
+                since I, in my younger age, considered that a more usefull skill to have. Today my love for computer graphics and
+                coding has surpassed my love for drawing, but I still do draw, for a paper in fact. The 
+                paper is called LiTHanian and can be found in the link below. I grew up in Västerås
+                but moved to Norrköping to pursue my studies. On my free time I've recently picked
+                up a habit of starting new personal coding projects, one of the better looking ones being
+                a WIP of portals that I am showcasing in my projects list above. Otherwise I enjoy playing video games, going to the gym
+                or socializing with my friends.
+              </p>
+            </div>
+            {/*Skills*/}
+            <div style = {{paddingBottom: '10%'}} >
+              <h1 className="skills">Skills</h1>
+              <div style = {{  marginLeft: '23%'}}> 
+              <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" />
+              <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-plain.svg" />
+              <img className= 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg" />
+              <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" />
+              <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
+              <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg" />
+              <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opengl/opengl-original.svg" />
+          
+          
+              </div>
+            </div>
         </>
       )}
     </div>
