@@ -1,31 +1,22 @@
 
-# Inifinite World
+# RayTracer on GPU
 
 ## Overview
-This project is part of the course *TNM084 - Procedural methods for images*. It is an Unity system which generates chunks of terrain while the user moves around in the world using perlin noise. It also hosts an L-system which is used for tree creation, altough they are not very efficient for realtime rendering.
+This project is a WIP follow up project of the CPU raytracer, and me and Ludwig Boge are tackling the difficulties that comes with creating a path tracer on the GPU. The project is for the course **TSBK - Computer Graphics** and is supposed to start in late March, but we took initiative and started the project now in january, since we are very passionate about the subject. The shader is mostly written within the shader code, which is limiting, and gives equal results to that of the CPU path tracer but at a bit more than 10000 times more frames per second.
 
 ## Features
-- **Real time world generation**: The system generates the world with minimal lag using a chunk system, only generating new chunks when needed and loading/unloading them when they enter and leave view distance.
-**Perlin Noise**: The chunks all use perlin noise to create a heightmap, describing the height of every vertex point on the mesh which the chunk holds.
-- **Real-time Data**: The world has mesh colliders which gives the world interactable physics, which can be seen in an image below.
-- **LOD**: Level of detail is different for chunks depending on the distance from the player. This can be seen in an image below.
-- **L-System Trees**: The system includes an L-system for creating custom trees with a press of a button. These ended up not being used during gameplay, as the trees themselves don't make for easy to render game objects. That in combination with wanting hundreds if not even thousands of trees in the game scene meant that they were not a great fit. An example of a tree and the UI with the settings used to create the tree is shown in another image below.
+- **Real time Path Tracing**: The big difference with this project and the one for the CPU is the amount of frames we generate here. The GPU path tracer is currently, without optimisations that will come later, rendering at a solid 14 frames per second on my 1070. However, since this is a WIP project, we will add more optimisations in the future to boost this further (such as BVH). 
+
 
 ## Technologies Used
-- **Unity**: An all purpose game engine which hosts powerfull tools for most usecases.  
+- **C++**: An object-oriented programming language. C++ is a superset of the C language.
+- **OpenGL**: A cross-language, multi-platform API for rendering 2D and 3D vector graphics.
 ### The world generating as the player moves around
-![image](../../images/TNM084/openWorld.gif)
-### Physics on the worlds surface
-![image](../../images/TNM084/Physics.gif)
+![image](../../images/TSBK07/image1.png)
+![iamge](../../images/TSBK07/image2.png)
 
-### The LOD in action
 
-![image](../../images/TNM084/LOD.gif)
-
-### The L-system tree and the settings to create it with my custom UI
-![image](../../images/TNM084/CreatedTree.png)
-![image](../../images/TNM084/TreeCreator.png)
-
+## [GitHub](https://github.com/eLdOchLagor/TSBK07-Raytracer)
 
 
 ## [Back To Start Page](/)

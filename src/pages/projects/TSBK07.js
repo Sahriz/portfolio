@@ -8,7 +8,7 @@ export default function TSBK07() {
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    const projectId = 'TNM084'; // Hardcoded project ID
+    const projectId = 'TSBK07'; // Hardcoded project ID
     console.log('Project ID:', projectId); // Debugging log
 
     if (projectId) {

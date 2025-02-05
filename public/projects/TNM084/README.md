@@ -26,7 +26,7 @@ This was a solo project which was part of the course *TNM084 - Procedural method
 ![image](../../images/TNM084/CreatedTree.png)
 ![image](../../images/TNM084/TreeCreator.png)
 
-[Github](https://github.com/Sahriz/InfiniteWorld)
+## [Github](https://github.com/Sahriz/InfiniteWorld)
 
 ## [Back To Start Page](/)
 

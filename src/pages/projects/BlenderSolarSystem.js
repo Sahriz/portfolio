@@ -8,7 +8,7 @@ export default function BlenderSolarSystem() {
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    const projectId = 'BlenderSolarSystem'; // Hardcoded project ID
+    const projectId = 'SolarSystem'; // Hardcoded project ID
     console.log('Project ID:', projectId); // Debugging log
 
     if (projectId) {

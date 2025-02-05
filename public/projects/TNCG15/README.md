@@ -12,12 +12,12 @@ This project was made by me and Ludwig Boge, and was made for the course *TNCG15
 - **Surfaces**: The system has four different surfaces. The first are lambertian surfaces, the second are reflective surfaces, the fifth are refractive surfaces, and finally there is the light sources.
 
 ## Technologies Used
-- **C++**: An object oriented programming language.  
+- **C++**: An object-oriented programming language. C++ is a superset of the C language.
 - **glm**: A library generally used in combination with openGL, but in this project it is used for easy access to vector math. 
 ### Final render, with refractive, reflective, lambertian and light surfaces. 
 ![image](../../images/TNCG15/FyrkanHD.png)
 
-[Link to project](https://github.com/eLdOchLagor/TNCG15-Monte-Carlo-Pathtracer)
+## [Link to project](https://github.com/eLdOchLagor/TNCG15-Monte-Carlo-Pathtracer)
 
 
 ## [Back To Start Page](/)

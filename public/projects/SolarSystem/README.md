@@ -1,32 +1,23 @@
+# BlenderSolarsystemSim
+A solar system simulation using Euler approximation, animating each planet using keyframes and a custom UI to allow the user to create their own solar systems.
 
-# Inifinite World
+This project was done in 2024 for the course TNM085 - Modelling Project at LIU, made by Jonatan Ebenholm, Berkay Orhan, Ludwig Boge, and Nikita Sidarovich. Its purpose was to first simulate a number of planets revolving around a sun, and then visualise it. The code has since been changed to match new standards in blender python, mainly the names of different nodes in the shader changed. 
 
-## Overview
-This project is part of the course *TNM084 - Procedural methods for images*. It is an Unity system which generates chunks of terrain while the user moves around in the world using perlin noise. It also hosts an L-system which is used for tree creation, altough they are not very efficient for realtime rendering.
+The project can be viewed ether by wathing the pretty images below, or by installing the zip-file and adding it as an addong to a blender project. This can be done by making new general project, pressing the edit button up in the top left, pressing preferences button clicking on add-ons in the pop up menu. Lastly, click the arrow in the top right to bring down a menu and press "install from disk". Choose the zip file, and you're done! Now, if you press n on your keyboard while in the workspace, the sidebar will show up. Navigate to the Solarsystem Simulator and start simulating!
 
-## Features
-- **Real time world generation**: The system generates the world with minimal lag using a chunk system, only generating new chunks when needed and loading/unloading them when they enter and leave view distance.
-**Perlin Noise**: The chunks all use perlin noise to create a heightmap, describing the height of every vertex point on the mesh which the chunk holds.
-- **Real-time Data**: The world has mesh colliders which gives the world interactable physics, which can be seen in an image below.
-- **LOD**: Level of detail is different for chunks depending on the distance from the player. This can be seen in an image below.
-- **L-System Trees**: The system includes an L-system for creating custom trees with a press of a button. These ended up not being used during gameplay, as the trees themselves don't make for easy to render game objects. That in combination with wanting hundreds if not even thousands of trees in the game scene meant that they were not a great fit. An example of a tree and the UI with the settings used to create the tree is shown in another image below.
+Note: If you are using this in a project you've been working on, make sure to keep a backup, especially if you are running the advanced simulation version. There was an issue that we believe we have solved, that removed other objects in the scene when pressing the "create planes" button. Again, it is most likely solved, but might still fail in some undiscovered edge case. As for the advenced simulation option, it simply is expensive, exponentially so. This is to say, you might not have the time to wait for it to finnish, so if that's the case, make sure to save your project in case you have to force it shut, or better yet keep a backup of the project!
 
-## Technologies Used
-- **Unity**: An all purpose game engine which hosts powerfull tools for most usecases.  
-### The world generating as the player moves around
-![image](../../images/TNM084/openWorld.gif)
-### Physics on the worlds surface
-![image](../../images/TNM084/Physics.gif)
-
-### The LOD in action
-
-![image](../../images/TNM084/LOD.gif)
-
-### The L-system tree and the settings to create it with my custom UI
-![image](../../images/TNM084/CreatedTree.png)
-![image](../../images/TNM084/TreeCreator.png)
+Here are some of the resulting images, but keep in mind that the simulation also does keyframe animations, so these images are just some frames of animation with some different lighting and camera angels. To see the animations, you can check out the addon by yourself. have fun!
 
 
+![RedoVisning3](../../images/SolarSystem/image1.png)
+![RedoVisning4](../../images/SolarSystem/image2.png)
+![RedoVisning7](../../images/SolarSystem/image3.png)
+![RedoVisning8](../../images/SolarSystem/image4.png)
+![system](../../images/SolarSystem/image5.png)
+![panel](../../images/SolarSystem/image6.png)
+
+## [GitHub](https://github.com/Sahriz/BlenderSolarsystemSim)
 
 ## [Back To Start Page](/)
 
