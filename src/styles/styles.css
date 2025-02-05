@@ -11,6 +11,10 @@
     justify-content: center;
     pointer-events: none; /* Prevent interactions blocking content */
   }
+
+  html{
+    scroll-behavior: smooth; /* Smooth scrolling */
+  }
   body { 
     background-color: rgb(39, 39, 39); 
     min-height: 120vh; /* Ensure the body is at least 120% of the viewport height */

@@ -85,12 +85,14 @@ export default function Portfolio() {
           {/* Overlay Text */}
           <div className="overlayText">
             <h1 className="title" style={{ color: 'white' }}>Jonatan Ebenholm's Portfolio</h1>
+            <a href = "#scroll-target">
             <p className="subtitle">Please scroll down to see an overview of my most recent projects</p>
+            </a>
           </div>
 
           {/* Projects grid */}
-          <div className='padder'>
-            <div className="projectContainer projectsGrid move-down">
+         
+            <div className="projectContainer projectsGrid move-down" id="scroll-target">
               {projects.map((project, index) => (
                 <Link key={project.id} href={`/projects/${project.id}`} className="projectLink">
                   <div>
@@ -101,7 +103,7 @@ export default function Portfolio() {
                 </Link>
               ))}
             </div>
-          </div>
+        
         </>
       )}
     </div>

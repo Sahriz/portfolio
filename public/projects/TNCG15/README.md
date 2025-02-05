@@ -1,31 +1,21 @@
 
-# Inifinite World
+# Path Tracer on CPU
 
 ## Overview
-This project is part of the course *TNM084 - Procedural methods for images*. It is an Unity system which generates chunks of terrain while the user moves around in the world using perlin noise. It also hosts an L-system which is used for tree creation, altough they are not very efficient for realtime rendering.
+This project is part of the course *TNCG15 - Advanced Global Illumination And Rendering*. The project is a system that is built from the ground up using C++, with the only dependancies being a header file including an kd-tree structure for finding caustic photons, and glm for their predefined vec3's with vector math. The project features are many, including the camera implemented, the geometry in the scene, and many many more things talked about below. 
 
 ## Features
-- **Real time world generation**: The system generates the world with minimal lag using a chunk system, only generating new chunks when needed and loading/unloading them when they enter and leave view distance.
-**Perlin Noise**: The chunks all use perlin noise to create a heightmap, describing the height of every vertex point on the mesh which the chunk holds.
-- **Real-time Data**: The world has mesh colliders which gives the world interactable physics, which can be seen in an image below.
-- **LOD**: Level of detail is different for chunks depending on the distance from the player. This can be seen in an image below.
-- **L-System Trees**: The system includes an L-system for creating custom trees with a press of a button. These ended up not being used during gameplay, as the trees themselves don't make for easy to render game objects. That in combination with wanting hundreds if not even thousands of trees in the game scene meant that they were not a great fit. An example of a tree and the UI with the settings used to create the tree is shown in another image below.
+- **Camera Class**: The camera class handles all the rendering and the ray logic. It shoots out rays on a plane, with the center of a pixel as its' target, then it lets the ray bounce in the room and colors the pixel appropriately. The camera also uses supersampling to get rid of aliasing effects in the rendered image. 
+**Objects**: There are a couple objects that can be put into the scene, most are made up of triangles, which are made of vertices and a normal vector, but the sphere object is made using a parametric description, making the surface super smooth.
+- **Intersection testing**: The course went through three different types of intersections, two of which were for triagnles, but one was far more supperior. The more superior option for triangle intersections, which we used, was the möller trumbore intersection test. The second intersection test is a bit more detailed and is explained in our report, linked down below.
+- **Ray class**: The ray class defines a light ray, which is used to calculate the final output color of a pixel.
+- **Surfaces**: The system has four different surfaces. The first are lambertian surfaces, the second are reflective surfaces, the fifth are refractive surfaces, and finally there is the light sources.
 
 ## Technologies Used
-- **Unity**: An all purpose game engine which hosts powerfull tools for most usecases.  
-### The world generating as the player moves around
-![image](../../1600x1600RayTracer.png)
-### Physics on the worlds surface
-![image](../../images/TNM084/Physics.gif)
-
-### The LOD in action
-
-![image](../../images/TNM084/LOD.gif)
-
-### The L-system tree and the settings to create it with my custom UI
-![image](../../images/TNM084/CreatedTree.png)
-![image](../../images/TNM084/TreeCreator.png)
-
+- **C++**: An object oriented programming language.  
+- **glm**: A library generally used in combination with openGL, but in this project it is used for easy access to vector math. 
+### Final render, with refractive, reflective, lambertian and light surfaces. 
+![image](../../images/TNCG15/FyrkanHD.png)
 
 
 ## [Back To Start Page](/)
