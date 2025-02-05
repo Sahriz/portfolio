@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import ShaderBanner from '../components/ShaderBanner';
 import projects from '../data/projects';
+import Link from 'next/link';
 
 export default function Portfolio() {
   const [isInitialized, setIsInitialized] = useState(false);
   const [canvasZIndex, setCanvasZIndex] = useState(9);
+
   useEffect(() => {
     const handleScroll = () => {
       const canvas = document.querySelector('.canvas-container');
@@ -39,7 +41,7 @@ export default function Portfolio() {
         overlayText.style.transition = "opacity 2s ease-out"; // Smooth fade-in
         overlayText.style.opacity = 1; // Set opacity to 1 after 5 seconds
       }
-    }, 2500); // 5 seconds delay for the fade-in
+    }, 2000); // 5 seconds delay for the fade-in
 
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
@@ -50,8 +52,6 @@ export default function Portfolio() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  
 
   const MeshComponent = () => {
     useFrame(() => {
@@ -67,46 +67,42 @@ export default function Portfolio() {
       </mesh>
     );
   };
-  
+
   return (
     <div className="relative w-full min-h-screen bg-black text-white">
-      
       {/* Apply the CSS class to control size */}
       <div className="canvas-container" style={{ zIndex: canvasZIndex }}>
-      
-      <Canvas
+        <Canvas
           gl={{ alpha: false, antialias: true }}
           style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}
           camera={{ position: [0, 0, 10], fov: 75 }} // Adjust camera if needed
         >
-          
           <MeshComponent />
-            
-          
         </Canvas>
-     
       </div>
       {isInitialized && (
         <>
-       {/* Overlay Text */}
-       <div className="overlayText">
-        <h1 className="title" style={{color: 'white'}}>Jonatan Ebenholm's Portfolio</h1>
-        <p className="subtitle">Please scroll down to see an overview of my most recent projects</p>
-      </div>
+          {/* Overlay Text */}
+          <div className="overlayText">
+            <h1 className="title" style={{ color: 'white' }}>Jonatan Ebenholm's Portfolio</h1>
+            <p className="subtitle">Please scroll down to see an overview of my most recent projects</p>
+          </div>
 
-      {/* Projects grid */}
-      <div className='padder'>
-        <div className="projectContainer projectsGrid move-down">
-          {projects.map((project, index) => (
-            <a key={index} href={project.link} className="projectLink">
-              <img src={project.image} alt={project.title} className="projectImage" />
-              <h2 className="projectTitle">{project.title}</h2>
-              <p className="projectDescription">{project.description}</p>
-            </a>
-          ))}
-        </div>
-      </div>
-      </>
+          {/* Projects grid */}
+          <div className='padder'>
+            <div className="projectContainer projectsGrid move-down">
+              {projects.map((project, index) => (
+                <Link key={project.id} href={`/projects/${project.id}`} className="projectLink">
+                  <div>
+                    <img src={project.image} alt={project.title} className="projectImage" />
+                    <h2 className="projectTitle">{project.title}</h2>
+                    <p className="projectDescription">{project.description}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
