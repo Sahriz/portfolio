@@ -31,7 +31,7 @@ const projects = [
     {
       title: "WIP: Portals",
       description: "A little side-project where I am trying to implement portals in Unity. It is still a work in progress, so you can't enter them yet, but they still look pretty.",
-      image: "/portalGif.gif",
+      image: "/PortalGif.gif",
       link: "https://github.com/Sahriz/BlenderSolarsystemSim?tab=readme-ov-file",
       id: 'Portals'
     }
