@@ -126,7 +126,13 @@ export default function Portfolio() {
                 a WIP of portals that I am showcasing in my projects list above. Otherwise I enjoy playing video games, going to the gym
                 or socializing with my friends.
               </p>
+              {/*LiTHanian*/}
+              <div className = "bottom">
+                <a href = "https://lithanian.se/redaktionen/" style = {{ }}><h2>LiThanian</h2></a>
+                <a href = "https://github.com/Sahriz"><h2>Github.com/Sahriz</h2></a>
+                </div>
             </div>
+            
             {/*Skills*/}
             <div style = {{paddingBottom: '10%'}} >
               <h1 className="skills">Skills</h1>
@@ -142,6 +148,8 @@ export default function Portfolio() {
           
               </div>
             </div>
+          
+            
         </>
       )}
     </div>

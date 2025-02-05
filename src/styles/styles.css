@@ -173,9 +173,9 @@
     margin-top: 45vh; /* Move down by 20% of the viewport height */
   }
 .Aboutme-Container{
-
+  
     padding-top: 5vw;
-    height: 60vh;
+    height: 100%;
   }
 
   .Aboutme-Title{
@@ -183,10 +183,10 @@
     font-weight: bold;
     color: white;
     text-shadow: 
-    1px 1px 0 rgba(0, 0, 0, 0.8),  /* Bottom right shadow */
-    -1px -1px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
-    1px -1px 0 rgba(0, 0, 0, 0.8),  /* Top right shadow */
-    -1px 1px 0 rgba(0, 0, 0, 0.8);  /* Bottom left shadow */
+    2px 2px 0 rgba(0, 0, 0, 0.8),  /* Bottom right shadow */
+    -2px -2px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
+    2px -2px 0 rgba(0, 0, 0, 0.8),  /* Top right shadow */
+    -2px 2px 0 rgba(0, 0, 0, 0.8);  /* Bottom left shadow */
     font : arial;
     text-align: center;
   }
@@ -194,8 +194,8 @@
   .Aboutme-Content{
     color: white;
     font-size: 1.5rem;
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 10%;
+    padding-right: 10%;
     text-shadow: 
     1px 1px 0 rgba(0, 0, 0, 0.8),  /* Bottom right shadow */
     -1px -1px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
@@ -215,4 +215,10 @@
 
   .skillIcon{
     width : 10%;
+  }
+
+  .bottom{
+    height : 10vh;
+    width : 100vw;
+    text-align: center;
   }

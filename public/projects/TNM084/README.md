@@ -2,7 +2,7 @@
 # Inifinite World
 
 ## Overview
-This project is part of the course *TNM084 - Procedural methods for images*. It is an Unity system which generates chunks of terrain while the user moves around in the world using perlin noise. It also hosts an L-system which is used for tree creation, altough they are not very efficient for realtime rendering.
+This was a solo project which was part of the course *TNM084 - Procedural methods for images*. It is an Unity system which generates chunks of terrain while the user moves around in the world using perlin noise. It also hosts an L-system which is used for tree creation, altough they are not very efficient for realtime rendering.
 
 ## Features
 - **Real time world generation**: The system generates the world with minimal lag using a chunk system, only generating new chunks when needed and loading/unloading them when they enter and leave view distance.
@@ -26,7 +26,7 @@ This project is part of the course *TNM084 - Procedural methods for images*. It 
 ![image](../../images/TNM084/CreatedTree.png)
 ![image](../../images/TNM084/TreeCreator.png)
 
-
+[Github](https://github.com/Sahriz/InfiniteWorld)
 
 ## [Back To Start Page](/)
 
