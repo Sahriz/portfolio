@@ -14,7 +14,7 @@ This project is part of the course *TNM084 - Procedural methods for images*. It 
 ## Technologies Used
 - **Unity**: An all purpose game engine which hosts powerfull tools for most usecases.  
 ### The world generating as the player moves around
-![image](../../images/TNM084/openWorld.gif)
+![image](../../1600x1600RayTracer.png)
 ### Physics on the worlds surface
 ![image](../../images/TNM084/Physics.gif)
 
