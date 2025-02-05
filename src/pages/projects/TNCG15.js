@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-const ProjectDetails = () => {
+export default function  ProjectDetails() {
   const router = useRouter();
   const [content, setContent] = useState('');
 
@@ -38,5 +38,3 @@ const ProjectDetails = () => {
     </div>
   );
 };
-
-export default ProjectDetails;
