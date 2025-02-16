@@ -124,7 +124,6 @@
   
   .projectLink {
     background-color: #2d3748; /* bg-gray-800 */
-    padding: 1rem; /* p-4 */
     border-radius: 0.5rem; /* rounded-lg */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
     transition: transform 0.2s; /* transition */
@@ -138,19 +137,21 @@
   
   .projectImage {
     width: 100%; /* w-full */
-    height: 10rem; /* h-40 */
+    height: 15rem; /* h-40 */
     object-fit: cover; /* object-cover */
     border-radius: 0.375rem; /* rounded-md */
   }
   .projectDetails {
     color: white;
-    padding: 20px;
   }
   .projectTitle {
     font-size: 1.25rem; /* text-xl */
     font-weight: 600; /* font-semibold */
     margin-top: 0.5rem; /* mt-2 */
     font : arial;
+    padding-left: 1rem; /* p-4 */
+    padding-right: 1rem; /* p-4 */
+    text-align: center;
     text-shadow: 
     1px 1px 0 rgba(0, 0, 0, 0.8),  /* Bottom right shadow */
     -1px -1px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
@@ -167,6 +168,8 @@
     -1px -1px 0 rgba(0, 0, 0, 0.8), /* Top left shadow */
     1px -1px 0 rgba(0, 0, 0, 0.8),  /* Top right shadow */
     -1px 1px 0 rgba(0, 0, 0, 0.8);  /* Bottom left shadow */
+    padding-left: 1rem; /* p-4 */
+    padding-right: 1rem; /* p-4 */
   }
 
   .move-down {

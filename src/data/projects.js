@@ -2,7 +2,7 @@ const projects = [
     {
       title: "Procedurally Generated Terrain",
       description: "A real-time infinite procedurally generated world using perlin noise in Unity utilising C#. The project was made for the course TNM084 at LIU.",
-      image: "/PlayerCharacterView.png",
+      image: "/openWorld.gif",
       link: "https://github.com/Sahriz/InfiniteWorld",
       id: 'TNM084'
     },
@@ -22,15 +22,15 @@ const projects = [
     },
     {
       title: "WIP: Pathtracer on GPU",
-      description: "A photo-realistic pathtracer written in C++ using OpenGL. It is a work in progress and is a project made for the course TSKB07 at LIU. Currently, without optimization, it is still generating around 14 images per second on my 1070. Also worth noting is that we have to use a library which chatGPT doesn't recognise, which is why on github it says that the code uses C, but all of that would be OpenGL or C++ otherwise.",
-      image: "/GpuPathTracer.png",
+      description: "A photo-realistic pathtracer written in C++ using OpenGL. It is a work in progress and is a project made for the course TSKB07 at LIU. Currently, without optimization, it is still generating around 14 images per second on my 1070.",
+      image: "/movement.gif",
       link: "https://github.com/eLdOchLagor/TSBK07-Raytracer",
       id: 'TSBK07'
     }
     ,
     {
       title: "WIP: Portals",
-      description: "A little side-project where I am trying to implement portals in Unity. It is still a work in progress, so you can't enter them yet, but they still look pretty.",
+      description: "A little side-project where I am trying to implement portals in Unity. It is still a work in progress, but you are currently able to enter the portals smoothly and they look really good.",
       image: "/PortalGif.gif",
       link: "https://github.com/Sahriz/BlenderSolarsystemSim?tab=readme-ov-file",
       id: 'Portals'
