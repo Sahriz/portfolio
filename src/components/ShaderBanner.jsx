@@ -1,16 +1,19 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { useEffect } from 'react'; // Only import once at the top
 
 
-const ShaderBanner = () => {
+
+
+
+const ShaderBanner = ({ spinRef }) => {
   const materialRef = useRef();
-
   useFrame(({ clock }) => {
     if (materialRef.current) {
       materialRef.current.uniforms.u_time.value = clock.getElapsedTime();
+      materialRef.current.uniforms.u_spin.value = spinRef.current;
     }
   });
-
   return (
     <shaderMaterial
       ref={materialRef}
@@ -19,7 +22,8 @@ const ShaderBanner = () => {
         varying vec2 vUv;
         varying vec3 vNormal;
         out float perlinNoise;
-        uniform float u_time;
+  uniform float u_time;
+  uniform float u_spin;
        
 
         float random (in vec2 st) {
@@ -69,13 +73,10 @@ const ShaderBanner = () => {
         
         
         void main() {
-            mat4 rotationZ = mat4(cos(u_time), -sin(u_time), 0, 0,
-                                sin(u_time), cos(u_time), 0, 0,
-                                0, 0, 1, 0,
-                                0, 0, 0, 1);
-            mat4 rotationY = mat4(cos(u_time/8.0), 0, sin(u_time/8.0), 0,
+            float rot = u_spin;
+            mat4 rotationY = mat4(cos(rot), 0, sin(rot), 0,
                                 0, 1, 0, 0,
-                                -sin(u_time/8.0), 0, cos(u_time/8.0), 0,
+                                -sin(rot), 0, cos(rot), 0,
                                 0, 0, 0, 1);
             mat4 rotationYConst = mat4(cos(35.0), 0, sin(5.0), 0,
                                 0, 1, 0, 0,
@@ -113,32 +114,32 @@ const ShaderBanner = () => {
         }
       `}
       fragmentShader={`
-        uniform float u_time;
-        varying vec2 vUv;
-        in float perlinNoise;
-        varying vec3 vNormal;
-        
-        void main() {
-           gl_FragColor = vec4(vec3(0.9), 1.0);
-          if(perlinNoise < 0.72){
-            gl_FragColor = vec4(vec3(0.4), 1.0);
-          }
-          if(perlinNoise < 0.55){
-            gl_FragColor = vec4(vec3(61.0,121.0,111.0)/255.0, 1.0);
-          } 
-            if(perlinNoise < 0.44){
-            gl_FragColor = vec4(vec3(222.0,205.0,180.0)/255.0, 1.0);
-            }
-          if(perlinNoise < 0.39){
-            gl_FragColor = vec4(vec3(71.0,164.0,204.0)/255.0, 1.0);
-            }
-            if(perlinNoise < 0.27){
-            gl_FragColor = vec4(vec3(39.0,128.0,150.0)/255.0, 1.0);
-          }
+          uniform float u_time;
+          varying vec2 vUv;
+          in float perlinNoise;
+          varying vec3 vNormal;
           
-        }
-      `}
-      uniforms={{ u_time: { value: 0 }  }}
+          void main() {
+             gl_FragColor = vec4(vec3(0.9), 1.0);
+            if(perlinNoise < 0.72){
+              gl_FragColor = vec4(vec3(0.4), 1.0);
+            }
+            if(perlinNoise < 0.55){
+              gl_FragColor = vec4(vec3(61.0,121.0,111.0)/255.0, 1.0);
+            } 
+              if(perlinNoise < 0.44){
+              gl_FragColor = vec4(vec3(222.0,205.0,180.0)/255.0, 1.0);
+              }
+            if(perlinNoise < 0.39){
+              gl_FragColor = vec4(vec3(71.0,164.0,204.0)/255.0, 1.0);
+              }
+            if(perlinNoise < 0.27){
+              gl_FragColor = vec4(vec3(39.0,128.0,150.0)/255.0, 1.0);
+            }
+            
+          }
+        `}
+  uniforms={{ u_time: { value: 0 }, u_spin: { value: 0 } }}
     />
   );
 };
