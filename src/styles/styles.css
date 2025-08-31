@@ -1,3 +1,26 @@
+/* Contact bar at the bottom of the page */
+.contact-bar-bottom {
+  width: 100%;
+  background: #18181b;
+  color: #fff;
+  padding: 1.2rem 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+.contact-bar-content span {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.contact-bar-content a {
+  color: #60a5fa;
+  text-decoration: underline;
+  margin-left: 0.3rem;
+}
+.contact-bar-content a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
 /* Outlined hero buttons below the canvas */
 .hero-outline-btn {
   background: rgba(255,255,255,0.1);

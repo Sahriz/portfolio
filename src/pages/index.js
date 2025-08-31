@@ -227,9 +227,18 @@ export default function Portfolio() {
             <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opengl/opengl-original.svg" />
             </div>
           </div>
-          <div> <Link href="/projects/Fluid">View WebGL Demo</Link></div>
         </>
       )}
-    </div>
+    {/* Contact Bar at the bottom of the page */}
+    <footer className="contact-bar-bottom">
+      <div className="contact-bar-content">
+        <span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jonatan-ebenholm-904222343/" target="_blank" rel="noopener noreferrer">Jonatan Ebenholm</a></span>
+        <span style={{ marginLeft: '2rem' }}><strong>Phone:</strong> <a>+46 70 123 45 67</a></span>
+        <span style={{ marginLeft: '2rem' }}><strong>Email:</strong> <a href="mailto:ebenholmdev@gmail.com">ebenholmdev@gmail.com</a></span>
+        <span style={{ marginLeft: '2rem' }}><strong>CV:</strong> <a href="/JonatanEbenholmCV.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></span>
+        <span style={{ marginLeft: '2rem' }}><strong>GitHub:</strong> <a href="https://github.com/Sahriz" target="_blank" rel="noopener noreferrer">Sahriz</a></span>
+      </div>
+    </footer>
+  </div>
   );
 }
