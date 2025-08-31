@@ -168,7 +168,7 @@ export default function Portfolio() {
         {/* Overlay Text */}
         <div className="overlayText">
           <h1 className="title">Jonatan Ebenholm's Portfolio</h1>
-          <a className='subtitle'>Master of Science in Media Technology and Engineering student</a>
+          <a className='subtitle'>5th year student as Master of Science in Media Technology and Engineering</a>
           <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', pointerEvents: 'auto' }}>
             <a href="#scroll-target-projects" className="hero-outline-btn">My projects</a>
             <a href="#scroll-target-aboutme" className="hero-outline-btn">About me</a>
@@ -186,7 +186,27 @@ export default function Portfolio() {
               <Link key={project.id} href={`/projects/${project.id}`} className="projectLink">
                 <div className="projectCard">
                   <div className="projectImageWrapper">
-                    <img src={project.image} alt={project.title} className="projectImage" />
+                    {project.image && project.image.endsWith('.webm') ? (
+                      <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        //poster={project.image.replace('.webm', '.png')}
+                        className="projectImage"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
+                      >
+                        <source src={project.image} type="video/webm" />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="projectImage"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
+                      />
+                    )}
                   </div>
                   <h2 className="projectTitle">{project.title}</h2>
                   <p className="projectDescription">{project.description}</p>
