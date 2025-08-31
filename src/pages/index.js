@@ -172,7 +172,7 @@ export default function Portfolio() {
           <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', pointerEvents: 'auto' }}>
             <a href="#scroll-target-projects" className="hero-outline-btn">My projects</a>
             <a href="#scroll-target-aboutme" className="hero-outline-btn">About me</a>
-            <a href="#scroll-target-aboutme" className="hero-outline-btn">Contact me</a>
+            <a href="#scroll-target-contactme" className="hero-outline-btn">Contact me</a>
           </div>
         </div>
   </div>
@@ -231,7 +231,7 @@ export default function Portfolio() {
       )}
     {/* Contact Bar at the bottom of the page */}
     <footer className="contact-bar-bottom">
-      <div className="contact-bar-content">
+      <div className="contact-bar-content" id="scroll-target-contactme">
         <span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jonatan-ebenholm-904222343/" target="_blank" rel="noopener noreferrer">Jonatan Ebenholm</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>Phone:</strong> <a>+46 70 7789107</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>Email:</strong> <a href="mailto:ebenholmdev@gmail.com">ebenholmdev@gmail.com</a></span>
