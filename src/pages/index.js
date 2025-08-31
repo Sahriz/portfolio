@@ -208,24 +208,22 @@ export default function Portfolio() {
               a WIP of portals that I am showcasing in my projects list above. Otherwise I enjoy playing video games, going to the gym
               or socializing with my friends.
             </p>
-            {/*LiTHanian*/}
-            <div className = "bottom">
-              <a href = "https://lithanian.se/redaktionen/" style = {{ }}><h2>LiThanian</h2></a>
-              <a href = "https://github.com/Sahriz"><h2>Github.com/Sahriz</h2></a>
-              </div>
+            
           </div>
           {/*Skills*/}
           <div style = {{paddingBottom: '10%'}} >
             <h1 className="skills">Skills</h1>
-            <div style = {{  marginLeft: '23%'}}> 
-            <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" />
-            <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-plain.svg" />
-            <img className= 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg" />
-            <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" />
-            <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
-            <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg" />
-            <img className = 'skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opengl/opengl-original.svg" />
-            </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                <div className="skills-icons-row" style={{ maxWidth: 600, margin: '0 auto' }}>
+                  <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" />
+                  <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-plain.svg" />
+                  <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg" />
+                  <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg" />
+                  <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
+                  <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg" />
+                  <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opengl/opengl-original.svg" />
+                </div>
+              </div>
           </div>
         </>
       )}
@@ -234,7 +232,7 @@ export default function Portfolio() {
       <div className="contact-bar-content">
         <span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jonatan-ebenholm-904222343/" target="_blank" rel="noopener noreferrer">Jonatan Ebenholm</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>Phone:</strong> <a>+46 70 123 45 67</a></span>
-        <span style={{ marginLeft: '2rem' }}><strong>Email:</strong> <a href="mailto:ebenholmdev@gmail.com">ebenholmdev@gmail.com</a></span>
+        <span style={{ marginLeft: '2rem' }}><strong>Email:</strong> <a href="mailto:ebenholmdev@gmail.com">jonatan.ebenholm@gmail.com</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>CV:</strong> <a href="/JonatanEbenholmCV.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>GitHub:</strong> <a href="https://github.com/Sahriz" target="_blank" rel="noopener noreferrer">Sahriz</a></span>
       </div>

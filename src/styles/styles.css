@@ -1,3 +1,20 @@
+@media (max-width: 600px) {
+  .projectsGrid {
+    grid-template-columns: 1fr;
+    padding: 0 0.5rem 1rem 0.5rem;
+  }
+  .projectCard {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+  .projectDescription {
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    overflow: visible !important;
+    display: block;
+  }
+}
 /* Contact bar at the bottom of the page */
 .contact-bar-bottom {
   width: 100%;
@@ -126,24 +143,30 @@ section {
   user-select: none;
 }
 
-.title {
-  font-size: 4.5rem;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 0 2px 16px rgba(37,99,235,0.25), 0 1px 2px rgba(0,0,0,0.18);
-  font-family: 'Inter', Arial, sans-serif;
-  letter-spacing: 0.02em;
-}
-
-.subtitle {
-  font-size: 1.15rem;
-  margin-top: 1rem;
-  color: #e0e7ef;
-  text-shadow: 0 1px 8px rgba(37,99,235,0.18);
-  font-family: 'Inter', Arial, sans-serif;
+/* Skills section */
+.skills {
+  color: #18181b;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: none;
+  margin: 3rem 0 1rem 0;
   text-align: center;
-  margin-bottom: 1rem;
-  opacity: 1.0;
+}
+.skills-icons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 auto 2rem auto;
+}
+.skillIcon {
+  width: 48px;
+  margin: 0 0.5rem;
+  vertical-align: middle;
+  filter: none;
+  display: inline-block;
 }
 
 .canvas-container canvas {
@@ -278,6 +301,16 @@ section {
   padding: 2rem 1rem;
   margin-top: 3rem;
   box-shadow: 0 2px 8px rgba(37,99,235,0.04);
+}
+
+.title {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: none;
+  font-family: 'Inter', Arial, sans-serif;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .Aboutme-Title {
