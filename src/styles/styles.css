@@ -373,10 +373,11 @@ section {
 .Aboutme-Content {
   color: #52525b;
   font-size: 1.1rem;
-  padding: 0 10%;
+  padding: 0 18%;
   font-family: 'Inter', Arial, sans-serif;
   text-shadow: none;
   line-height: 1.7;
+  text-align: center;
 }
 
 .skills {
