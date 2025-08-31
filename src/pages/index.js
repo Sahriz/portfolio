@@ -146,7 +146,7 @@ export default function Portfolio() {
   return (
     <div className="relative w-full min-h-screen bg-black text-white">
       {/* Banner Canvas with overlays */}
-  <div className="canvas-container" ref={canvasRef} style={{ zIndex: canvasZIndex, height: 300, pointerEvents: 'auto' }}>
+  <div className="canvas-container" ref={canvasRef} style={{ zIndex: canvasZIndex, height: "75vh", pointerEvents: 'auto' }}>
         <Canvas
           gl={{ alpha: false, antialias: true, clearColor: '#ffffff' }}
           style={{ width: "100%", height: "100%" }}
