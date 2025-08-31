@@ -168,9 +168,11 @@ export default function Portfolio() {
         {/* Overlay Text */}
         <div className="overlayText">
           <h1 className="title">Jonatan Ebenholm's Portfolio</h1>
+          <a className='subtitle'>Master of Science in Media Technology and Engineering student</a>
           <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center', gap: '1.5rem', pointerEvents: 'auto' }}>
             <a href="#scroll-target-projects" className="hero-outline-btn">My projects</a>
             <a href="#scroll-target-aboutme" className="hero-outline-btn">About me</a>
+            <a href="#scroll-target-aboutme" className="hero-outline-btn">Contact me</a>
           </div>
         </div>
   </div>
@@ -214,7 +216,7 @@ export default function Portfolio() {
           <div style = {{paddingBottom: '10%'}} >
             <h1 className="skills">Skills</h1>
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                <div className="skills-icons-row" style={{ maxWidth: 600, margin: '0 auto' }}>
+                <div className="skills-icons-row" style={{  margin: '0 auto' }}>
                   <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" />
                   <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-plain.svg" />
                   <img className='skillIcon' src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg" />
@@ -232,7 +234,7 @@ export default function Portfolio() {
       <div className="contact-bar-content">
         <span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jonatan-ebenholm-904222343/" target="_blank" rel="noopener noreferrer">Jonatan Ebenholm</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>Phone:</strong> <a>+46 70 123 45 67</a></span>
-        <span style={{ marginLeft: '2rem' }}><strong>Email:</strong> <a href="mailto:ebenholmdev@gmail.com">jonatan.ebenholm@gmail.com</a></span>
+        <span style={{ marginLeft: '2rem' }}><strong>Email:</strong> <a href="mailto:ebenholmdev@gmail.com">ebenholmdev@gmail.com</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>CV:</strong> <a href="/JonatanEbenholmCV.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>GitHub:</strong> <a href="https://github.com/Sahriz" target="_blank" rel="noopener noreferrer">Sahriz</a></span>
       </div>
