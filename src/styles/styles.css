@@ -370,6 +370,7 @@ section {
   margin-bottom: 1rem;
 }
 
+
 .Aboutme-Content {
   color: #52525b;
   font-size: 1.1rem;
@@ -378,6 +379,12 @@ section {
   text-shadow: none;
   line-height: 1.7;
   text-align: center;
+}
+
+@media (max-width: 600px) {
+  .Aboutme-Content {
+    padding: 0 4%;
+  }
 }
 
 .skills {
