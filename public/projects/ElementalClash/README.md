@@ -5,9 +5,12 @@
 This project is a WIP library for personal use, but open for anyone to use or modify. Its purpose is to have a plethora of easy single call functions that can generate terrain for future game projects that I might have, and for debugging and testing purposes has demos to show the intent and possible use of the library.
 
 ## Current Features
-- **Heightmap generation on CPU or GPU**: The CPU and GPU implementation are very similar, with the only difference being that the CPU version is not optimized and simply exists as a way to debug if the GPU version works or not. 
-- **Marching Cubes 3D terrain Generation on CPU or GPU**: 
-- **VoxelCube terrain Generation on GPU**: 
+- **Heightmap generation on CPU or GPU**: The CPU and GPU implementation are very similar, but the GPU version is of course working on the terrain in parallel. The heightmap uses simple gradient noise by
+*patriciogonzalezvivo* on [GitHub](https://gist.github.com/patriciogonzalezvivo/670c22f3966e662d2f83) as a way of displacing vertices on a plane mesh to create terrain. There are two demos of the height maps, one which shows the effect of noise on the terrain, and one which shows the terrain being rendered and created in chunks.
+
+- **Marching Cubes 3D terrain Generation on CPU or GPU**: The CPU and GPU implementation are again very similar, but the GPU version works in parallel. The noise used for the marching cubes algorithm is a 3D gradient noise, simplex noise in fact, which was also fetched from *patriciogonzalezvivo* on [GitHub](https://gist.github.com/patriciogonzalezvivo/670c22f3966e662d2f83). The noise in this algorithm functions not as a way to displace vertices, but instead as a way of defining which parts of a grid are "solid" or "air", and if there is a transition, the marching cubes algorithm will interpolate positions for vertices. There is one demo showing of the algorithm and it works by chunking just like one of the heightmap demos. The look-up tables needed for the algorithm were taken from [this article](https://paulbourke.net/geometry/polygonise/) by Paul Bourke in May 1994. 
+
+- **VoxelCube terrain Generation on GPU**: This part of the project is by far the most impressive part, since a lot of time has been put into creating terrain that is game ready. The algorithm works similarly to the marching cubes one in that it is a voxel engine, but the actual terrain creation (vertex placement, normals creation etc...) is much simpler. What makes this part of the project stand out is the advanced techniques used in shaping the terrain. It layers multiple different noise maps with different splines, to combine 2D noise with 3D noise which comes together to create extreme mountains, groves, flat land and vast cave systems. This terrain can both be used to create visuals, but the data can also be used for physics interaction, which is where the project will be taken in the future to gamefy it. This project has one demo currently.
 
 ## Technologies Used
 - **C++**: C++ is a high level, general-purpose programming language.
@@ -18,10 +21,15 @@ This project is a WIP library for personal use, but open for anyone to use or mo
 ![image](../../images/Portal/PortalGif.gif)
 
 
-## TODO List
-- **Make shadows pass through portal**: 
-- **Slice gameobjects to allow smooth transition of objects**: 
-- **Portal effect when switching links**: 
+## TODO List for Library
+- **Make the splines more customisable for VoxelCubes**
+- **Add biome system to VoxelCubes** 
+
+## TODO List for VoxelCube Game
+- **Implement a debug mode for testing noise changing**
+- **Make physics work for player controller**
+- **Make a state machine for player character**
+- **Allow interaction with terrain by for example detroying terrain**
 
 ## [Back To Start Page](/)
 
