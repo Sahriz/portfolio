@@ -217,17 +217,11 @@ export default function Portfolio() {
           {/*About Me */}
           <div className="Aboutme-Container" id="scroll-target-aboutme">
             <h1 className="Aboutme-Title">About Me</h1>
-            <p className="Aboutme-Content">I am a fourth year student at Linköpings University studying to
+            <p className="Aboutme-Content">I am a fifth year student at Linköpings University studying to
               become a Master of Science in Media Technology and Enginering.
-              During my masters program i am specializing in Computer Graphics,
-              video game programming and fill in the gaps with machine learning and AI. I originally
-              got into computer graphics as a way to combine my love for drawing with coding,
-              since I, in my younger age, considered that a more usefull skill to have. Today my love for computer graphics and
-              coding has surpassed my love for drawing, but I still do draw, for a paper in fact. The 
-              paper is called LiTHanian and can be found in the link below. I grew up in Västerås
-              but moved to Norrköping to pursue my studies. On my free time I've recently picked
-              up a habit of starting new personal coding projects, one of the better looking ones being
-              a WIP of portals that I am showcasing in my projects list above. Otherwise I enjoy playing video games, going to the gym
+              During my masters program i am specializing in Computer Graphics, GPU programming,
+              video game systems programming and machine learning and AI. On my free time enjoy programming with my
+              personal projects, some of which are showcased in my projects list above. Otherwise I enjoy playing video games, drawing, going to the gym
               or socializing with my friends.
             </p>
             

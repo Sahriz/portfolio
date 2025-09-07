@@ -30,20 +30,32 @@ This project is a WIP library for personal use, but open for anyone to use or mo
 ****
 ## A showcase of the marching cubes terrain:
 
+### Terrain with the normals as output color
 ![image](../../images/TerrainLib/normals.png)
+### Same terrain but with the absolute value of the normals as output color
 ![image](../../images/TerrainLib/absnormals.png)
+### Decreased the frequency in the 3D gradient noise, making the room much larger
 ![image](../../images/TerrainLib/scale.png)
+### A video showcase of the user moving around in the terrain
 <video src="../../images/TerrainLib/mcubes2.webm"></video>
 ****
 
 ## A showcase of the Voxelcubes terrain:
 
+### Flat surface given by the noise algorithms
 ![image](../../images/TerrainLib/voxelcube.png)
+
+### A riverbed made with custom splines with gradient noise applied to them
 ![image](../../images/TerrainLib/river.png)
+### A grove made with the same custom spline
 ![image](../../images/TerrainLib/grove.png)
+### Caves forming underground branching all over the world
 ![image](../../images/TerrainLib/mountains.png)
+### A satisfying result from using a dropoff value based on terrain height when generating terrain
 ![image](../../images/TerrainLib/VoxelCubeCool.png)
 
+### A video showcasing the branching of the caves and the tunnelsystems that are created
+<video src="../../images/TerrainLib/voxelcubes2.webm"></video>
 ****
 
 ## TODO List for Library

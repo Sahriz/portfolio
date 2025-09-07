@@ -9,7 +9,7 @@ const projects = [
     },
     {
       title: "Pathtracer on GPU",
-      description: "A photo-realistic pathtracer written in C++ using OpenGL. It is a work in progress and is a project made for the course TSKB07 at LIU. Currently, without optimization, it is still generating around 14 images per second on my 1070.",
+      description: "A photo-realistic pathtracer written in C++ using OpenGL. The pathtracer runs fully on the GPU using the fragment shader.",
       image: "/PathTracerFront.webm",
       link: "https://github.com/eLdOchLagor/TSBK07-Raytracer",
       id: 'TSBK07'
