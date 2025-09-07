@@ -487,3 +487,33 @@ section {
   font-size: 1rem;
   margin-top: 2rem;
 }
+
+
+
+.back-to-home-btn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 1000;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+  transition: background 0.2s, color 0.2s;
+}
+.back-to-home-btn:hover {
+  background: #1d4ed8;
+  color: #fff;
+}
+@media (max-width: 600px) {
+  .back-to-home-btn {
+    top: 12px;
+    left: 12px;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}

@@ -4,11 +4,11 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 
-export default function TSBK07() {
+export default function BlenderSolarSystem() {
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    fetch('/projects/TSBK07/README.md')
+    fetch('/projects/SolarSystem/README.md')
       .then((response) => {
         if (!response.ok) throw new Error('Network response was not ok');
         return response.text();
