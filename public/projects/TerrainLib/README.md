@@ -17,10 +17,22 @@ This project is a WIP library for personal use, but open for anyone to use or mo
 - **OpenGL Graphics pipeline**: OpenGL (Open Graphics Library) is a cross language, cross-platform API for rendering 2D and 3D vector graphics. Typically used for graphics, the render pipeline works almost entirelly on the GPU, allowing for super fast rendering.
 - **OpenGL ComputeShaders/Gpu Programming**: Compute shaders have been core to OpenGL since version 4.3, and are a way to program using the GPU as opposed to the CPU, which allows for parallel programming which can speed up certain tasks by making the task go from a linear time complexity to a constant time complexity (kind of).
 - **Premake**: A build language that helps set up the paths for the c++ program. 
-### A showcase of the portal in its current form
-![image](../../images/Portal/PortalGif.gif)
+### A showcase of the heightmap terrain:
+**This is the standard settings for a chunk as I have defined it. It creates a plane as such.**
+![image](../../images/TerrainLib/heightSetting1.png)
+**This following image showcases the plane in a lower resolution (fewer vertices).**
+![image](../../images/TerrainLib/heightDetail.png)
+**The next image shows the effect of having a higher frequency applied on the gradient noise which displaces the vertices.**
+![image](../../images/TerrainLib/heightFreq.png)
+**This final image of the heightmap terrain showcases what a chunking system of the terrain could look like.**
+![image](../../images/TerrainLib/heightChunks.png)
 
-
+### A showcase of the marching cubes terrain:
+****
+![image](../../images/TerrainLib/normals.png)
+![image](../../images/TerrainLib/absnormals.png)
+![image](../../images/TerrainLib/scale.png)
+<video src="../../images/TerrainLib/mcubes1.webm"></video>
 ## TODO List for Library
 - **Make the splines more customisable for VoxelCubes**
 - **Add biome system to VoxelCubes** 
