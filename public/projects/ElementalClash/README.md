@@ -2,33 +2,38 @@
 # Elemental Clash
 
 ## Overview
-A procedurall planet generator demo, which uses multiple types of noise functions from *patriciogonzalezvivo* on [GitHub](https://gist.github.com/patriciogonzalezvivo/670c22f3966e662d2f83), with a few changes to variable types to fit hlsl conventions as opposed to glsl. The current type of planets which can be generated are mountainous or desert, both with or without swizzling to create a more alien terrain.
-
+This project was done as part of my bachelors thesis in the course TNM094 at *Linköping University*. The goal of the project was to investigate how physical cards, played on a large touchscreen, can affect the pace of the game and the user's perceived stress, compared to digital cards. The project also investigated how the user experience was affected by using the physical cards compared to digital cards. To acomlplish this, we made a game where we could investigate the questions. The physical cards were made with ArUco markers to be able to translate cards in physical space to a position in the game space. The project and thesis was made together with *Emil Larsgärde*, *Ludwig Boge*, *Gayathri Naranath*, *Gustaf Kronholm*, *Armen Abedi* and *Mirijam Björn*.
+****
 ## Current Features
-- **Geometry setup**: The planets are all created using a subdivision algorithm of an icosahedron, which before subdivision has all vertices be at an uniform distance to all their neighbouring vertices, but sadly wont have that feature afterwards. Nevertheless, the resulting sphere has all vertices be at an nearly uniform distance from their neighbour, meaning that the terrain shaping wont cause distortion at the poles of the planet like some other more common and simpler sphere models.
+- **Physical and Digital cards**: The game was played with either physical or digital cards, meaning you could either play with real cards in hand, or you could be playing with cards that were in the game. You could not use both at the same time.
 
-- **Heightmap displacement on a spherical surface**: The 2D noise is saved in a buffer in a first pass of the shader, before being normalized between 0-1 in the second pass based on the highest and lowest value of the noise generated. Then a spline curve is sampled to create more extreme gradients to the gradient noise. The concept is something I got from [this lecture](https://youtu.be/ob3VwY4JyzE?t=1207) by *Henrik Kniberg*, one of the people working on the terrain for Minecrafts terrain update back in 2020. This technique helps shape flat land and oceans, while then also allowing for extreme mountains all with one noise map This can be seen in some of the images below.
+- **A fully developed game-loop**: The game is fully developed, to the extent that the players can both choose settings before the game starts, press play, play until one player wins or both players draw, and then the game takes the player back to the state they so choose. The game is only developed with a very particular touch screen of 50 inches which can be found in the visualization centre in Norrköping, which is not accesible to the general public. Therefore, the game is not really playable anymore, since the screens are not availible to us anymore.
 
-
+****
 ## Technologies Used
 - **Unity**: An all purpose game engine which hosts powerfull tools for most usecases.
+- **OpenCV**: The game utilizes camera vision to be able to identify both what the physical card being played coresponds to in the game, and also to translate real world coordinates to screen space coordinates.
+****
+## A small showcase of the project
+### Image showing the spawning of a unit
+![image](../../images/ElementalClash/ElementalClash1.png)
 
-### A showcase of the mountainous terrain
-![image](../../images/PlanetGenerator/PlanetProgress17.png)
-![image](../../images/PlanetGenerator/PlanetProgress19.png)
-![image](../../images/PlanetGenerator/PlanetProgress22.png)
+### Image showing the physical cards that were used for the game
+![image](../../images/ElementalClash/spelkort.png)
 
-### A showcase of the desert planets
-![image](../../images/PlanetGenerator/PlanetProgress13.png)
-![image](../../images/PlanetGenerator/PlanetProgress16.png)
-![image](../../images/PlanetGenerator/PlanetProgress20.png)
+### Image showing the game screen
+![image](../../images/ElementalClash/spel.png)
 
-## Previous iterations of the project
-- **Marching cubes algorithm**: The first iteration didn't initialize the planet with an icosphere. Instead, the planets were created using a voxel style approach which made voxels with a distance greater of 1 from the origin be air, and everything else be solid. The algorithm did create a nice looking sphere, and the resulting terrain after noise application was certainly interesting, but not what I was looking for. I also had to ask myself what the final result was going to look like, and came to the conclusion that the advantages of 3D noise is not usefull to the project (namely that it allows for things like overhangs in terrain, which would not be seen on a planetary scale). This led me to just work with 2D noise instead, as the results were not nearly as volitile. If I did ever revisit this project however, I would like to try and work further with 3D noise, as I have gotten more experience with it since.
+### Image showing the calibration that was done before the game to be able to translate world coordinates tom screen coordinates
+![image](../../images/ElementalClash/kalibrering.png)
 
-### A quick showcase of the first iteration of the project
-![image](../../images/PlanetGenerator/PlanetProgress1.png)
-![image](../../images/PlanetGenerator/PlanetProgress6.png)
-![image](../../images/PlanetGenerator/PlanetProgress7.png)
+### A trailer that we made for the project.
+<video src="../../images/ElementalClash/Elemental Clash - Cardgame on Touchscreen With Physical Cards [TubeRipper.com].webm"></video>
+**[Link](https://www.youtube.com/watch?v=-JwLrFs1Ud8&list=PPSV)** to the video with sound.
+****
+
+Here is the [Thesis](../../images/ElementalClash/KandidatProjekt_Rapport.pdf) for anybody interested! It is written in swedish as that was mandatory for the course. 
+****
+
 ## [Back To Start Page](/)
 
