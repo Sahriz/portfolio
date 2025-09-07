@@ -1,41 +1,43 @@
+
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
-export default function Portals() {
-  const router = useRouter();
+export default function ElementalClash() {
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    const projectId = 'ElementalClash'; // Hardcoded project ID
-    console.log('Project ID:', projectId); // Debugging log
-
-    if (projectId) {
-      const fetchUrl = `/projects/${projectId}/README.md`;
-      console.log('Fetching URL:', fetchUrl); // Debugging log
-
-      fetch(fetchUrl)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.text();
-        })
-        .then((text) => {
-          console.log('Fetched README content:', text); // Debugging log
-          setContent(text);
-        })
-        .catch((error) => console.error('Error fetching README:', error));
-    }
+    fetch('/projects/ElementalClash/README.md')
+      .then((response) => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+      })
+      .then((text) => setContent(text))
+      .catch((error) => setContent('# Error\nCould not load README.'));
   }, []);
 
   return (
-    <div className="project-details">
-        <div className="project-detail-content">
-      <ReactMarkdown children={content} remarkPlugins={[remarkGfm]} />
-        </div>
+    <div className="markdown-content">
+      <ReactMarkdown
+        children={content}
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
+        components={{
+          h1: ({node, ...props}) => <h1 className="markdown-h1" {...props} />,
+          h2: ({node, ...props}) => <h2 className="markdown-h2" {...props} />,
+          h3: ({node, ...props}) => <h3 className="markdown-h3" {...props} />,
+          p: ({node, ...props}) => <p className="markdown-p" {...props} />,
+          ul: ({node, ...props}) => <ul className="markdown-ul" {...props} />,
+          li: ({node, ...props}) => <li className="markdown-li" {...props} />,
+          a: ({node, ...props}) => <a className="markdown-a" {...props} />,
+          img: ({node, ...props}) => <img className="markdown-img" {...props} />,
+          video: ({node, ...props}) => <video className="markdown-video" controls {...props} />,
+          code: ({node, ...props}) => <code className="markdown-code" {...props} />,
+          blockquote: ({node, ...props}) => <blockquote className="markdown-blockquote" {...props} />,
+        }}
+      />
     </div>
   );
-};
+}
 
