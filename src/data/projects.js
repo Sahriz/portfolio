@@ -1,17 +1,33 @@
 const projects = [
+  
     {
-      title: "Procedurally Generated Terrain",
-      description: "A real-time infinite procedurally generated world using perlin noise in Unity utilising C#. The project was made for the course TNM084 at LIU.",
-      image: "/openWorld.gif",
-      link: "https://github.com/Sahriz/InfiniteWorld",
-      id: 'TNM084'
+      title: "WIP: Terrain Library",
+      description: "A C++ library that generates terrain using several noise algorithms. The terrain currently supports both heightmap terrain and marching cubes terrain, as well as minecraft style Voxelcube terrain. The library is still a work in progress, but it is able to generate terrain in real-time using OpenGL and ComputeShaders.",
+      image: "/VoxelCubes2.webm",
+      link: "https://github.com/Sahriz/TerrainLibrary",
+      id: 'TerrainLibrary'
     },
     {
-      title: "Pathtracer",
-      description: "A photo-realistic pathtracing renderer written in C++ using the CPU for the course TNCG15 at LIU.",
-      image: "/1600x1600RayTracer.png",
-      link: "https://github.com/eLdOchLagor/TNCG15-Monte-Carlo-Pathtracer",
-      id: 'TNCG15'
+      title: "Pathtracer on GPU",
+      description: "A photo-realistic pathtracer written in C++ using OpenGL. It is a work in progress and is a project made for the course TSKB07 at LIU. Currently, without optimization, it is still generating around 14 images per second on my 1070.",
+      image: "/PathTracerFront.webm",
+      link: "https://github.com/eLdOchLagor/TSBK07-Raytracer",
+      id: 'TSBK07'
+    },
+    {
+      title: "Elemental Clash",
+      description: "A 3D 1vs1 real time strategy game made with Unity. The game utilizes computer vision to place the units in the game using ArUco markers. This project was done as part of my bachelor thesis.",
+      image: "/spel.png",
+      link: "https://github.com/eLdOchLagor/Digital-cardgame-with-physical-aruco-cards",
+      id: 'ElementalClash'
+    },
+
+    {
+      title: "Planet generator",
+      description: "A planet generation system made in Unity. The planet is generated using several noise algorithms such as with gradient noise and voronoi noise.",
+      image: "/PlanetProgress17.png",
+      link: "",
+      id: 'PlanetGenerator'
     },
     {
       title: "Solar system simulation",
@@ -19,13 +35,6 @@ const projects = [
       image: "/RedoVisning4.png",
       link: "https://github.com/Sahriz/BlenderSolarsystemSim?tab=readme-ov-file",
       id: 'BlenderSolarSystem'
-    },
-    {
-      title: "WIP: Pathtracer on GPU",
-      description: "A photo-realistic pathtracer written in C++ using OpenGL. It is a work in progress and is a project made for the course TSKB07 at LIU. Currently, without optimization, it is still generating around 14 images per second on my 1070.",
-      image: "/PathTracerFront.webm",
-      link: "https://github.com/eLdOchLagor/TSBK07-Raytracer",
-      id: 'TSBK07'
     }
     ,
     {
