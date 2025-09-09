@@ -21,7 +21,7 @@ This project was done for the course **TSBK07 - Computer Graphics** at LIU. The 
 ![image](../../images/TSBK07/pathTracerRoom.png)
 
 ### Closeup of the mirror sphere next to another mirror surface
-![iamge](../../images/TSBK07/pathTracerBall.png)
+![image](../../images/TSBK07/pathTracerBall.png)
 
 ### Moving around in the scene
 <video src="../../images/TSBK07/PathTracerMovement.webm"></video>
