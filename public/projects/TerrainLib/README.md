@@ -56,7 +56,7 @@ This project is a WIP library for personal use, but open for anyone to use or mo
 
 ### A video showcasing the branching of the caves and the tunnelsystems that are created
 
-<video src="../../images/TerrainLib/voxelcubes2.webm" controls></video>
+<video src="../../images/TerrainLib/VoxelCubes2.webm" controls></video>
 ****
 
 ## TODO List for Library
