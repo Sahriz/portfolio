@@ -249,7 +249,7 @@ export default function Portfolio() {
         <span><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jonatan-ebenholm-904222343/" target="_blank" rel="noopener noreferrer">Jonatan Ebenholm</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>Phone:</strong> <a>+46 70 7789107</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>Email:</strong> <a href="mailto:ebenholmdev@gmail.com">ebenholmdev@gmail.com</a></span>
-        <span style={{ marginLeft: '2rem' }}><strong>CV:</strong> <a href="/JonatanEbenholmCV.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></span>
+        <span style={{ marginLeft: '2rem' }}><strong>CV:</strong> <a href="/CV_JonatanEbenholm.pdf" target="_blank" rel="noopener noreferrer">Download PDF</a></span>
         <span style={{ marginLeft: '2rem' }}><strong>GitHub:</strong> <a href="https://github.com/Sahriz" target="_blank" rel="noopener noreferrer">Sahriz</a></span>
       </div>
     </footer>
