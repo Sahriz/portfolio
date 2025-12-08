@@ -1,9 +1,8 @@
-
 import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { ShaderMaterial } from 'three';
 
-const Background = () => {
-  const materialRef = useRef();
+const Background: React.FC = () => {
+  const materialRef = useRef<ShaderMaterial>(null);
 
   // No uniforms needed for this simple gradient
 

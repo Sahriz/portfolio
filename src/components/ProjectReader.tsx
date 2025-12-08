@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-export default function ProjectReader({ projectId }) {
-  const [content, setContent] = useState('');
+interface ProjectReaderProps {
+  projectId: string;
+}
+
+export default function ProjectReader({ projectId }: ProjectReaderProps): React.ReactElement<any> {
+  const [content, setContent] = useState<string>('');
 
   useEffect(() => {
     if (!projectId) return;

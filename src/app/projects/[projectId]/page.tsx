@@ -1,25 +1,46 @@
+'use client'
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
+import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 
-export default function TSBK07() {
-  const [content, setContent] = useState('');
+interface ProjectPageProps {
+  params: Promise<{
+    projectId: string;
+  }>;
+}
+
+export default function ProjectPage(props0: ProjectPageProps) {
+  const params = use(props0.params);
+  const [content, setContent] = useState<string>('');
+  const { projectId } = params;
+
+  // Mapping for project IDs to README folder names
+  const getReadmePath = (id: string): string => {
+    const mapping: Record<string, string> = {
+      TerrainLibrary: 'TerrainLib',
+      Portals: 'Portal',
+    };
+
+    const folderName = mapping[id] || id;
+    return `/projects/${folderName}/README.md`;
+  };
 
   useEffect(() => {
-    fetch('/projects/TSBK07/README.md')
+    fetch(getReadmePath(projectId))
       .then((response) => {
         if (!response.ok) throw new Error('Network response was not ok');
         return response.text();
       })
       .then((text) => setContent(text))
-      .catch((error) => setContent('# Error\nCould not load README.'));
-  }, []);
+      .catch(() => setContent('# Error\nCould not load README.'));
+  }, [projectId]);
 
   return (
     <>
-      <a href="/" className="back-to-home-btn">&#8592; Back to Home</a>
+      <Link href="/" className="back-to-home-btn">&#8592; Back to Home</Link>
       <div className="markdown-content">
         <ReactMarkdown
           children={content}
@@ -43,4 +64,3 @@ export default function TSBK07() {
     </>
   );
 }
-

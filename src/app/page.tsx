@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
@@ -5,30 +7,38 @@ import { useFrame } from '@react-three/fiber';
 import ShaderBanner from '../components/ShaderBanner';
 import Background from '../components/Background';
 import Link from 'next/link';
-import projects from '../data/projects';
+import { projects } from '../data/projects';
+
+// Note: Metadata export is not supported in client components.
+// To add SEO metadata (title, description), please add it to the layout.js file.
+// Example:
+// export const metadata = {
+//   title: "Jonatan Ebenholm's Portfolio",
+//   description: "5th year student as Master of Science in Media Technology and Engineering - Portfolio showcasing projects in Computer Graphics, GPU programming, and game development",
+// };
 
 export default function Portfolio() {
-  const [isInitialized, setIsInitialized] = React.useState(false);
-  const [canvasZIndex, setCanvasZIndex] = React.useState(9);
-  const isDragging = useRef(false);
-  const dragStartX = useRef(0);
-  const spinRef = useRef(0); // This is the spin angle
-  const dragStartSpin = useRef(0);
-  const dragLastX = useRef(0);
-  const dragLastTime = useRef(0);
-  const spinVelocity = useRef(0); // Angular velocity
-  const canvasRef = useRef();
-  const timeSpinDir = useRef(1); // 1 or -1, direction of time-based spin
+  const [isInitialized, setIsInitialized] = React.useState<boolean>(false);
+  const canvasZIndex = 9;
+  const isDragging = useRef<boolean>(false);
+  const dragStartX = useRef<number>(0);
+  const spinRef = useRef<number>(0); // This is the spin angle
+  const dragStartSpin = useRef<number>(0);
+  const dragLastX = useRef<number>(0);
+  const dragLastTime = useRef<number>(0);
+  const spinVelocity = useRef<number>(0); // Angular velocity
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const timeSpinDir = useRef<number>(1); // 1 or -1, direction of time-based spin
   // Mouse drag handlers for rotating ShaderBanner
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     let lastTime = performance.now();
     let animating = true;
-    const handlePointerDown = (e) => {
-      if (e.target.closest('.hero-outline-btn')) return;
+    const handlePointerDown = (e: PointerEvent | TouchEvent) => {
+      if ((e.target as HTMLElement).closest('.hero-outline-btn')) return;
       isDragging.current = true;
-      const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+      const clientX = 'clientX' in e ? e.clientX : (e.touches && e.touches[0].clientX) || 0;
       dragStartX.current = clientX;
       dragStartSpin.current = spinRef.current;
       dragLastX.current = clientX;
@@ -36,9 +46,9 @@ export default function Portfolio() {
       spinVelocity.current = 0;
       document.body.style.userSelect = 'none';
     };
-    const handlePointerMove = (e) => {
+    const handlePointerMove = (e: PointerEvent | TouchEvent) => {
       if (!isDragging.current) return;
-      const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+      const clientX = 'clientX' in e ? e.clientX : (e.touches && e.touches[0].clientX) || 0;
       const deltaX = clientX - dragStartX.current;
       spinRef.current = dragStartSpin.current - deltaX * 0.005;
       // If user drag direction is opposite to time spin, update timeSpinDir
@@ -82,39 +92,35 @@ export default function Portfolio() {
     }
     animating = true;
     requestAnimationFrame(animateSpin);
-    canvas.addEventListener('pointerdown', handlePointerDown);
-    window.addEventListener('pointermove', handlePointerMove);
-    window.addEventListener('pointerup', handlePointerUp);
-    canvas.addEventListener('touchstart', handlePointerDown);
-    window.addEventListener('touchmove', handlePointerMove);
-    window.addEventListener('touchend', handlePointerUp);
+    canvas.addEventListener('pointerdown', handlePointerDown as EventListener);
+    window.addEventListener('pointermove', handlePointerMove as EventListener);
+    window.addEventListener('pointerup', handlePointerUp as EventListener);
+    canvas.addEventListener('touchstart', handlePointerDown as EventListener);
+    window.addEventListener('touchmove', handlePointerMove as EventListener);
+    window.addEventListener('touchend', handlePointerUp as EventListener);
     return () => {
       animating = false;
-      canvas.removeEventListener('pointerdown', handlePointerDown);
-      window.removeEventListener('pointermove', handlePointerMove);
-      window.removeEventListener('pointerup', handlePointerUp);
-      canvas.removeEventListener('touchstart', handlePointerDown);
-      window.removeEventListener('touchmove', handlePointerMove);
-      window.removeEventListener('touchend', handlePointerUp);
+      canvas.removeEventListener('pointerdown', handlePointerDown as EventListener);
+      window.removeEventListener('pointermove', handlePointerMove as EventListener);
+      window.removeEventListener('pointerup', handlePointerUp as EventListener);
+      canvas.removeEventListener('touchstart', handlePointerDown as EventListener);
+      window.removeEventListener('touchmove', handlePointerMove as EventListener);
+      window.removeEventListener('touchend', handlePointerUp as EventListener);
       document.body.style.userSelect = '';
     };
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const canvas = document.querySelector('.canvas-container');
-      const overlayText = document.querySelector('.overlayText');
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const maxScroll = 300; // Adjust as needed for scroll-based fade-out
-
+      // Scroll handling logic can be added here if needed
     };
 
     // Fade-in the overlay text after 5 seconds
     const fadeInTimeout = setTimeout(() => {
       const overlayText = document.querySelector('.overlayText');
       if (overlayText) {
-        overlayText.style.transition = "opacity 2s ease-out"; // Smooth fade-in
-        overlayText.style.opacity = 1; // Set opacity to 1 after 5 seconds
+        (overlayText as HTMLElement).style.transition = "opacity 2s ease-out"; // Smooth fade-in
+        (overlayText as HTMLElement).style.opacity = '1'; // Set opacity to 1 after 5 seconds
       }
     }, 2000); // 5 seconds delay for the fade-in
 
@@ -148,7 +154,7 @@ export default function Portfolio() {
       {/* Banner Canvas with overlays */}
   <div className="canvas-container" ref={canvasRef} style={{ zIndex: canvasZIndex, height: "75vh", pointerEvents: 'auto' }}>
         <Canvas
-          gl={{ alpha: false, antialias: true, clearColor: '#ffffff' }}
+          gl={{ alpha: false, antialias: true }}
           style={{ width: "100%", height: "100%" }}
           camera={{ position: [0, 2, 12], fov: 20, near: 0.1, far: 1000 }}
         >
@@ -182,7 +188,7 @@ export default function Portfolio() {
         <>
           {/* Projects grid */}
           <div className="projectContainer projectsGrid move-down" id="scroll-target-projects">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <Link key={project.id} href={`/projects/${project.id}`} className="projectLink">
                 <div className="projectCard">
                   <div className="projectImageWrapper">
@@ -224,7 +230,7 @@ export default function Portfolio() {
               personal projects, some of which are showcased in my projects list above. Otherwise I enjoy playing video games, drawing, going to the gym
               or socializing with my friends.
             </p>
-            
+
           </div>
           {/*Skills*/}
           <div style = {{paddingBottom: '10%'}} >

@@ -1,19 +1,21 @@
-import { useRef } from 'react';
+import { useRef, MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useEffect } from 'react'; // Only import once at the top
+import { ShaderMaterial } from 'three';
 
+interface ShaderBannerProps {
+  spinRef: MutableRefObject<number>;
+}
 
+const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
+  const materialRef = useRef<ShaderMaterial>(null);
 
-
-
-const ShaderBanner = ({ spinRef }) => {
-  const materialRef = useRef();
   useFrame(({ clock }) => {
     if (materialRef.current) {
       materialRef.current.uniforms.u_time.value = clock.getElapsedTime();
       materialRef.current.uniforms.u_spin.value = spinRef.current;
     }
   });
+
   return (
     <shaderMaterial
       ref={materialRef}
@@ -24,7 +26,7 @@ const ShaderBanner = ({ spinRef }) => {
         out float perlinNoise;
   uniform float u_time;
   uniform float u_spin;
-       
+
 
         float random (in vec2 st) {
     return fract(sin(dot(st.xy,
@@ -70,8 +72,8 @@ const ShaderBanner = ({ spinRef }) => {
 
         return totalNoise;
     }
-        
-        
+
+
         void main() {
             float rot = u_spin;
             mat4 rotationY = mat4(cos(rot), 0, sin(rot), 0,
@@ -86,11 +88,11 @@ const ShaderBanner = ({ spinRef }) => {
                                 sin(90.0), cos(90.0), 0, 0,
                                 0, 0, 1, 0,
                                 0, 0, 0, 1);
-                                mat4 rotationXConst = mat4(1, 0, 0, 0,  
+                                mat4 rotationXConst = mat4(1, 0, 0, 0,
                                 0, cos(3.14/2.0), -sin(3.14/2.0), 0,
                                 0, sin(3.14/2.0), cos(3.14/2.0), 0,
                                 0, 0, 0, 1);
-                                 mat4 rotationXConst2 = mat4(1, 0, 0, 0,  
+                                 mat4 rotationXConst2 = mat4(1, 0, 0, 0,
                                 0, cos(-3.14/8.0), -sin(-3.14/8.0), 0,
                                 0, sin(-3.14/8.0), cos(-3.14/8.0), 0,
                                 0, 0, 0, 1);
@@ -102,8 +104,8 @@ const ShaderBanner = ({ spinRef }) => {
           else{
            perlin = multiOctave(position.xy* u_time *0.25);
           }
-          
-          
+
+
           newPosition.z =  perlin;
           if(perlin < 0.35){
             newPosition.z = 0.35;
@@ -118,7 +120,7 @@ const ShaderBanner = ({ spinRef }) => {
           varying vec2 vUv;
           in float perlinNoise;
           varying vec3 vNormal;
-          
+
           void main() {
              gl_FragColor = vec4(vec3(0.9), 1.0);
             if(perlinNoise < 0.72){
@@ -126,7 +128,7 @@ const ShaderBanner = ({ spinRef }) => {
             }
             if(perlinNoise < 0.55){
               gl_FragColor = vec4(vec3(61.0,121.0,111.0)/255.0, 1.0);
-            } 
+            }
               if(perlinNoise < 0.44){
               gl_FragColor = vec4(vec3(222.0,205.0,180.0)/255.0, 1.0);
               }
@@ -136,7 +138,7 @@ const ShaderBanner = ({ spinRef }) => {
             if(perlinNoise < 0.27){
               gl_FragColor = vec4(vec3(39.0,128.0,150.0)/255.0, 1.0);
             }
-            
+
           }
         `}
   uniforms={{ u_time: { value: 0 }, u_spin: { value: 0 } }}
