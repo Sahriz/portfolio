@@ -1,0 +1,48 @@
+import Link from 'next/link';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+
+/**
+ * @typedef {import('../data/projects').Project} Project
+ * @param {{ project: Project }} props
+ */
+export default function ProjectCard({ project }) {
+	const isVideo = project.image && project.image.endsWith('.webm');
+
+	return (
+		<Card className="flex h-full flex-col overflow-hidden border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-shadow">
+			<CardContent className="p-0">
+				<div className="relative h-52 overflow-hidden">
+					{isVideo ? (
+						<video
+							autoPlay
+							loop
+							muted
+							playsInline
+							className="h-full w-full object-cover"
+						>
+							<source src={project.image} type="video/webm" />
+							Your browser does not support the video tag.
+						</video>
+					) : (
+						<img
+							src={project.image}
+							alt={project.title}
+							className="h-full w-full object-cover"
+						/>
+					)}
+					<div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-background/90" />
+				</div>
+			</CardContent>
+			<CardHeader className="gap-2 pb-4 pt-4 flex-1">
+				<CardTitle className="text-xl font-semibold leading-tight">{project.title}</CardTitle>
+				<p className="text-sm text-muted-foreground line-clamp-3">{project.description}</p>
+			</CardHeader>
+			<CardFooter className="mt-auto flex justify-end pt-0">
+				<Button asChild variant="secondary">
+					<Link href={`/projects/${project.id}`}>Read more</Link>
+				</Button>
+			</CardFooter>
+		</Card>
+	);
+}

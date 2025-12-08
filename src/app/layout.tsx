@@ -1,6 +1,10 @@
-import '../styles/styles.css';
-import '../styles/globals.css';
+import './globals.css';
 import type { Metadata, Viewport } from 'next';
+import { ThemeProvider } from "@/components/theme-provider"
+
+type RootLayoutProps = {
+  children: React.ReactNode;
+};
 
 export const metadata: Metadata = {
   title: "Jonatan Ebenholm's Portfolio",
@@ -12,14 +16,22 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
+  )
 }
