@@ -2,15 +2,17 @@ import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-/**
- * @typedef {import('../data/projects').Project} Project
- * @param {{ project: Project }} props
- */
-export default function ProjectCard({ project }) {
-	const isVideo = project.image && project.image.endsWith('.webm');
+import type { Project } from '../data/projects';
+
+type ProjectCardProps = {
+	project: Project;
+};
+
+export default function ProjectCard({ project }: ProjectCardProps) {
+	const isVideo = project.image.endsWith('.webm');
 
 	return (
-		<Card className="flex h-full flex-col overflow-hidden border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-shadow">
+		<Card className="flex h-full flex-col overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-shadow">
 			<CardContent className="p-0">
 				<div className="relative h-52 overflow-hidden">
 					{isVideo ? (
@@ -25,6 +27,7 @@ export default function ProjectCard({ project }) {
 							Your browser does not support the video tag.
 						</video>
 					) : (
+						// eslint-disable-next-line @next/next/no-img-element
 						<img
 							src={project.image}
 							alt={project.title}

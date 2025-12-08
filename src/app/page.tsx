@@ -34,6 +34,7 @@ export default function Portfolio() {
     { name: 'Python', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
     { name: 'Godot', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg' },
   ];
+  const aboutBackground = 'color-mix(in srgb, var(--primary) 18%, var(--background) 82%)';
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -168,7 +169,7 @@ export default function Portfolio() {
             overlayVisible ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <div className="rounded-2xl bg-background/70 px-6 py-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="rounded-2xl bg-background/85 px-6 py-6 backdrop-blur supports-[backdrop-filter]:bg-background/70">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground">Jonatan Ebenholm&apos;s Portfolio</h1>
             <p className="mt-2 text-lg sm:text-xl md:text-2xl font-semibold text-foreground/80">
             5th year student as Master of Science in Media Technology and Engineering
@@ -213,18 +214,39 @@ export default function Portfolio() {
             </div>
           </section>
 
+          <div
+            aria-hidden
+            className="relative z-10 h-14 w-full"
+            style={{
+              backgroundImage:
+                `linear-gradient(180deg, var(--background) 0%, ${aboutBackground} 100%)`,
+            }}
+          />
+
           <section
             id="scroll-target-aboutme"
-            className="mx-auto mt-16 max-w-5xl rounded-xl bg-card text-card-foreground shadow-sm px-6 py-10 text-center"
+            className="relative w-full px-4 py-14 text-center"
+            style={{ backgroundColor: aboutBackground }}
           >
-            <h1 className="text-3xl font-bold">About Me</h1>
-            <p className="mt-4 text-lg leading-8 text-muted-foreground">
-              I am a fifth year student at Linköpings University studying to become a Master of Science in Media Technology and
-              Engineering. During my master&apos;s program I am specializing in Computer Graphics, GPU programming, video game
-              systems programming, and machine learning/AI. In my free time I enjoy programming personal projects, some of which
-              are showcased above. I also enjoy playing video games, drawing, going to the gym, or socializing with friends.
-            </p>
+            <div className="mx-auto max-w-5xl px-6 py-10 text-center">
+              <h1 className="text-3xl font-bold text-foreground">About Me</h1>
+              <p className="mt-4 text-lg leading-8 text-muted-foreground">
+                I am a fifth year student at Linköpings University studying to become a Master of Science in Media Technology and
+                Engineering. During my master&apos;s program I am specializing in Computer Graphics, GPU programming, video game
+                systems programming, and machine learning/AI. In my free time I enjoy programming personal projects, some of which
+                are showcased above. I also enjoy playing video games, drawing, going to the gym, or socializing with friends.
+              </p>
+            </div>
           </section>
+
+          <div
+            aria-hidden
+            className="relative z-10 h-14 w-full"
+            style={{
+              backgroundImage:
+                `linear-gradient(180deg, ${aboutBackground} 0%, var(--background) 100%)`,
+            }}
+          />
 
           <section className="pb-24 pt-12">
             <h2 className="text-center text-3xl font-bold">Skills</h2>
