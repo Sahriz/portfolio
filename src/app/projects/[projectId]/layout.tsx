@@ -8,11 +8,12 @@ interface ProjectLayoutProps {
   };
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { projectId: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ projectId: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   const { projectId } = params;
 
   // Find the project in the projects array

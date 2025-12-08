@@ -6,7 +6,7 @@ interface ProjectReaderProps {
   projectId: string;
 }
 
-export default function ProjectReader({ projectId }: ProjectReaderProps): React.ReactElement {
+export default function ProjectReader({ projectId }: ProjectReaderProps): React.ReactElement<any> {
   const [content, setContent] = useState<string>('');
 
   useEffect(() => {

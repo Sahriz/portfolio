@@ -1,18 +1,19 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     projectId: string;
-  };
+  }>;
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
+export default function ProjectPage(props0: ProjectPageProps) {
+  const params = use(props0.params);
   const [content, setContent] = useState<string>('');
   const { projectId } = params;
 

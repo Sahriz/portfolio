@@ -6,9 +6,6 @@ const nextConfig = {
   // React strict mode for development
   reactStrictMode: true,
 
-  // Compiler optimizations
-  swcMinify: true,
-
   // Image optimization
   images: {
     unoptimized: false,
@@ -17,7 +14,9 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Support for WebGL and Three.js
+  // Support for WebGL and Three.js with Turbopack
+  turbopack: {},
+
   webpack: (config, { isServer }) => {
     config.externals.push('canvas');
 
@@ -78,7 +77,6 @@ const nextConfig = {
 
   // Performance optimizations
   productionBrowserSourceMaps: false,
-  optimizeFonts: true,
 
   // Trailing slashes (optional, set to true if you prefer /page/)
   trailingSlash: false,
