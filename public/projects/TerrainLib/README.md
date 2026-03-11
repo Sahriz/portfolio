@@ -38,6 +38,9 @@ This project is a WIP library for personal use, but open for anyone to use or mo
 ![image](../../images/TerrainLib/scale.png)
 ### A video showcase of the user moving around in the terrain
 <video src="../../images/TerrainLib/mcubes2.webm"></video>
+
+### A video showcase of the user moving around in the terrain AFTER I recently improved the performance for another project
+<video src="../../images/TerrainLib/marchingCubesImproved.webm"></video>
 ****
 
 ## A showcase of the Voxelcubes terrain:
