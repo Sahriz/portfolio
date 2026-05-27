@@ -166,6 +166,94 @@
   --shadow-2xl: var(--shadow-2xl);
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shootingStar {
+  0%   { transform: translateX(calc(-100% - 40px)); opacity: 0; }
+  6%   { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateX(100vw); opacity: 0; }
+}
+
+.shooting-star {
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 0;
+  width: 320px;
+  height: 2px;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: shootingStar 0.45s ease-in 0.5s forwards;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(180, 215, 255, 0.05) 20%,
+    rgba(185, 218, 255, 0.22) 45%,
+    rgba(205, 230, 255, 0.68) 72%,
+    rgba(225, 242, 255, 0.93) 90%,
+    rgba(240, 250, 255, 0.99) 100%
+  );
+  border-radius: 0 2px 2px 0;
+}
+
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,1) 25%, rgba(200,225,255,0.7) 65%, transparent 100%);
+  box-shadow:
+    0 0 4px  2px  rgba(255, 255, 255, 0.95),
+    0 0 10px 5px  rgba(195, 222, 255, 0.80),
+    0 0 25px 11px rgba(155, 198, 255, 0.55),
+    0 0 50px 20px rgba(120, 178, 255, 0.30),
+    0 0 85px 35px rgba(100, 162, 255, 0.12);
+}
+
+.page-blackout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+}
+.page-blackout-bar {
+  position: absolute;
+  left: 0;
+  width: 100vw;
+  height: 50vh;
+  background-color: #000;
+  display: block;
+  will-change: transform;
+}
+.page-blackout-bar-top    { top: 0; }
+.page-blackout-bar-bottom { top: 50vh; }
+.page-blackout-open .page-blackout-bar-top {
+  animation: blackoutSplitUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.96s forwards;
+}
+.page-blackout-open .page-blackout-bar-bottom {
+  animation: blackoutSplitDown 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.96s forwards;
+}
+@keyframes blackoutSplitUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+@keyframes blackoutSplitDown {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

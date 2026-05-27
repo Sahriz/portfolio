@@ -1,24 +1,20 @@
-import { useRef, MutableRefObject } from 'react';
+import { useMemo, MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { ShaderMaterial } from 'three';
 
 interface ShaderBannerProps {
   spinRef: MutableRefObject<number>;
 }
 
 const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
-  const materialRef = useRef<ShaderMaterial>(null);
+  const uniforms = useMemo(() => ({ u_time: { value: 1.0 }, u_spin: { value: 0 } }), []);
 
-  useFrame(({ clock }) => {
-    if (materialRef.current) {
-      materialRef.current.uniforms.u_time.value = clock.getElapsedTime();
-      materialRef.current.uniforms.u_spin.value = spinRef.current;
-    }
+  useFrame((_, delta) => {
+    uniforms.u_time.value += delta;
+    uniforms.u_spin.value = spinRef.current;
   });
 
   return (
     <shaderMaterial
-      ref={materialRef}
       attach="material"
       vertexShader={`
         varying vec2 vUv;
@@ -97,13 +93,7 @@ const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
                                 0, sin(-3.14/8.0), cos(-3.14/8.0), 0,
                                 0, 0, 0, 1);
           vec3 newPosition = position;
-          float perlin = 0.0;
-          if(u_time > 12.0){
-          perlin = multiOctave(position.xy* 12.0 *0.25);
-          }
-          else{
-           perlin = multiOctave(position.xy* u_time *0.25);
-          }
+          float perlin = multiOctave(position.xy * min(u_time + 3.0, 12.0) * 0.25);
 
 
           newPosition.z =  perlin;
@@ -141,7 +131,7 @@ const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
 
           }
         `}
-  uniforms={{ u_time: { value: 0 }, u_spin: { value: 0 } }}
+  uniforms={uniforms}
     />
   );
 };
