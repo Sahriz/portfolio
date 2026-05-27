@@ -264,6 +264,20 @@
   }
 }
 
+/* Project card scroll-reveal */
+.project-card-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.project-card-reveal-visible {
+  animation: cardReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* Project detail layout overrides */
 .project-details {
   padding: 20px;
