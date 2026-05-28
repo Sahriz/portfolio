@@ -62,13 +62,30 @@ export default function Portfolio() {
   const timeSpinDir = useRef<number>(1);
 
   const skillIcons = [
-    { name: 'C++', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
-    { name: 'OpenGL', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opengl/opengl-original.svg' },
-    { name: 'C#', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-plain.svg' },
-    { name: 'Unity', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg' },
-    { name: 'MATLAB', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg' },
-    { name: 'Python', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
-    { name: 'Godot', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg' },
+    // Languages
+    { name: 'C++',          src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
+    { name: 'C#',           src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-plain.svg' },
+    { name: 'Python',       src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
+    { name: 'TypeScript',   src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
+    // Graphics / rendering
+    { name: 'OpenGL',       src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opengl/opengl-original.svg' },
+    { name: 'Three.js',     src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg' },
+    // Game engines
+    { name: 'Unity',        src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg' },
+    { name: 'Godot',        src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg' },
+    // 3D / DCC
+    { name: 'Blender',      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg' },
+    // ML / CV
+    { name: 'TensorFlow',   src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg' },
+    { name: 'OpenCV',       src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg' },
+    // Math / engineering
+    { name: 'MATLAB',       src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg' },
+    // Web
+    { name: 'React',        src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+    { name: 'Next.js',      src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg' },
+    { name: 'Tailwind CSS', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+    // Tooling
+    { name: 'Git',          src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
   ];
   const aboutBackground = 'color-mix(in srgb, var(--primary) 18%, var(--background) 82%)';
 
@@ -217,7 +234,7 @@ export default function Portfolio() {
           <dl className="grid gap-x-12 gap-y-4 font-mono text-sm sm:grid-cols-[10rem_1fr]">
             <dt className="text-foreground/50">Working on</dt>
             <dd className="text-foreground/90">
-              MSc thesis on inverse rendering for industrial inspection — at SICK.
+              MSc thesis on inverse rendering for industrial inspection — at SICK IVP, Linköping.
             </dd>
             <dt className="text-foreground/50">Graduating</dt>
             <dd className="text-foreground/90">June 2026.</dd>
@@ -226,7 +243,9 @@ export default function Portfolio() {
               Graphics, GPU, or rendering roles starting summer / fall 2026.
             </dd>
             <dt className="text-foreground/50">Based in</dt>
-            <dd className="text-foreground/90">Linköping, Sweden — open to relocation.</dd>
+            <dd className="text-foreground/90">
+              Norrköping, Sweden — open to roles across Östergötland, not relocating.
+            </dd>
           </dl>
         </section>
 
@@ -373,7 +392,7 @@ export default function Portfolio() {
                 <p>
                   I&apos;m finishing an MSc in Media Technology and Engineering at Linköping University, with the
                   focus pulled hard toward computer graphics, GPU programming, and applied machine learning. My
-                  master&apos;s thesis is hosted at SICK in Linköping, where I&apos;m working on inverse rendering for
+                  master&apos;s thesis is hosted at SICK IVP in Linköping, where I&apos;m working on inverse rendering for
                   industrial inspection — recovering scene geometry and materials from imagery to support automated
                   quality assessment.
                 </p>
@@ -412,22 +431,26 @@ export default function Portfolio() {
             }}
           />
 
-          <section className="pb-24 pt-12">
-            <h2 className="text-center text-3xl font-bold">Skills</h2>
-            <div className="mt-6 flex flex-col items-center w-full">
-              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-                <TooltipProvider>
-                  {skillIcons.map((skill) => (
-                    <Tooltip key={skill.name}>
-                      <TooltipTrigger asChild>
-                        <img className="h-16 w-16 sm:h-20 sm:w-20" src={skill.src} alt={skill.name} />
-                      </TooltipTrigger>
-                      <TooltipContent side="top">{skill.name}</TooltipContent>
-                    </Tooltip>
+          <section className="relative z-10 mx-auto mt-16 w-full max-w-6xl px-4 pb-24 sm:px-6 lg:px-8">
+            <header className="mb-10">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+                Skills
+              </h2>
+            </header>
+            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+              <TooltipProvider>
+                  {skillIcons.map((skill, index) => (
+                    <ScrollReveal key={skill.name} delay={index * 60}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <img className="h-16 w-16 sm:h-20 sm:w-20" src={skill.src} alt={skill.name} />
+                        </TooltipTrigger>
+                        <TooltipContent side="top">{skill.name}</TooltipContent>
+                      </Tooltip>
+                    </ScrollReveal>
                   ))}
                 </TooltipProvider>
               </div>
-            </div>
           </section>
       </>
 

@@ -14,7 +14,7 @@ export const experience: ExperienceItem[] = [
   {
     id: 'msc-thesis',
     title: "Master's Thesis — Inverse Rendering for Industry Inspections",
-    organization: 'Sick / Linköping University',
+    organization: 'SICK IVP / Linköping University',
     logo: '/logos/Sick.png',
     startDate: 'Jan 2026',
     endDate: 'Jun 2026',
