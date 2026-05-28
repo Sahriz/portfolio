@@ -4,11 +4,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '../components/ProjectCard';
+import PaperCard from '../components/PaperCard';
+import ExperienceTimeline from '../components/ExperienceTimeline';
+import ScrollReveal from '../components/ScrollReveal';
 import { ThemeToggle } from '../components/ThemeToggle';
 import Link from 'next/link';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { projects } from '../data/projects';
+import { papers } from '../data/papers';
+import { experience } from '../data/experience';
+import { courses, CATEGORY_ORDER } from '../data/courses';
 
 const HeroScene = dynamic(() => import('../components/HeroScene'), {
   ssr: false,
@@ -198,9 +204,11 @@ export default function Portfolio() {
       <>
         <section id="scroll-target-projects" className="relative z-10 mt-[25vh]">
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
-              ))}
+              {projects
+                .filter((p) => p.featured)
+                .map((project, index) => (
+                  <ProjectCard key={project.id} project={project} index={index} />
+                ))}
             </div>
             <div className="mt-14 flex justify-center">
               <Link
@@ -213,9 +221,111 @@ export default function Portfolio() {
             </div>
           </section>
 
+          <section
+            id="scroll-target-papers"
+            className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+          >
+            <header className="mb-10">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+                Papers
+              </h2>
+              <p className="mt-2 font-mono text-sm text-muted-foreground">
+                Research papers and writeups.
+              </p>
+            </header>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {papers
+                .filter((p) => p.featured)
+                .map((paper, index) => (
+                  <ScrollReveal key={paper.id} delay={(index % 2) * 100} className="h-full">
+                    <PaperCard paper={paper} />
+                  </ScrollReveal>
+                ))}
+            </div>
+            <div className="mt-14 flex justify-center">
+              <Link
+                href="/papers"
+                className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+              >
+                view all papers
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </section>
+
+          <section
+            id="scroll-target-experience"
+            className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+          >
+            <header className="mb-10">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+                Education &amp; Experience
+              </h2>
+            </header>
+            <ExperienceTimeline items={experience} />
+          </section>
+
+          <section
+            id="scroll-target-coursework"
+            className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+          >
+            <header className="mb-10">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+                Coursework
+              </h2>
+              <p className="mt-2 font-mono text-sm text-muted-foreground">
+                Selected highlights from my MSc program.
+              </p>
+            </header>
+            <div className="grid gap-10 md:grid-cols-2">
+              {CATEGORY_ORDER.map((category, catIndex) => {
+                const list = courses.filter((c) => c.featured && c.category === category);
+                if (list.length === 0) return null;
+                return (
+                  <ScrollReveal key={category} delay={(catIndex % 2) * 100}>
+                    <h3 className="mb-3 font-mono text-[0.65rem] uppercase tracking-[0.25em] text-foreground/50">
+                      {category}
+                    </h3>
+                    <ul className="space-y-1.5">
+                      {list.map((course) => (
+                        <li
+                          key={`${course.name}-${course.date}`}
+                          className="grid grid-cols-[1.25rem_1fr_3.5rem_2rem] items-baseline gap-3 font-mono text-sm"
+                        >
+                          <span
+                            className="text-xs text-foreground/40"
+                            title={course.level === 'A' ? 'Avancerad nivå (Master’s)' : 'Grundnivå (Bachelor’s)'}
+                          >
+                            {course.level}
+                          </span>
+                          <span className="text-foreground/90">{course.name}</span>
+                          <span className="text-right text-foreground/60 tabular-nums">
+                            {course.credits} HP
+                          </span>
+                          <span className="text-right font-bold text-foreground tabular-nums">
+                            {course.grade}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </ScrollReveal>
+                );
+              })}
+            </div>
+            <div className="mt-14 flex justify-center">
+              <Link
+                href="/courses"
+                className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+              >
+                view all coursework
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </section>
+
           <div
             aria-hidden
-            className="relative z-10 h-14 w-full"
+            className="relative z-10 mt-32 h-14 w-full"
             style={{
               backgroundImage:
                 `linear-gradient(180deg, var(--background) 0%, ${aboutBackground} 100%)`,

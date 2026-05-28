@@ -332,6 +332,58 @@
   animation: scrollHint 2.2s ease-in-out infinite;
 }
 
+/* Markdown content rendered on project detail pages */
+.markdown-content {
+  color: rgb(from var(--foreground) r g b / 0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.markdown-content h1 { font-size: 2rem;    font-weight: 700; margin: 2.5rem 0 1rem; letter-spacing: -0.02em; }
+.markdown-content h2 { font-size: 1.5rem;  font-weight: 700; margin: 2rem 0 0.75rem; border-bottom: 1px solid rgb(from var(--foreground) r g b / 0.18); padding-bottom: 0.4rem; }
+.markdown-content h3 { font-size: 1.2rem;  font-weight: 700; margin: 1.5rem 0 0.5rem; }
+.markdown-content h4 { font-size: 1rem;    font-weight: 700; margin: 1.25rem 0 0.5rem; }
+.markdown-content p  { margin: 0 0 1rem; }
+.markdown-content ul, .markdown-content ol { margin: 0 0 1rem; padding-left: 1.5rem; }
+.markdown-content ul { list-style: disc; }
+.markdown-content ol { list-style: decimal; }
+.markdown-content li { margin-bottom: 0.25rem; }
+.markdown-content a  {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+.markdown-content a:hover { background-color: var(--foreground); color: var(--background); text-decoration: none; }
+.markdown-content code {
+  background-color: rgb(from var(--foreground) r g b / 0.08);
+  padding: 0.15rem 0.4rem;
+  font-size: 0.875rem;
+  border-radius: 2px;
+}
+.markdown-content pre {
+  background-color: rgb(from var(--foreground) r g b / 0.05);
+  border: 1px solid rgb(from var(--foreground) r g b / 0.15);
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  margin: 0 0 1.25rem;
+}
+.markdown-content pre code { background-color: transparent; padding: 0; border-radius: 0; }
+.markdown-content blockquote {
+  border-left: 2px solid rgb(from var(--foreground) r g b / 0.4);
+  padding-left: 1rem;
+  font-style: italic;
+  color: rgb(from var(--foreground) r g b / 0.7);
+  margin: 0 0 1rem;
+}
+.markdown-content hr { border: none; border-top: 1px solid rgb(from var(--foreground) r g b / 0.15); margin: 2.5rem 0; }
+.markdown-content img { max-width: 100%; height: auto; margin: 1.5rem auto; display: block; border: 1px solid rgb(from var(--foreground) r g b / 0.1); }
+.markdown-content strong { font-weight: 700; }
+.markdown-content em { font-style: italic; }
+.markdown-content table { border-collapse: collapse; width: 100%; margin: 0 0 1.25rem; font-size: 0.9rem; }
+.markdown-content th, .markdown-content td { border: 1px solid rgb(from var(--foreground) r g b / 0.2); padding: 0.5rem 0.75rem; text-align: left; }
+.markdown-content th { background-color: rgb(from var(--foreground) r g b / 0.05); font-weight: 700; }
+
 /* Project card scroll-reveal */
 .project-card-reveal {
   opacity: 0;
