@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '../components/ProjectCard';
 import { ThemeToggle } from '../components/ThemeToggle';
-import { Button } from '@/components/ui/button';
+import { ChevronDown } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { projects } from '../data/projects';
 
@@ -17,6 +17,32 @@ const HeroScene = dynamic(() => import('../components/HeroScene'), {
 export default function Portfolio() {
   const [sceneReady, setSceneReady] = useState(false);
   const handleSceneReady = useCallback(() => setSceneReady(true), []);
+
+  const [navHidden, setNavHidden] = useState(false);
+
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastY;
+        if (currentY < 80) {
+          setNavHidden(false);
+        } else if (delta > 4) {
+          setNavHidden(true);
+        } else if (delta < -4) {
+          setNavHidden(false);
+        }
+        lastY = currentY;
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const isDragging = useRef<boolean>(false);
   const dragStartX = useRef<number>(0);
@@ -106,6 +132,29 @@ export default function Portfolio() {
         {sceneReady && <div className="shooting-star" />}
         <div className="page-blackout-bar page-blackout-bar-bottom" />
       </div>
+      <nav
+        aria-label="Primary"
+        className={`fixed top-4 left-1/2 z-50 border border-foreground/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/50 px-3 py-2.5 font-mono text-sm transition-transform duration-300 ease-out ${navHidden ? '-translate-x-1/2 -translate-y-[200%]' : '-translate-x-1/2 translate-y-0'}`}
+        style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 1.9s forwards' }}
+      >
+        <ul className="flex items-center gap-1 text-foreground/70">
+          <li>
+            <a href="#scroll-target-projects" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+              projects
+            </a>
+          </li>
+          <li>
+            <a href="#scroll-target-aboutme" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+              about
+            </a>
+          </li>
+          <li>
+            <a href="#scroll-target-contactme" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+              contact
+            </a>
+          </li>
+        </ul>
+      </nav>
       <div
         className="relative w-full overflow-hidden"
         ref={canvasRef}
@@ -124,41 +173,24 @@ export default function Portfolio() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center text-center"
+          className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center px-4"
           style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 1.9s forwards' }}
         >
-          <div className="rounded-2xl bg-background/85 px-6 py-6 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground">Jonatan Ebenholm&apos;s Portfolio</h1>
-            <p className="mt-2 text-lg sm:text-xl md:text-2xl font-semibold text-foreground/80">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-foreground [text-shadow:_0_2px_18px_rgba(0,0,0,0.6)]">
+            Jonatan Ebenholm&apos;s Portfolio
+          </h1>
+          <p className="mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-semibold text-foreground/90 [text-shadow:_0_1px_10px_rgba(0,0,0,0.55)]">
             5th year student as Master of Science in Media Technology and Engineering
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-foreground/60 text-foreground hover:bg-foreground/10 text-lg sm:text-xl font-semibold px-6 py-3 min-w-[10rem]"
-              >
-                <a href="#scroll-target-projects">My projects</a>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-foreground/60 text-foreground hover:bg-foreground/10 text-lg sm:text-xl font-semibold px-6 py-3 min-w-[10rem]"
-              >
-                <a href="#scroll-target-aboutme">About me</a>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-foreground/60 text-foreground hover:bg-foreground/10 text-lg sm:text-xl font-semibold px-6 py-3 min-w-[10rem]"
-              >
-                <a href="#scroll-target-contactme">Contact me</a>
-              </Button>
-            </div>
-          </div>
+          </p>
+        </div>
+        <div
+          className="pointer-events-none absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-foreground/80"
+          style={{ opacity: 0, animation: 'fadeIn 1.2s ease-out 2.6s forwards' }}
+        >
+          <span className="mb-2 text-[0.65rem] uppercase tracking-[0.35em] [text-shadow:_0_1px_4px_rgba(0,0,0,0.55)]">
+            Scroll
+          </span>
+          <ChevronDown className="h-5 w-5 scroll-hint [filter:drop-shadow(0_1px_4px_rgba(0,0,0,0.55))]" />
         </div>
       </div>
 
