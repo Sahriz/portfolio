@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { FileText, ExternalLink } from 'lucide-react';
 import type { Paper } from '../data/papers';
 
@@ -12,7 +11,7 @@ export default function PaperCard({ paper }: Props) {
       <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/80">{paper.description}</p>
       <div className="mt-6 flex flex-wrap gap-2">
         {paper.paperUrl && (
-          <Link
+          <a
             href={paper.paperUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -20,10 +19,10 @@ export default function PaperCard({ paper }: Props) {
           >
             <FileText className="h-3.5 w-3.5" />
             view paper
-          </Link>
+          </a>
         )}
         {paper.projectUrl && (
-          <Link
+          <a
             href={paper.projectUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -31,7 +30,7 @@ export default function PaperCard({ paper }: Props) {
           >
             <ExternalLink className="h-3.5 w-3.5" />
             view project
-          </Link>
+          </a>
         )}
       </div>
     </article>

@@ -25,7 +25,7 @@ export const experience: ExperienceItem[] = [
     id: 'lithehack',
     title: 'Programming Assistant — LiTHeHack',
     organization: 'Linköping University',
-    logo: '/logos/liu.png',
+    logo: '/logos/Liu.png',
     startDate: 'Sep 2025',
     endDate: 'Jun 2026',
     description:
@@ -35,7 +35,7 @@ export const experience: ExperienceItem[] = [
     id: 'transform-theory-ta',
     title: 'Laboratory Assistant — Applied Transform Theory',
     organization: 'Linköping University',
-    logo: '/logos/liu.png',
+    logo: '/logos/Liu.png',
     startDate: '2024',
     endDate: '2024',
     description:
@@ -45,7 +45,7 @@ export const experience: ExperienceItem[] = [
     id: 'msc',
     title: "Master's Degree in Media Technology and Engineering",
     organization: 'Linköping University',
-    logo: '/logos/liu.png',
+    logo: '/logos/Liu.png',
     startDate: '2023',
     endDate: 'Present',
     description:
@@ -55,7 +55,7 @@ export const experience: ExperienceItem[] = [
     id: 'bsc',
     title: "Bachelor's Degree in Media Technology",
     organization: 'Linköping University',
-    logo: '/logos/liu.png',
+    logo: '/logos/Liu.png',
     startDate: '2020',
     endDate: '2023',
     description:
