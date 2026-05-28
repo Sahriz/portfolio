@@ -27,6 +27,14 @@ export default function Portfolio() {
 
   const [navHidden, setNavHidden] = useState(false);
 
+  // On refresh, reset to the hero — and stop the browser from restoring scroll on this tab.
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     let lastY = window.scrollY;
     let ticking = false;
