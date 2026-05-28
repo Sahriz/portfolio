@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useRef, MutableRefObject } from 'react';
+import { memo, useRef, MutableRefObject, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import ShaderBanner from './ShaderBanner';
 import Background from './Background';
@@ -38,7 +38,8 @@ const Terrain = ({ spinRef, timeSpinDirRef, isDraggingRef, spinVelocityRef, onRe
 
   return (
     <mesh position={[0, 2, -2]}>
-      <planeGeometry args={[25, 25, 600, 600]} />
+      {/* Reduced from 600,600 to 300,300 for 4x fewer vertices while maintaining detail */}
+      <planeGeometry args={[25, 25, 300, 300]} />
       <ShaderBanner spinRef={spinRef} />
     </mesh>
   );
@@ -53,13 +54,33 @@ interface HeroSceneProps {
 }
 
 function HeroScene(props: HeroSceneProps) {
+  const [isVisible, setIsVisible] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div style={{ width: '100%', height: '100%', transform: 'translateZ(0)' }}>
+    <div ref={containerRef} style={{ width: '100%', height: '100%', transform: 'translateZ(0)' }}>
       <Canvas
-        gl={{ alpha: false, antialias: false }}
+        gl={{ alpha: false, antialias: false, stencil: false, depth: true }}
         style={{ width: '100%', height: '100%' }}
         camera={{ position: [0, 2, 12], fov: 20, near: 0.1, far: 1000 }}
         dpr={[1, 1.5]}
+        // Pause the rendering loop when not visible
+        frameloop={isVisible ? 'always' : 'never'}
       >
         <ambientLight intensity={0.7} />
         <directionalLight position={[10, 10, 10]} intensity={0.7} />

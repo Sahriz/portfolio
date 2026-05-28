@@ -318,15 +318,49 @@
 /* Project card scroll-reveal */
 .project-card-reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(32px) scale(0.98);
   will-change: opacity, transform;
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
 .project-card-reveal-visible {
-  animation: cardReveal 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
-@keyframes cardReveal {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+
+.project-card-custom {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.project-card-custom:hover {
+  transform: translateY(-8px);
+  border-color: rgba(140, 220, 255, 0.6);
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(140, 220, 255, 0.15),
+    0 0 40px rgba(140, 220, 255, 0.1);
+}
+
+.project-card-custom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(140, 220, 255, 0.4), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.project-card-custom:hover::before {
+  opacity: 1;
 }
 
 /* Project detail layout overrides */
