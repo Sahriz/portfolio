@@ -202,7 +202,35 @@ export default function Portfolio() {
       </div>
 
       <>
-        <section id="scroll-target-projects" className="relative z-10 mt-[25vh]">
+        <section
+          id="scroll-target-now"
+          className="relative z-10 mx-auto mt-[18vh] w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+        >
+          <header className="mb-6">
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.35em] text-foreground/50">
+              / status
+            </p>
+            <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+              Now
+            </h2>
+          </header>
+          <dl className="grid gap-x-12 gap-y-4 font-mono text-sm sm:grid-cols-[10rem_1fr]">
+            <dt className="text-foreground/50">Working on</dt>
+            <dd className="text-foreground/90">
+              MSc thesis on inverse rendering for industrial inspection — at SICK.
+            </dd>
+            <dt className="text-foreground/50">Graduating</dt>
+            <dd className="text-foreground/90">June 2026.</dd>
+            <dt className="text-foreground/50">Looking for</dt>
+            <dd className="text-foreground/90">
+              Graphics, GPU, or rendering roles starting summer / fall 2026.
+            </dd>
+            <dt className="text-foreground/50">Based in</dt>
+            <dd className="text-foreground/90">Linköping, Sweden — open to relocation.</dd>
+          </dl>
+        </section>
+
+        <section id="scroll-target-projects" className="relative z-10 mt-32">
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects
                 .filter((p) => p.featured)
@@ -334,17 +362,44 @@ export default function Portfolio() {
 
           <section
             id="scroll-target-aboutme"
-            className="relative w-full px-4 py-14 text-center"
+            className="relative w-full px-4 py-20"
             style={{ backgroundColor: aboutBackground }}
           >
-            <div className="mx-auto max-w-5xl px-6 py-10 text-center">
-              <h1 className="text-3xl font-bold text-foreground">About Me</h1>
-              <p className="mt-4 text-lg leading-8 text-muted-foreground">
-                I am a fifth year student at Linköpings University studying to become a Master of Science in Media Technology and
-                Engineering. During my master&apos;s program I am specializing in Computer Graphics, GPU programming, video game
-                systems programming, and machine learning/AI. In my free time I enjoy programming personal projects, some of which
-                are showcased above. I also enjoy playing video games, drawing, going to the gym, or socializing with friends.
-              </p>
+            <div className="mx-auto max-w-3xl">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+                About
+              </h2>
+              <div className="mt-8 flex flex-col gap-5 text-base sm:text-lg leading-relaxed text-foreground/80">
+                <p>
+                  I&apos;m finishing an MSc in Media Technology and Engineering at Linköping University, with the
+                  focus pulled hard toward computer graphics, GPU programming, and applied machine learning. My
+                  master&apos;s thesis is hosted at SICK in Linköping, where I&apos;m working on inverse rendering for
+                  industrial inspection — recovering scene geometry and materials from imagery to support automated
+                  quality assessment.
+                </p>
+                <p>
+                  I came at graphics through art — years of figure and gesture studies, then a media technology
+                  degree for the practicality plus the graphics angle I&apos;d been curious about as a gamer. Code
+                  turned out to be a way to build worlds the way drawing built faces and figures.{' '}
+                  <strong className="font-semibold text-foreground">
+                    TNCG15 — Advanced Global Illumination
+                  </strong>{' '}
+                  is what made me a graphics programmer proper, and{' '}
+                  <strong className="font-semibold text-foreground">TSBK07 — Computer Graphics</strong> the semester
+                  after dropped me into parallel programming. I haven&apos;t really left.
+                </p>
+                <p>
+                  Most of what I build lives on the line between graphics and systems: GPU-driven voxel engines,
+                  fragment-shader path tracers, procedurally generated worlds. I like the work that asks you to think
+                  at two levels at once — the high-level structure of what&apos;s being rendered, and the low-level
+                  mechanics of how the GPU is actually executing it. The projects above are mostly me chasing that.
+                </p>
+                <p>
+                  After graduation, I&apos;d love to land on a graphics or rendering team at a game studio, or
+                  industry-adjacent work in the same space as my thesis — vision, simulation, perception. A full-time
+                  research role would tempt me too, if the project is the right kind of strange.
+                </p>
+              </div>
             </div>
           </section>
 

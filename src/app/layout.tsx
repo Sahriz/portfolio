@@ -9,6 +9,11 @@ type RootLayoutProps = {
 export const metadata: Metadata = {
   title: "Jonatan Ebenholm's Portfolio",
   description: "5th year student as Master of Science in Media Technology and Engineering - Portfolio showcasing projects in Computer Graphics, GPU programming, and game development",
+  icons: {
+    icon: '/browserTab.png',
+    shortcut: '/browserTab.png',
+    apple: '/browserTab.png',
+  },
 };
 
 export const viewport: Viewport = {
