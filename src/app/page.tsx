@@ -101,6 +101,7 @@ export default function Portfolio() {
   return (
     <div className="relative w-full min-h-screen bg-background text-foreground">
       <div className={`page-blackout ${sceneReady ? 'page-blackout-open' : ''}`} aria-hidden>
+        <div className="page-blackout-flash" />
         <div className="page-blackout-bar page-blackout-bar-top" />
         {sceneReady && <div className="shooting-star" />}
         <div className="page-blackout-bar page-blackout-bar-bottom" />
@@ -124,7 +125,7 @@ export default function Portfolio() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
         <div
           className="absolute inset-0 flex flex-col items-center justify-center text-center"
-          style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 2.55s forwards' }}
+          style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 1.9s forwards' }}
         >
           <div className="rounded-2xl bg-background/85 px-6 py-6 backdrop-blur supports-[backdrop-filter]:bg-background/70">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground">Jonatan Ebenholm&apos;s Portfolio</h1>
