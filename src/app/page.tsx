@@ -5,7 +5,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '../components/ProjectCard';
 import { ThemeToggle } from '../components/ThemeToggle';
-import { ChevronDown } from 'lucide-react';
+import Link from 'next/link';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { projects } from '../data/projects';
 
@@ -200,6 +201,15 @@ export default function Portfolio() {
               {projects.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} />
               ))}
+            </div>
+            <div className="mt-14 flex justify-center">
+              <Link
+                href="/projects"
+                className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+              >
+                view all projects
+                <ChevronRight className="h-4 w-4" />
+              </Link>
             </div>
           </section>
 
