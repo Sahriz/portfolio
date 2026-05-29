@@ -7,6 +7,16 @@ import Link from 'next/link';
 export default function PrimaryNav() {
   const [navHidden, setNavHidden] = useState(false);
 
+  // Pre-warm the home page's Three.js / HeroScene bundle in the background.
+  // PrimaryNav only renders on sub-pages, so this guarantees that whenever the
+  // user clicks "home", the dynamic import is already cached → sceneReady fires
+  // fast → the intro flash, star, and bars stay in sync.
+  useEffect(() => {
+    import('./HeroScene').catch(() => {
+      // Silent — this is a prefetch optimization, not critical functionality.
+    });
+  }, []);
+
   useEffect(() => {
     let lastY = window.scrollY;
     let ticking = false;

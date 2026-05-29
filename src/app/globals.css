@@ -172,56 +172,94 @@
 }
 
 @keyframes shootingStar {
-  0%   { transform: translateX(calc(-100% - 40px)) scaleX(0.5); opacity: 0; }
-  15%  { opacity: 1; transform: translateX(10vw) scaleX(1.2); }
-  85%  { opacity: 1; transform: translateX(80vw) scaleX(1.2); }
-  100% { transform: translateX(100vw) scaleX(0.5); opacity: 0; }
+  0%   { transform: translateX(calc(-100% - 40px)); opacity: 0; }
+  8%   { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(120vw); opacity: 0; }
 }
 
-@keyframes shootingStar {
-  0%   { transform: translateX(calc(-100% - 40px)) scaleX(1); opacity: 0; }
-  10%  { opacity: 1; transform: translateX(-10vw) scaleX(3); }
-  50%  { opacity: 1; transform: translateX(50vw) scaleX(5); }
-  90%  { opacity: 1; transform: translateX(110vw) scaleX(3); }
-  100% { transform: translateX(150vw) scaleX(1); opacity: 0; }
+/* Sibling overlay to .page-blackout — completely separate stacking context,
+   z-index higher than the blackout so the bars CANNOT compose above these
+   children regardless of will-change / compositor layer quirks. */
+.star-effects {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 10001 !important;
+  pointer-events: none !important;
+  isolation: isolate !important;
 }
 
+/* Tron-style speed-line streak: 1px ultra-bright cyan-white line that whips
+   across the screen, leaving a brief horizontal afterglow along its path. */
 .shooting-star {
   position: absolute;
-  top: calc(50% - 2px);
+  top: calc(50% - 0.5px);
   left: 0;
-  width: 450px;
-  height: 4px;
+  width: 240px;
+  height: 1px;
   pointer-events: none;
-  z-index: 20;
+  z-index: 2;
   opacity: 0;
   will-change: transform, opacity;
-  animation: shootingStar 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+  animation: shootingStar 0.25s linear 0.3s forwards;
   background: linear-gradient(
     to right,
     transparent 0%,
-    rgba(180, 215, 255, 0.1) 20%,
-    rgba(200, 230, 255, 0.4) 50%,
-    rgba(230, 245, 255, 0.9) 85%,
+    rgba(140, 220, 255, 0.05) 15%,
+    rgba(180, 235, 255, 0.4) 55%,
+    rgba(230, 250, 255, 0.95) 90%,
     #fff 100%
   );
-  filter: blur(1px);
 }
 
 .shooting-star::after {
+  /* Bright leading point with intense cyan bloom */
   content: '';
   position: absolute;
-  right: -10px;
+  right: -3px;
   top: 50%;
   transform: translateY(-50%);
-  width: 15px;
-  height: 15px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #fff;
   box-shadow:
-    0 0 20px 10px #fff,
-    0 0 40px 20px rgba(150, 210, 255, 0.8),
-    0 0 80px 40px rgba(100, 180, 255, 0.4);
+    0 0 8px  3px  #fff,
+    0 0 20px 8px  rgba(160, 230, 255, 0.95),
+    0 0 40px 15px rgba(120, 210, 255, 0.55),
+    0 0 80px 28px rgba(80,  190, 255, 0.25);
+}
+
+/* Subtle horizontal afterglow — fades in as the streak passes through, then fades out */
+.shooting-star-trail {
+  position: absolute;
+  top: calc(50% - 0.5px);
+  left: 0;
+  width: 100vw;
+  height: 1px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  will-change: opacity;
+  animation: shootingStarTrail 0.5s ease-out 0.4s forwards;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(140, 220, 255, 0.45) 25%,
+    rgba(180, 235, 255, 0.6) 50%,
+    rgba(140, 220, 255, 0.45) 75%,
+    transparent 100%
+  );
+  filter: blur(1.5px);
+}
+
+@keyframes shootingStarTrail {
+  0%   { opacity: 0; }
+  30%  { opacity: 0.7; }
+  100% { opacity: 0; }
 }
 
 .page-blackout-flash {
@@ -235,11 +273,13 @@
   pointer-events: none;
   opacity: 0;
   transform: translateY(-50%);
-  animation: impactFlash 0.6s cubic-bezier(0.2, 1, 0.3, 1) 0.5s forwards;
-  box-shadow: 
+  box-shadow:
     0 0 20px 10px #fff,
     0 0 60px 30px rgba(140, 220, 255, 0.8),
     0 0 120px 60px rgba(100, 180, 255, 0.4);
+}
+.page-blackout-open .page-blackout-flash {
+  animation: impactFlash 0.4s cubic-bezier(0.2, 1, 0.3, 1) 0.82s forwards;
 }
 
 @keyframes impactFlash {
@@ -264,7 +304,11 @@
   height: 50vh;
   background-color: #000;
   display: block;
-  will-change: transform;
+  /* will-change removed — was creating a separate compositor layer that browsers
+     can render above sibling z-indexed elements in certain quirks. The bars
+     animate with transform translateY which already triggers GPU compositing
+     during the animation itself; they don't need will-change for that. */
+  z-index: 1;
 }
 .page-blackout-bar-top    { 
   top: 0; 

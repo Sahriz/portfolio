@@ -16,6 +16,9 @@ import { papers } from '../data/papers';
 import { experience } from '../data/experience';
 import { courses, CATEGORY_ORDER } from '../data/courses';
 
+// Dust trail behind the shooting star: 10 small bright particles staggered behind it.
+// Each has a slight vertical offset and varying size for a "cloud" feel rather than a line.
+
 const HeroScene = dynamic(() => import('../components/HeroScene'), {
   ssr: false,
   loading: () => <div style={{ width: '100%', height: '100%', background: 'var(--background)' }} />,
@@ -159,11 +162,28 @@ export default function Portfolio() {
   return (
     <div className="relative w-full min-h-screen bg-background text-foreground">
       <div className={`page-blackout ${sceneReady ? 'page-blackout-open' : ''}`} aria-hidden>
-        <div className="page-blackout-flash" />
         <div className="page-blackout-bar page-blackout-bar-top" />
-        {sceneReady && <div className="shooting-star" />}
         <div className="page-blackout-bar page-blackout-bar-bottom" />
       </div>
+      {sceneReady && (
+        <div
+          className="star-effects"
+          aria-hidden
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            zIndex: 10001,
+            pointerEvents: 'none',
+            isolation: 'isolate',
+          }}
+        >
+          <div className="shooting-star-trail" />
+          <div className="shooting-star" />
+        </div>
+      )}
       <nav
         aria-label="Primary"
         className={`fixed top-4 left-1/2 z-50 border border-foreground/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/50 px-3 py-2.5 font-mono text-sm transition-transform duration-300 ease-out ${navHidden ? '-translate-x-1/2 -translate-y-[200%]' : '-translate-x-1/2 translate-y-0'}`}
