@@ -268,7 +268,8 @@ export default function Portfolio() {
             <dd className="text-foreground/90">June 2026.</dd>
             <dt className="text-foreground/50">Looking for</dt>
             <dd className="text-foreground/90">
-              Graphics, GPU, or rendering roles starting summer / fall 2026.
+              Software or systems engineering roles starting summer / fall 2026 — C++, C#, Python.
+              Especially keen on graphics, GPU, computer vision, or simulation work.
             </dd>
             <dt className="text-foreground/50">Based in</dt>
             <dd className="text-foreground/90">
@@ -442,9 +443,10 @@ export default function Portfolio() {
                   mechanics of how the GPU is actually executing it. The projects above are mostly me chasing that.
                 </p>
                 <p>
-                  After graduation, I&apos;d love to land on a graphics or rendering team at a game studio, or
-                  industry-adjacent work in the same space as my thesis — vision, simulation, perception. A full-time
-                  research role would tempt me too, if the project is the right kind of strange.
+                  After graduation I&apos;m looking for strong engineering work — systems, graphics, vision, or
+                  simulation. Graphics and GPU work is where I&apos;m strongest, and industry-adjacent work in the same
+                  space as my thesis — vision, simulation, perception — is just as compelling. A full-time research
+                  role would tempt me too, if the project is the right kind of strange.
                 </p>
               </div>
             </div>
