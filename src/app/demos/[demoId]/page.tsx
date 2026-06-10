@@ -39,9 +39,14 @@ export default async function DemoPage(props: DemoPageProps) {
 
       {/* Overlays float above the canvas; pointer-events-none keeps them
           from stealing mouse interaction from the demo. */}
-      <Button asChild variant="ghost" className="fixed top-6 left-6 z-50 border bg-background/80 backdrop-blur">
-        <Link href="/">&#8592; Back to Home</Link>
-      </Button>
+      <div className="fixed top-6 left-6 z-50 flex gap-3">
+        <Button asChild variant="ghost" className="border bg-background/80 backdrop-blur">
+          <Link href="/demos">&#8592; All Demos</Link>
+        </Button>
+        <Button asChild variant="ghost" className="border bg-background/80 backdrop-blur">
+          <Link href="/">Home</Link>
+        </Button>
+      </div>
       <div className="pointer-events-none absolute inset-x-0 top-6 z-40 mx-auto max-w-xl px-4 text-center">
         <h1 className="font-mono text-lg text-foreground/90">{demo.title}</h1>
         <p className="mt-1 font-mono text-xs text-foreground/60">{demo.description}</p>

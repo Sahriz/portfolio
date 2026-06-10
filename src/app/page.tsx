@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '../components/ProjectCard';
 import PaperCard from '../components/PaperCard';
+import DemoCard from '../components/DemoCard';
 import ExperienceTimeline from '../components/ExperienceTimeline';
 import ScrollReveal from '../components/ScrollReveal';
 import { ThemeToggle } from '../components/ThemeToggle';
@@ -13,6 +14,7 @@ import { ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { projects } from '../data/projects';
 import { papers } from '../data/papers';
+import { demos } from '../data/demos';
 import { experience } from '../data/experience';
 import { courses, CATEGORY_ORDER } from '../data/courses';
 
@@ -124,6 +126,11 @@ export default function Portfolio() {
           <li>
             <a href="#scroll-target-projects" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
               projects
+            </a>
+          </li>
+          <li>
+            <a href="#scroll-target-demos" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+              demos
             </a>
           </li>
           <li>
@@ -239,6 +246,36 @@ export default function Portfolio() {
                 className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
               >
                 view all papers
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </section>
+
+          <section
+            id="scroll-target-demos"
+            className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+          >
+            <header className="mb-10">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+                Demos
+              </h2>
+              <p className="mt-2 font-mono text-sm text-muted-foreground">
+                Interactive 3D experiments.
+              </p>
+            </header>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {demos.map((demo, index) => (
+                <ScrollReveal key={demo.id} delay={(index % 2) * 100} className="h-full">
+                  <DemoCard demo={demo} />
+                </ScrollReveal>
+              ))}
+            </div>
+            <div className="mt-14 flex justify-center">
+              <Link
+                href="/demos"
+                className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+              >
+                view all demos
                 <ChevronRight className="h-4 w-4" />
               </Link>
             </div>
