@@ -419,6 +419,63 @@
 .markdown-content th, .markdown-content td { border: 1px solid rgb(from var(--foreground) r g b / 0.2); padding: 0.5rem 0.75rem; text-align: left; }
 .markdown-content th { background-color: rgb(from var(--foreground) r g b / 0.05); font-weight: 700; }
 
+/* Final CTA hover overrides: keep the green paper button neutral on card hover,
+   but let the project and demo CTAs light up from either the card or the link. */
+.paper-card-custom:hover .paper-paper-link:not(:hover) {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: rgb(from var(--foreground) r g b / 0.8) !important;
+  box-shadow: none;
+}
+
+.paper-paper-link:hover {
+  border-color: rgba(74, 222, 128, 0.6) !important;
+  color: rgb(74, 222, 128) !important;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(74, 222, 128, 0.2),
+    0 0 48px rgba(74, 222, 128, 0.14),
+    0 0 72px rgba(74, 222, 128, 0.08);
+}
+
+.paper-paper-link:hover .paper-paper-link-icon {
+  color: rgb(74, 222, 128) !important;
+  filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.4));
+}
+
+.project-card-custom:hover .project-cta-link,
+.project-cta-link:hover {
+  border-color: rgba(140, 220, 255, 0.6) !important;
+  color: rgb(140, 220, 255) !important;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(140, 220, 255, 0.2),
+    0 0 48px rgba(140, 220, 255, 0.14),
+    0 0 72px rgba(140, 220, 255, 0.08);
+}
+
+.project-card-custom:hover .project-cta-icon,
+.project-cta-link:hover .project-cta-icon {
+  color: rgb(140, 220, 255) !important;
+  filter: drop-shadow(0 0 6px rgba(140, 220, 255, 0.4));
+}
+
+.demo-card-custom:hover .demo-cta-link,
+.demo-cta-link:hover {
+  border-color: rgba(168, 85, 247, 0.6) !important;
+  color: rgb(168, 85, 247) !important;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(168, 85, 247, 0.2),
+    0 0 48px rgba(168, 85, 247, 0.14),
+    0 0 72px rgba(168, 85, 247, 0.08);
+}
+
+.demo-card-custom:hover .demo-cta-icon,
+.demo-cta-link:hover .demo-cta-icon {
+  color: rgb(168, 85, 247) !important;
+  filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.4));
+}
+
 /* Project card scroll-reveal */
 .project-card-reveal {
   opacity: 0;
@@ -435,6 +492,7 @@
 
 .project-card-custom {
   position: relative;
+  border-color: rgba(140, 220, 255, 0.3);
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
 }
 
@@ -465,6 +523,247 @@
 
 .project-card-custom:hover::before {
   opacity: 1;
+}
+
+.project-card-custom .project-card-icon {
+  opacity: 0.85;
+  transform: translateY(0);
+}
+
+.project-card-custom:hover .project-card-icon {
+  border-color: rgba(140, 220, 255, 0.28);
+  color: rgb(140, 220, 255);
+  opacity: 1;
+  box-shadow:
+    0 0 14px rgba(140, 220, 255, 0.2),
+    0 0 28px rgba(140, 220, 255, 0.12),
+    inset 0 0 12px rgba(140, 220, 255, 0.06);
+}
+
+.project-card-custom:hover .project-card-icon svg {
+  filter: drop-shadow(0 0 6px rgba(140, 220, 255, 0.4));
+}
+
+.paper-card-custom {
+  position: relative;
+  will-change: transform, box-shadow;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.paper-card-custom:hover {
+  transform: translateY(-8px);
+  border-color: rgba(74, 222, 128, 0.6);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(74, 222, 128, 0.2),
+    0 0 48px rgba(74, 222, 128, 0.14),
+    0 0 72px rgba(74, 222, 128, 0.08);
+}
+
+.paper-card-custom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.42), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.paper-card-custom:hover::before {
+  opacity: 1;
+}
+
+.paper-card-custom:hover :is(h3, p) {
+  text-shadow:
+    0 0 10px rgba(74, 222, 128, 0.18),
+    0 0 18px rgba(74, 222, 128, 0.08);
+}
+
+.paper-card-custom:hover .paper-card-top-icon,
+.paper-card-custom:hover .paper-card-top-icon svg {
+  color: rgb(74, 222, 128);
+  filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.35));
+}
+
+.paper-card-custom:hover .paper-project-link,
+.paper-project-link:hover {
+  border-color: rgba(140, 220, 255, 0.6);
+  color: rgb(140, 220, 255) !important;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(140, 220, 255, 0.2),
+    0 0 48px rgba(140, 220, 255, 0.14),
+    0 0 72px rgba(140, 220, 255, 0.08);
+}
+
+.paper-card-custom:hover .paper-project-link-icon,
+.paper-project-link:hover .paper-project-link-icon {
+  color: rgb(140, 220, 255) !important;
+  filter: drop-shadow(0 0 6px rgba(140, 220, 255, 0.4));
+}
+
+.paper-card-custom:hover .paper-paper-link,
+.paper-paper-link:hover {
+  border-color: rgba(74, 222, 128, 0.6);
+  color: rgb(74, 222, 128) !important;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(74, 222, 128, 0.2),
+    0 0 48px rgba(74, 222, 128, 0.14),
+    0 0 72px rgba(74, 222, 128, 0.08);
+}
+
+.paper-card-custom:hover .paper-paper-link-icon,
+.paper-paper-link:hover .paper-paper-link-icon {
+  color: rgb(74, 222, 128) !important;
+  filter: drop-shadow(0 0 6px rgba(74, 222, 128, 0.4));
+}
+
+.demo-card-custom {
+  position: relative;
+  will-change: transform, box-shadow;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.demo-card-custom:hover {
+  transform: translateY(-8px);
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(168, 85, 247, 0.2),
+    0 0 48px rgba(168, 85, 247, 0.14),
+    0 0 72px rgba(168, 85, 247, 0.08);
+}
+
+.demo-card-custom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.42), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.demo-card-custom:hover::before {
+  opacity: 1;
+}
+
+.demo-card-custom:hover :is(h3, p) {
+  text-shadow:
+    0 0 10px rgba(168, 85, 247, 0.18),
+    0 0 18px rgba(168, 85, 247, 0.08);
+}
+
+.demo-card-custom:hover .demo-cta-link,
+.demo-cta-link:hover {
+  border-color: rgba(168, 85, 247, 0.6);
+  color: rgb(168, 85, 247) !important;
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(168, 85, 247, 0.2),
+    0 0 48px rgba(168, 85, 247, 0.14),
+    0 0 72px rgba(168, 85, 247, 0.08);
+}
+
+.demo-card-custom:hover .demo-cta-icon,
+.demo-cta-link:hover .demo-cta-icon {
+  color: rgb(168, 85, 247) !important;
+  filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.4));
+}
+
+.paper-card-custom .paper-paper-link,
+.paper-card-custom .paper-project-link,
+.project-card-custom .project-cta-link,
+.demo-card-custom .demo-cta-link {
+  transition: transform 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.paper-paper-link:hover,
+.paper-project-link:hover,
+.project-cta-link:hover,
+.demo-cta-link:hover {
+  transform: scale(1.05);
+}
+
+.project-card-custom .project-cta-link {
+  transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.project-card-custom:hover .project-cta-link {
+  border-color: rgba(140, 220, 255, 0.6);
+  color: rgb(140, 220, 255);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(140, 220, 255, 0.2),
+    0 0 48px rgba(140, 220, 255, 0.14),
+    0 0 72px rgba(140, 220, 255, 0.08);
+}
+
+.project-card-custom:hover .project-cta-icon,
+.project-cta-link:hover .project-cta-icon {
+  color: rgb(140, 220, 255);
+  filter: drop-shadow(0 0 6px rgba(140, 220, 255, 0.4));
+}
+
+.demo-card-custom {
+  position: relative;
+  will-change: transform, box-shadow;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+.demo-card-custom:hover {
+  transform: translateY(-8px);
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(168, 85, 247, 0.2),
+    0 0 48px rgba(168, 85, 247, 0.14),
+    0 0 72px rgba(168, 85, 247, 0.08);
+}
+
+.demo-card-custom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.42), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.demo-card-custom:hover::before {
+  opacity: 1;
+}
+
+.demo-card-custom:hover :is(h3, p, a, button) {
+  text-shadow:
+    0 0 10px rgba(168, 85, 247, 0.18),
+    0 0 18px rgba(168, 85, 247, 0.08);
+}
+
+.demo-card-custom:hover svg {
+  color: rgb(168, 85, 247);
+  filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.35));
 }
 
 /* Project detail layout overrides */

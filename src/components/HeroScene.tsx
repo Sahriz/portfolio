@@ -2,6 +2,7 @@
 
 import { memo, useCallback, useRef, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
+import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { demoComponents } from './demos/registry';
 import { demos } from '@/data/demos';
@@ -173,9 +174,13 @@ function HeroScene({ onReady }: HeroSceneProps) {
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <span className="flex items-center whitespace-nowrap border border-foreground/60 bg-background/60 px-4 text-foreground/70 backdrop-blur">
+          <Link
+            href={`/demos/${demo.id}`}
+            aria-label={`Open ${demo.title} demo`}
+            className="flex items-center whitespace-nowrap border border-foreground/60 bg-background/60 px-4 text-foreground/70 backdrop-blur transition-colors hover:bg-foreground hover:text-background"
+          >
             {demo.title}
-          </span>
+          </Link>
           <button
             aria-label="Next demo"
             onClick={() => cycle(1)}

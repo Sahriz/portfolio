@@ -45,9 +45,14 @@ export default function ProjectPage(props0: ProjectPageProps) {
 
   return (
     <>
-      <Button asChild variant="ghost" className="fixed top-6 left-6 z-50 border bg-background/80 backdrop-blur">
-        <Link href="/">&#8592; Back to Home</Link>
-      </Button>
+      <div className="fixed top-6 left-6 z-50 flex gap-2">
+        <Button asChild variant="ghost" className="border bg-background/80 backdrop-blur">
+          <Link href="/projects">&#8592; Back to All Projects</Link>
+        </Button>
+        <Button asChild variant="ghost" className="border bg-background/80 backdrop-blur">
+          <Link href="/">Home</Link>
+        </Button>
+      </div>
       <div className="mx-auto max-w-4xl px-4 pb-12 pt-20">
         {loading ? (
           <div className="grid min-h-[240px] place-items-center rounded-2xl border bg-card text-card-foreground shadow-sm">
