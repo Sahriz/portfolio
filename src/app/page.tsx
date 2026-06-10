@@ -9,7 +9,7 @@ import ExperienceTimeline from '../components/ExperienceTimeline';
 import ScrollReveal from '../components/ScrollReveal';
 import { ThemeToggle } from '../components/ThemeToggle';
 import Link from 'next/link';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { projects } from '../data/projects';
 import { papers } from '../data/papers';
@@ -149,7 +149,7 @@ export default function Portfolio() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
         <div
-          className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+          className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4"
           style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 1.9s forwards' }}
         >
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-foreground [text-shadow:_0_2px_18px_rgba(0,0,0,0.6)]">
@@ -158,15 +158,6 @@ export default function Portfolio() {
           <p className="mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-semibold text-foreground/90 [text-shadow:_0_1px_10px_rgba(0,0,0,0.55)]">
             5th year student as Master of Science in Media Technology and Engineering
           </p>
-        </div>
-        <div
-          className="pointer-events-none absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center text-foreground/80"
-          style={{ opacity: 0, animation: 'fadeIn 1.2s ease-out 2.6s forwards' }}
-        >
-          <span className="mb-2 text-[0.65rem] uppercase tracking-[0.35em] [text-shadow:_0_1px_4px_rgba(0,0,0,0.55)]">
-            Scroll
-          </span>
-          <ChevronDown className="h-5 w-5 scroll-hint [filter:drop-shadow(0_1px_4px_rgba(0,0,0,0.55))]" />
         </div>
       </div>
 

@@ -367,15 +367,6 @@
   transform: scale(1.2);
 }
 
-/* Hero scroll-down hint */
-@keyframes scrollHint {
-  0%, 100% { transform: translateY(0); opacity: 0.65; }
-  50%      { transform: translateY(6px); opacity: 1; }
-}
-.scroll-hint {
-  animation: scrollHint 2.2s ease-in-out infinite;
-}
-
 /* Markdown content rendered on project detail pages */
 .markdown-content {
   color: rgb(from var(--foreground) r g b / 0.85);

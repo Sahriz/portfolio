@@ -129,7 +129,10 @@ function HeroScene({ onReady }: HeroSceneProps) {
   const covered = phase === 'covering' || phase === 'waiting';
 
   return (
-    <div ref={containerRef} style={{ width: '100%', height: '100%', transform: 'translateZ(0)' }}>
+    // No transform here on purpose: a transform creates a CSS stacking
+    // context, which would flatten this subtree and let the page's overlay
+    // gradients paint over the demo switcher regardless of its z-index.
+    <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
       <Canvas
         gl={{ alpha: false, antialias: false, stencil: false, depth: true }}
         style={{ width: '100%', height: '100%' }}
@@ -156,26 +159,30 @@ function HeroScene({ onReady }: HeroSceneProps) {
           transition: `opacity ${covered ? 250 : 450}ms ease`,
         }}
       />
+      {/* Demo switcher, centered at the hero's bottom edge (carousel-control
+          idiom). z-30: above the swap cover (z-10) and the page's hero
+          overlays (gradients at z-auto, title at z-20) so it stays crisp
+          during transitions. min 40px buttons for touch. */}
       {heroDemos.length > 1 && demo && (
-        <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1 font-mono text-xs">
+        <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-stretch gap-1 font-mono text-xs">
           <button
             aria-label="Previous demo"
             onClick={() => cycle(-1)}
             disabled={phase !== 'idle'}
-            className="border border-foreground/60 bg-background/60 p-1.5 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
+            className="flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-5 w-5" />
           </button>
-          <span className="border border-foreground/60 bg-background/60 px-3 py-1.5 text-foreground/70 backdrop-blur">
+          <span className="flex items-center whitespace-nowrap border border-foreground/60 bg-background/60 px-4 text-foreground/70 backdrop-blur">
             {demo.title}
           </span>
           <button
             aria-label="Next demo"
             onClick={() => cycle(1)}
             disabled={phase !== 'idle'}
-            className="border border-foreground/60 bg-background/60 p-1.5 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
+            className="flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </button>
         </div>
       )}
