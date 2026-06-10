@@ -1,9 +1,9 @@
-import { useMemo, MutableRefObject } from 'react';
+import { useMemo, type RefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Vector3 } from 'three';
 
 interface ShaderBannerProps {
-  spinRef: MutableRefObject<number>;
+  spinRef: RefObject<number>;
 }
 
 const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
@@ -58,12 +58,13 @@ const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
   return (
     <shaderMaterial
       attach="material"
-      extensions={{ derivatives: true } as unknown as never}
       vertexShader={`
         varying vec3 vWorldPos;
-        out float perlinNoise;
+        varying float perlinNoise;
         uniform float u_time;
         uniform float u_spin;
+
+        const float PI = 3.141592653589793;
 
 
         float random (in vec2 st) {
@@ -127,14 +128,14 @@ const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
           );
           mat4 rotationXConst = mat4(
             1, 0, 0, 0,
-            0, cos(3.14 / 2.0), -sin(3.14 / 2.0), 0,
-            0, sin(3.14 / 2.0), cos(3.14 / 2.0), 0,
+            0, cos(PI / 2.0), -sin(PI / 2.0), 0,
+            0, sin(PI / 2.0), cos(PI / 2.0), 0,
             0, 0, 0, 1
           );
           mat4 rotationXConst2 = mat4(
             1, 0, 0, 0,
-            0, cos(-3.14 / 8.0), -sin(-3.14 / 8.0), 0,
-            0, sin(-3.14 / 8.0), cos(-3.14 / 8.0), 0,
+            0, cos(-PI / 8.0), -sin(-PI / 8.0), 0,
+            0, sin(-PI / 8.0), cos(-PI / 8.0), 0,
             0, 0, 0, 1
           );
 
@@ -159,7 +160,7 @@ const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
       `}
       fragmentShader={`
         varying vec3 vWorldPos;
-        in float perlinNoise;
+        varying float perlinNoise;
 
         uniform vec3 u_sunDir;
         uniform vec3 u_fogColor;

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ProjectCard from '../components/ProjectCard';
 import PaperCard from '../components/PaperCard';
@@ -62,16 +62,6 @@ export default function Portfolio() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const isDragging = useRef<boolean>(false);
-  const dragStartX = useRef<number>(0);
-  const spinRef = useRef<number>(0);
-  const dragStartSpin = useRef<number>(0);
-  const dragLastX = useRef<number>(0);
-  const dragLastTime = useRef<number>(0);
-  const spinVelocity = useRef<number>(0);
-  const canvasRef = useRef<HTMLDivElement>(null);
-  const timeSpinDir = useRef<number>(1);
-
   const skillIcons = [
     // Languages
     { name: 'C++',          src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
@@ -99,65 +89,6 @@ export default function Portfolio() {
     { name: 'Git',          src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
   ];
   const aboutBackground = 'color-mix(in srgb, var(--primary) 18%, var(--background) 82%)';
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const handlePointerDown = (e: PointerEvent | TouchEvent) => {
-      if ((e.target as HTMLElement).closest('.hero-outline-btn')) return;
-      isDragging.current = true;
-      const clientX = 'clientX' in e ? e.clientX : (e.touches && e.touches[0].clientX) || 0;
-      dragStartX.current = clientX;
-      dragStartSpin.current = spinRef.current;
-      dragLastX.current = clientX;
-      dragLastTime.current = performance.now();
-      spinVelocity.current = 0;
-      document.body.style.userSelect = 'none';
-    };
-
-    const handlePointerMove = (e: PointerEvent | TouchEvent) => {
-      if (!isDragging.current) return;
-      const clientX = 'clientX' in e ? e.clientX : (e.touches && e.touches[0].clientX) || 0;
-      const deltaX = clientX - dragStartX.current;
-      spinRef.current = dragStartSpin.current - deltaX * 0.005;
-
-      const dragVel = -(clientX - dragLastX.current) * 0.005 / ((performance.now() - dragLastTime.current) / 1000 || 1);
-      if (Math.abs(dragVel) > 0.001 && Math.sign(dragVel) !== timeSpinDir.current) {
-        timeSpinDir.current = Math.sign(dragVel);
-      }
-
-      const now = performance.now();
-      const dt = (now - dragLastTime.current) / 1000;
-      if (dt > 0) {
-        spinVelocity.current = -(clientX - dragLastX.current) * 0.005 / dt;
-      }
-      dragLastX.current = clientX;
-      dragLastTime.current = now;
-    };
-
-    const handlePointerUp = () => {
-      isDragging.current = false;
-      document.body.style.userSelect = '';
-    };
-
-    canvas.addEventListener('pointerdown', handlePointerDown as EventListener);
-    window.addEventListener('pointermove', handlePointerMove as EventListener);
-    window.addEventListener('pointerup', handlePointerUp as EventListener);
-    canvas.addEventListener('touchstart', handlePointerDown as EventListener);
-    window.addEventListener('touchmove', handlePointerMove as EventListener);
-    window.addEventListener('touchend', handlePointerUp as EventListener);
-
-    return () => {
-      canvas.removeEventListener('pointerdown', handlePointerDown as EventListener);
-      window.removeEventListener('pointermove', handlePointerMove as EventListener);
-      window.removeEventListener('pointerup', handlePointerUp as EventListener);
-      canvas.removeEventListener('touchstart', handlePointerDown as EventListener);
-      window.removeEventListener('touchmove', handlePointerMove as EventListener);
-      window.removeEventListener('touchend', handlePointerUp as EventListener);
-      document.body.style.userSelect = '';
-    };
-  }, []);
 
   return (
     <div className="relative w-full min-h-screen bg-background text-foreground">
@@ -209,19 +140,12 @@ export default function Portfolio() {
       </nav>
       <div
         className="relative w-full overflow-hidden"
-        ref={canvasRef}
         style={{ zIndex: 9, height: '75vh', pointerEvents: 'auto' }}
       >
         <div className="absolute right-4 top-4 z-20">
           <ThemeToggle />
         </div>
-        <HeroScene
-          spinRef={spinRef}
-          timeSpinDirRef={timeSpinDir}
-          isDraggingRef={isDragging}
-          spinVelocityRef={spinVelocity}
-          onReady={handleSceneReady}
-        />
+        <HeroScene onReady={handleSceneReady} />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
         <div

@@ -1,80 +1,67 @@
 'use client';
 
-import { memo, useRef, MutableRefObject, useState, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import ShaderBanner from './ShaderBanner';
-import Background from './Background';
-
-interface TerrainProps {
-  spinRef: MutableRefObject<number>;
-  timeSpinDirRef: MutableRefObject<number>;
-  isDraggingRef: MutableRefObject<boolean>;
-  spinVelocityRef: MutableRefObject<number>;
-  onReady: () => void;
-}
-
-// Camera reveal parameters — used by Terrain's useFrame.
-const REVEAL_DURATION = 8;   // seconds
-const START_Z = 6;            // close foreground view
-const END_Z   = 12;           // resting wide view
-const START_Y = 1.5;          // slightly lower at the start
-const END_Y   = 2.0;          // standard height
-
-const Terrain = ({ spinRef, timeSpinDirRef, isDraggingRef, spinVelocityRef, onReady }: TerrainProps) => {
-  const readyFired = useRef(false);
-  const revealElapsedRef = useRef(0);
-  const { camera } = useThree();
-
-  useFrame((_, delta) => {
-    if (!readyFired.current) {
-      readyFired.current = true;
-      onReady();
-    }
-
-    // Cinematic dolly-back + small Y lift. Cubic ease-out — decelerates into the rest pose.
-    if (revealElapsedRef.current < REVEAL_DURATION) {
-      revealElapsedRef.current = Math.min(revealElapsedRef.current + delta, REVEAL_DURATION);
-      const t = revealElapsedRef.current / REVEAL_DURATION;
-      const eased = 1 - Math.pow(1 - t, 3);
-      camera.position.z = START_Z + (END_Z - START_Z) * eased;
-      camera.position.y = START_Y + (END_Y - START_Y) * eased;
-    }
-
-    if (isDraggingRef.current) return;
-    const absVel = Math.abs(spinVelocityRef.current);
-    const decay = Math.pow(0.96, delta * 60);
-    if (absVel > 0.1) {
-      spinRef.current += spinVelocityRef.current * delta;
-      spinVelocityRef.current *= decay;
-    } else if (absVel > 0.01) {
-      const blend = (absVel - 0.01) / 0.09;
-      spinRef.current += blend * spinVelocityRef.current * delta + (1 - blend) * delta * 0.125 * timeSpinDirRef.current;
-      spinVelocityRef.current *= decay;
-    } else {
-      spinRef.current += delta * 0.125 * timeSpinDirRef.current;
-    }
-  });
-
-  return (
-    <mesh position={[0, 2, -2]}>
-      {/* Reduced from 600,600 to 300,300 for 4x fewer vertices while maintaining detail */}
-      <planeGeometry args={[25, 25, 300, 300]} />
-      <ShaderBanner spinRef={spinRef} />
-    </mesh>
-  );
-};
+import { memo, useCallback, useRef, useState, useEffect, Suspense } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { demoComponents } from './demos/registry';
+import { demos } from '@/data/demos';
 
 interface HeroSceneProps {
-  spinRef: MutableRefObject<number>;
-  timeSpinDirRef: MutableRefObject<number>;
-  isDraggingRef: MutableRefObject<boolean>;
-  spinVelocityRef: MutableRefObject<number>;
   onReady: () => void;
 }
 
-function HeroScene(props: HeroSceneProps) {
+// Demos eligible for the hero rotation: flagged featured in data/demos.ts
+// AND registered in the component registry.
+const heroDemos = demos.filter((d) => d.featured && d.id in demoComponents);
+
+// Auto-advance to the next demo after this long without user interaction.
+const AUTO_ADVANCE_MS = 20_000;
+
+/**
+ * Fires onReady on the first rendered frame. Lives inside the same
+ * <Suspense> boundary as the demo, so it only mounts once the demo's code
+ * has loaded and the scene has real content. The host keys this component
+ * by demo id so each swap gets a fresh instance (and a fresh one-shot).
+ */
+function ReadyNotifier({ onReady }: { onReady: () => void }) {
+  const fired = useRef(false);
+  useFrame(() => {
+    if (!fired.current) {
+      fired.current = true;
+      onReady();
+    }
+  });
+  return null;
+}
+
+/**
+ * Demo-swap transition state machine:
+ *
+ *   idle → (arrow click) → covering   — overlay fades to opaque, old demo
+ *                                       still live underneath
+ *        → (overlay transitionend) → swap demo, enter waiting
+ *   waiting → (new demo's first frame, via ReadyNotifier) → revealing
+ *   revealing → (overlay transitionend) → idle
+ *
+ * The swap happens only while fully covered, and the reveal starts only
+ * once the new demo is actually rendering — so a slow chunk load just
+ * holds the cover a little longer instead of flashing an empty canvas.
+ * Arrows are disabled outside idle; interrupted transitions can't happen.
+ */
+type SwapPhase = 'idle' | 'covering' | 'waiting' | 'revealing';
+
+function HeroScene({ onReady }: HeroSceneProps) {
   const [isVisible, setIsVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
+  // Random pick in the state initializer is safe from hydration mismatch
+  // only because page.tsx loads HeroScene with ssr: false — this component
+  // never renders on the server. If that ever changes, move the pick into
+  // a useEffect.
+  const [demoIndex, setDemoIndex] = useState(() =>
+    Math.floor(Math.random() * Math.max(heroDemos.length, 1))
+  );
+  const [phase, setPhase] = useState<SwapPhase>('idle');
+  const pendingIndexRef = useRef<number | null>(null);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -91,24 +78,107 @@ function HeroScene(props: HeroSceneProps) {
     return () => observer.disconnect();
   }, []);
 
+  const demo = heroDemos.length > 0 ? heroDemos[demoIndex % heroDemos.length] : undefined;
+  const Demo = demo ? demoComponents[demo.id] : null;
+
+  const cycle = useCallback((dir: number) => {
+    if (phase !== 'idle' || heroDemos.length < 2) return;
+    pendingIndexRef.current = (demoIndex + dir + heroDemos.length) % heroDemos.length;
+    setPhase('covering');
+  }, [phase, demoIndex]);
+
+  // Auto-advance. Armed only while idle and on screen, so a manual switch
+  // (leaving idle) clears it and a fresh countdown starts once the new demo
+  // settles. Pointer activity over the hero restarts the countdown — it
+  // would be rude to swap the terrain out from under a drag.
+  useEffect(() => {
+    if (phase !== 'idle' || !isVisible || heroDemos.length < 2) return;
+    const el = containerRef.current;
+    let timer = window.setTimeout(() => cycle(1), AUTO_ADVANCE_MS);
+    const defer = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => cycle(1), AUTO_ADVANCE_MS);
+    };
+    el?.addEventListener('pointerdown', defer);
+    el?.addEventListener('pointermove', defer);
+    return () => {
+      window.clearTimeout(timer);
+      el?.removeEventListener('pointerdown', defer);
+      el?.removeEventListener('pointermove', defer);
+    };
+  }, [phase, isVisible, cycle]);
+
+  // The page-level blackout consumes onReady on first load (idempotent
+  // afterwards); the swap machine consumes it on every later demo change.
+  const handleDemoReady = useCallback(() => {
+    onReady();
+    setPhase((p) => (p === 'waiting' ? 'revealing' : p));
+  }, [onReady]);
+
+  const handleCoverTransitionEnd = (e: React.TransitionEvent<HTMLDivElement>) => {
+    if (e.target !== e.currentTarget || e.propertyName !== 'opacity') return;
+    if (phase === 'covering' && pendingIndexRef.current !== null) {
+      setDemoIndex(pendingIndexRef.current);
+      pendingIndexRef.current = null;
+      setPhase('waiting');
+    } else if (phase === 'revealing') {
+      setPhase('idle');
+    }
+  };
+
+  const covered = phase === 'covering' || phase === 'waiting';
+
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100%', transform: 'translateZ(0)' }}>
       <Canvas
         gl={{ alpha: false, antialias: false, stencil: false, depth: true }}
         style={{ width: '100%', height: '100%' }}
-        camera={{ position: [0, START_Y, START_Z], fov: 20, near: 0.1, far: 1000 }}
         dpr={[1, 1.5]}
         // Pause the rendering loop when not visible
         frameloop={isVisible ? 'always' : 'never'}
       >
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[10, 10, 10]} intensity={0.7} />
-        <mesh position={[0, 0, -25]}>
-          <planeGeometry args={[250, 250]} />
-          <Background />
-        </mesh>
-        <Terrain {...props} />
+        {/* No camera or lights here on purpose: per the demo contract
+            (see demos/SpinningCubeDemo.tsx) each demo brings its own. */}
+        <Suspense fallback={null}>
+          {Demo ? <Demo /> : null}
+          <ReadyNotifier key={demo?.id ?? 'none'} onReady={handleDemoReady} />
+        </Suspense>
       </Canvas>
+      {/* Swap cover. Inline transition (not a stylesheet class) so its
+          duration can't be zeroed by a media query — a 0s transition never
+          fires transitionend, which would wedge the state machine. */}
+      <div
+        aria-hidden
+        onTransitionEnd={handleCoverTransitionEnd}
+        className="pointer-events-none absolute inset-0 z-10 bg-background"
+        style={{
+          opacity: covered ? 1 : 0,
+          transition: `opacity ${covered ? 250 : 450}ms ease`,
+        }}
+      />
+      {heroDemos.length > 1 && demo && (
+        <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1 font-mono text-xs">
+          <button
+            aria-label="Previous demo"
+            onClick={() => cycle(-1)}
+            disabled={phase !== 'idle'}
+            className="border border-foreground/60 bg-background/60 p-1.5 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <span className="border border-foreground/60 bg-background/60 px-3 py-1.5 text-foreground/70 backdrop-blur">
+            {demo.title}
+          </span>
+          <button
+            aria-label="Next demo"
+            onClick={() => cycle(1)}
+            disabled={phase !== 'idle'}
+            className="border border-foreground/60 bg-background/60 p-1.5 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
