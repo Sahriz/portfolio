@@ -30,6 +30,12 @@ export const demos: Demo[] = [
     description: 'Reference demo — the minimal template every demo starts from.',
     featured: true,
   },
+  {
+    id: 'test-demo',
+    title: 'Test Demo',
+    description: 'A demo for testing purposes.',
+    featured: false,
+  },
 ];
 
 export function getDemo(id: string): Demo | undefined {
