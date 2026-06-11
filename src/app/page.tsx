@@ -119,27 +119,27 @@ export default function Portfolio() {
       )}
       <nav
         aria-label="Primary"
-        className={`fixed top-4 left-1/2 z-50 border border-foreground/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/50 px-3 py-2.5 font-mono text-sm transition-transform duration-300 ease-out ${navHidden ? '-translate-x-1/2 -translate-y-[200%]' : '-translate-x-1/2 translate-y-0'}`}
+        className={`fixed top-4 left-1/2 z-50 border border-foreground/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 px-3 py-2.5 font-mono text-sm transition-transform duration-300 ease-out ${navHidden ? '-translate-x-1/2 -translate-y-[200%]' : '-translate-x-1/2 translate-y-0'}`}
         style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 1.9s forwards' }}
       >
         <ul className="flex items-center gap-1 text-foreground/70">
           <li>
-            <a href="#scroll-target-projects" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+            <a href="#scroll-target-projects" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
               projects
             </a>
           </li>
           <li>
-            <a href="#scroll-target-demos" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+            <a href="#scroll-target-demos" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
               demos
             </a>
           </li>
           <li>
-            <a href="#scroll-target-aboutme" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+            <a href="#scroll-target-aboutme" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
               about
             </a>
           </li>
           <li>
-            <a href="#scroll-target-contactme" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+            <a href="#scroll-target-contactme" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
               contact
             </a>
           </li>
@@ -159,10 +159,14 @@ export default function Portfolio() {
           className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4"
           style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 1.9s forwards' }}
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-foreground [text-shadow:_0_2px_18px_rgba(0,0,0,0.6)]">
+          {/* Always-white + layered dark halo, NOT theme tokens: this text sits
+              over the demo canvas, whose colors are demo-chosen and ignore the
+              site theme. White survives dark demos; the halo carves contrast
+              out of bright ones. */}
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-white [text-shadow:_0_1px_3px_rgba(0,0,0,0.8),_0_0_14px_rgba(0,0,0,0.55),_0_2px_28px_rgba(0,0,0,0.45)]">
             Jonatan Ebenholm&apos;s Portfolio
           </h1>
-          <p className="mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-semibold text-foreground/90 [text-shadow:_0_1px_10px_rgba(0,0,0,0.55)]">
+          <p className="mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-semibold text-white/95 [text-shadow:_0_1px_2px_rgba(0,0,0,0.8),_0_0_10px_rgba(0,0,0,0.55),_0_1px_20px_rgba(0,0,0,0.45)]">
             5th year student as Master of Science in Media Technology and Engineering
           </p>
         </div>

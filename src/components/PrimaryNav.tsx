@@ -48,17 +48,17 @@ export default function PrimaryNav() {
     >
       <ul className="flex items-center gap-1 text-foreground/70">
         <li>
-          <Link href="/" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+          <Link href="/" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
             home
           </Link>
         </li>
         <li>
-          <Link href="/#scroll-target-aboutme" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+          <Link href="/#scroll-target-aboutme" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
             about
           </Link>
         </li>
         <li>
-          <Link href="/#scroll-target-contactme" className="nav-link inline-block px-3 py-1.5 hover:bg-foreground hover:text-background">
+          <Link href="/#scroll-target-contactme" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
             contact
           </Link>
         </li>

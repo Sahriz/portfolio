@@ -48,8 +48,12 @@ export default async function DemoPage(props: DemoPageProps) {
         </Button>
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-6 z-40 mx-auto max-w-xl px-4 text-center">
-        <h1 className="font-mono text-lg text-foreground/90">{demo.title}</h1>
-        <p className="mt-1 font-mono text-xs text-foreground/60">{demo.description}</p>
+        {/* Scrim chip: foreground-on-background is the one pairing the theme
+            guarantees readable, whatever the demo renders behind it. */}
+        <div className="inline-block border bg-background/70 px-4 py-2 backdrop-blur">
+          <h1 className="font-mono text-lg text-foreground/90">{demo.title}</h1>
+          <p className="mt-1 font-mono text-xs text-foreground/60">{demo.description}</p>
+        </div>
       </div>
     </div>
   );

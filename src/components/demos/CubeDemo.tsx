@@ -10,7 +10,7 @@ import * as THREE from 'three';
  * cubes — per-instance transforms and colors are written once into the
  * InstancedMesh's buffers on mount.
  */
-export default function TestDemo() {
+export default function CubeDemo() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const camRef = useRef<THREE.PerspectiveCamera>(null);
   const count = 5000;
@@ -93,7 +93,7 @@ export default function TestDemo() {
         position={[0, 15, 30]} fov={50} near={0.1} far={300} />
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 8, 5]} intensity={10} />
-      <color attach="background" args={['hsl(0, 0%, 48%)']} />
+      <color attach="background" args={['hsl(0, 0%, 100%)']} />
       <instancedMesh ref={meshRef}
         args={[undefined, undefined, count]} onClick={(e) => {
           e.stopPropagation();

@@ -31,21 +31,21 @@ export const demos: Demo[] = [
     featured: false,
   },
   {
-    id: 'test-demo',
-    title: 'Test Demo',
-    description: 'A demo for testing purposes.',
-    featured: false,
+    id: 'cube-demo',
+    title: 'Cube Demo',
+    description: 'A demo showing picking and instancing.',
+    featured: true,
   },
   {
     id: 'wave',
     title: 'Wave Experiment',
-    description: 'WIP experiment exploring instanced rendering and shader-based animation.',
+    description: 'Demo showcasing shader-based wave animation.',
     featured: true,
   },
   {
     id: 'particle-wall-interactive',
     title: 'Particle Wall',
-    description: 'WIP experiment exploring instanced rendering with a large number of particles.',
+    description: 'Demo showcasing interactive particle systems.',
     featured: true,
   },
 ];

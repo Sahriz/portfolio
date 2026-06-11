@@ -967,14 +967,20 @@ body {
   overflow-x: hidden;
 }
 
-a {
-  color: var(--primary);
-  text-decoration: none;
-  transition: color 0.2s;
-}
+/* In @layer base on purpose: unlayered rules beat ALL Tailwind utilities
+   (cascade layers trump specificity), which silently killed text-color
+   classes on every anchor. Layered as base, utilities win when present and
+   plain anchors still get the primary default. */
+@layer base {
+  a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
 
-a:hover {
-  color: color-mix(in srgb, var(--primary) 80%, var(--foreground) 20%);
+  a:hover {
+    color: color-mix(in srgb, var(--primary) 80%, var(--foreground) 20%);
+  }
 }
 
 header {
