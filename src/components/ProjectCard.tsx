@@ -67,7 +67,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 								priority
 								sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 								className="object-cover transition-opacity duration-500"
-								onLoadingComplete={() => setMediaLoaded(true)}
+								onLoad={() => setMediaLoaded(true)}
 							/>
 						)}
 						<div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-background/90" />

@@ -1,5 +1,5 @@
-/* Demo card animations */
-@keyframes demo-icon-pulse {
+/* Card decoration animations (used by demo AND paper cards) */
+@keyframes icon-pulse {
   0%, 100% {
     opacity: 0.4;
     transform: scale(1);
@@ -22,11 +22,11 @@
   }
 }
 
-.animate-demo-icon {
-  animation: demo-icon-pulse 3s ease-in-out infinite;
+.animate-icon-pulse {
+  animation: icon-pulse 3s ease-in-out infinite;
 }
 
-.demo-card-border {
+.card-gradient-border {
   background: linear-gradient(90deg, 
     var(--foreground) 0%, 
     var(--primary) 25%, 
