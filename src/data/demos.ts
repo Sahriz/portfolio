@@ -28,13 +28,25 @@ export const demos: Demo[] = [
     id: 'spinning-cube',
     title: 'Spinning Cube',
     description: 'Reference demo — the minimal template every demo starts from.',
-    featured: true,
+    featured: false,
   },
   {
     id: 'test-demo',
     title: 'Test Demo',
     description: 'A demo for testing purposes.',
     featured: false,
+  },
+  {
+    id: 'wave',
+    title: 'Wave Experiment',
+    description: 'WIP experiment exploring instanced rendering and shader-based animation.',
+    featured: true,
+  },
+  {
+    id: 'particle-wall-interactive',
+    title: 'Particle Wall',
+    description: 'WIP experiment exploring instanced rendering with a large number of particles.',
+    featured: true,
   },
 ];
 
