@@ -22,4 +22,5 @@ export const demoComponents: Record<string, LazyExoticComponent<ComponentType>> 
   'cube-demo': lazy(() => import('./CubeDemo')),
   'wave': lazy(() => import('./WaveDemo')),
   'particle-wall-interactive': lazy(() => import('./ParticleWallInteractive')),
+  'hole': lazy(() => import('./HoleDemo')),
 };

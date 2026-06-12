@@ -116,10 +116,6 @@ export default function TerrainDemo() {
       <PerspectiveCamera makeDefault position={[0, START_Y, START_Z]} fov={20} near={0.1} far={1000} />
       <ambientLight intensity={0.7} />
       <directionalLight position={[10, 10, 10]} intensity={0.7} />
-      <mesh position={[0, 0, -25]}>
-        <planeGeometry args={[250, 250]} />
-        <Background />
-      </mesh>
       <mesh position={[0, 2, -2]}>
         {/* Reduced from 600,600 to 300,300 for 4x fewer vertices while maintaining detail */}
         <planeGeometry args={[25, 25, 300, 300]} />

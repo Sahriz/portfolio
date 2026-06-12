@@ -48,6 +48,12 @@ export const demos: Demo[] = [
     description: 'Demo showcasing interactive particle systems.',
     featured: true,
   },
+  {
+    id: 'hole',
+    title: 'Hole Demo',
+    description: 'A demo showing use of clipping planes to create a “hole” in the scene.',
+    featured: true,
+  }
 ];
 
 export function getDemo(id: string): Demo | undefined {
