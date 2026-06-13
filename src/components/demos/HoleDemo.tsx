@@ -1,6 +1,6 @@
 '  client';
 
-import { useMemo, useRef, useEffect, useLayoutEffect } from 'react';
+import { useMemo, useRef, useLayoutEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
@@ -40,7 +40,7 @@ const balls = useMemo(() =>
     radius: Math.random() * 0.5 + 0.4,
   })), []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const mesh = ballRef.current;
     if (!mesh) return;
     for (let i = 0; i < ballCount; i++) {
@@ -88,8 +88,10 @@ const balls = useMemo(() =>
       else if(ball.pos.y < floor-15.0) {
         ball.pos.set((Math.random() - 0.5) * 100, Math.random() * 40 + 5, (Math.random() - 0.25) * 25);
         ball.vel.set(0, 0, 0);
-        CRATER_RADIUS += 0.25;
-        uniforms.uCraterRadius.value = CRATER_RADIUS;
+        if(CRATER_RADIUS < 10) {
+          CRATER_RADIUS += 0.25;
+          uniforms.uCraterRadius.value = CRATER_RADIUS;
+        }
       }
       else if(ball.pos.y < floor && ball.pos.y > floor - 1.5) {
         ball.pos.y = floor;
