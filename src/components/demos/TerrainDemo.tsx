@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import ShaderBanner from '../ShaderBanner';
-import Background from '../Background';
 
 // Camera reveal parameters — used by the useFrame below.
 const REVEAL_DURATION = 8;   // seconds
