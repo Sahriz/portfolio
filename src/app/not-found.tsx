@@ -17,7 +17,7 @@ export default function NotFound() {
 
       <main className="mx-auto flex max-w-3xl flex-col items-start gap-6 px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <p className="font-mono text-[0.65rem] uppercase tracking-[0.35em] text-foreground/50">
-          / 404 — not_found
+          / 404 not_found
         </p>
 
         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight">
@@ -26,7 +26,7 @@ export default function NotFound() {
 
         <p className="max-w-xl font-mono text-sm leading-relaxed text-foreground/70">
           The URL you tried doesn&apos;t map to anything on this site. Either it was never shipped,
-          got renamed during a refactor, or someone typo&apos;d the link. Sorry about that — here
+          got renamed during a refactor, or someone typo&apos;d the link. Sorry about that. Here
           are the places you probably wanted instead.
         </p>
 

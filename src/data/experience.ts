@@ -13,33 +13,33 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
   {
     id: 'msc-thesis',
-    title: "Master's Thesis — Inverse Rendering for Industry Inspections",
+    title: "Master's Thesis: Inverse Rendering for Industry Inspections",
     organization: 'SICK IVP / Linköping University',
     logo: '/logos/Sick.png',
     startDate: 'Jan 2026',
     endDate: 'Jun 2026',
     description:
-      "Master's thesis applying inverse rendering — recovering scene geometry, materials, and lighting from images — to industrial inspection workflows.",
+      'Recovering scene geometry, materials and lighting from images, and applying that to industrial inspection workflows.',
   },
   {
     id: 'lithehack',
-    title: 'Programming Assistant — LiTHeHack',
+    title: 'Programming Assistant, LiTHeHack',
     organization: 'Linköping University',
     logo: '/logos/Liu.png',
     startDate: 'Sep 2025',
     endDate: 'Jun 2026',
     description:
-      'Paid programming assistance role under LiU\'s LiTHeHack initiative, supporting students with programming work.',
+      "Paid programming assistance role under LiU's LiTHeHack initiative, supporting students with their programming work.",
   },
   {
     id: 'transform-theory-ta',
-    title: 'Laboratory Assistant — Applied Transform Theory',
+    title: 'Laboratory Assistant, Applied Transform Theory',
     organization: 'Linköping University',
     logo: '/logos/Liu.png',
     startDate: '2024',
     endDate: '2024',
     description:
-      'Lab assistant for the Applied Transform Theory course — guided students through lab sessions on Fourier analysis, Laplace transforms, and signal/system analysis.',
+      'Guided students through lab sessions on Fourier analysis, Laplace transforms, and signal and system analysis.',
   },
   {
     id: 'msc',
@@ -49,7 +49,7 @@ export const experience: ExperienceItem[] = [
     startDate: '2023',
     endDate: 'Present',
     description:
-      'Specializing in Computer Graphics, GPU programming, video game systems programming, and machine learning / AI.',
+      'Specializing in computer graphics, GPU programming, video game systems programming, and machine learning.',
   },
   {
     id: 'bsc',

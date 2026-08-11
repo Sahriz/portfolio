@@ -1,6 +1,11 @@
 export interface Project {
   id: string;
   title: string;
+  /**
+   * Shown on the card under a `line-clamp-3`. At the narrowest card width
+   * (3-column grid, ~285px of text) three lines is about 95 characters, so
+   * anything longer gets silently cut off. Keep new entries under that.
+   */
   description: string;
   image: string;
   link: string;
@@ -13,7 +18,7 @@ export const projects: Project[] = [
   {
     title: "WIP: Cloud Sim",
     description:
-      "Real-time volumetric cloud renderer in C++ and OpenGL. Compute shaders bake a Perlin-Worley density field into a 3D texture, which is then raymarched with multi-octave scattering and self-shadowing.",
+      "Real-time volumetric clouds in C++ and OpenGL, raymarched from a compute-built 3D texture.",
     image: "/images/CloudSim/cloudsim.webm",
     link: "https://github.com/Sahriz/FluidSim",
     id: "CloudSim",
@@ -22,7 +27,7 @@ export const projects: Project[] = [
   {
     title: "Minecraft Terrain Engine",
     description:
-      "High-performance GPU-driven voxel terrain engine in C++20 with OpenGL 4.3+ compute shaders, indirect drawing, spline-based terrain shaping, and a multi-threaded chunking architecture.",
+      "GPU-driven voxel terrain in C++20. Compute shaders build it, indirect draws render it.",
     image: "/images/MinecraftTerrain/Mountains.png",
     link: "https://github.com/Sahriz/MinecraftTerrain",
     id: "MinecraftTerrain",
@@ -31,7 +36,7 @@ export const projects: Project[] = [
   {
     title: "WIP: DroneSim",
     description:
-      "Autonomous drone navigating procedurally generated terrain in C++/OpenGL — control loop steers the drone through the simulated environment in real time.",
+      "Autonomous drone flying through procedural terrain, meshed on the fly with marching cubes.",
     image: "/images/DroneSim/marchingCubesImproved.webm",
     link: "https://github.com/Sahriz/DroneSim",
     id: "DroneSim",
@@ -40,7 +45,7 @@ export const projects: Project[] = [
   {
     title: "Gesture Controller",
     description:
-      "Real-time gesture recognition driving a Godot game over WebSocket — MediaPipe hand tracking, a TensorFlow/Keras CNN classifier, and an OpenCV webcam pipeline.",
+      "Hand gestures drive a Godot game over WebSocket, via MediaPipe and a Keras CNN.",
     image: "/images/TNM114/confusion_matrix.png",
     link: "https://github.com/Sahriz/TNM114",
     id: "TNM114",
@@ -48,7 +53,7 @@ export const projects: Project[] = [
   },
   {
     title: "Pathtracer on GPU",
-    description: "GPU path tracer in C++/OpenGL with fragment-shader rendering for photoreal frames.",
+    description: "Path tracer running entirely in a fragment shader, accelerated by a CPU-built BVH.",
     image: "/PathTracerFront.webm",
     link: "https://github.com/eLdOchLagor/TSBK07-Raytracer",
     id: "TSBK07",
@@ -56,7 +61,7 @@ export const projects: Project[] = [
   },
   {
     title: "Solar system simulation",
-    description: "Blender add-on to simulate and auto-animate solar systems with generated materials.",
+    description: "Blender add-on that simulates a solar system and animates it with generated materials.",
     image: "/RedoVisning4.png",
     link: "https://github.com/Sahriz/BlenderSolarsystemSim?tab=readme-ov-file",
     id: "SolarSystem",
@@ -66,7 +71,7 @@ export const projects: Project[] = [
   // ===== Only on /projects page =====
   {
     title: "Elemental Clash",
-    description: "Unity 3D 1v1 RTS using ArUco cards for unit placement; built for my bachelor thesis.",
+    description: "Unity 1v1 RTS where physical ArUco cards place your units. Built for my bachelor thesis.",
     image: "/spel.png",
     link: "https://github.com/eLdOchLagor/Digital-cardgame-with-physical-aruco-cards",
     id: "ElementalClash",
@@ -74,21 +79,21 @@ export const projects: Project[] = [
   {
     title: "WIP: Terrain Library",
     description:
-      "C++ terrain library with heightmaps, marching cubes, and voxel worlds rendered in real time via OpenGL/compute shaders.",
+      "C++ terrain library: heightmaps, marching cubes and voxel worlds, all on the GPU.",
     image: "/VoxelCubes2.webm",
     link: "https://github.com/Sahriz/TerrainLibrary",
     id: "TerrainLibrary",
   },
   {
     title: "WIP: Portals",
-    description: "Unity portal experiment with smooth traversal; visuals and mechanics still in progress.",
+    description: "Unity portal experiment with smooth traversal. Visuals and mechanics still in progress.",
     image: "/PortalGif.gif",
     link: "https://github.com/Sahriz/PortalDevice",
     id: "Portals",
   },
   {
     title: "Planet generator",
-    description: "Unity planet generator combining gradient and Voronoi noise for procedural worlds.",
+    description: "Unity planet generator that layers gradient and Voronoi noise into procedural worlds.",
     image: "/PlanetProgress17.png",
     link: "",
     id: "PlanetGenerator",

@@ -24,7 +24,7 @@ export default function AllDemosPage() {
             Demos
           </h1>
           <p className="mt-3 font-mono text-sm text-muted-foreground">
-            {demos.length} {demos.length === 1 ? 'demo' : 'demos'} — interactive 3D experiments.
+            {demos.length} {demos.length === 1 ? 'demo' : 'demos'}. Interactive 3D experiments.
           </p>
         </header>
 

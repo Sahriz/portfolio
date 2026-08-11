@@ -1,12 +1,12 @@
 # Hello, devlog
 
-This is the first entry. I'll use this space for technical writeups about the projects I'm working on — design decisions, performance work, things that didn't make it into a project README.
+This is the first entry. I'll use this space for technical writeups about the projects I'm working on: design decisions, performance work, things that didn't make it into a project README.
 
 ## What to expect
 
-- **Short-form posts** — ~5–10 minute reads, not blog-length essays.
+- **Short-form posts**, roughly 5 to 10 minute reads, not blog-length essays.
 - **Code snippets where they help**, not where they're decoration.
-- **Honest writeups** — including the dead ends and the reverts.
+- **Honest writeups**, including the dead ends and the reverts.
 
 ## How to add a new post
 

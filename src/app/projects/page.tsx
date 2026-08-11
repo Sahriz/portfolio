@@ -23,11 +23,12 @@ export default function AllProjectsPage() {
             Projects
           </h1>
           <p className="mt-3 text-sm text-muted-foreground">
-            {projects.length} {projects.length === 1 ? 'project' : 'projects'} — and counting.
+            {projects.length} {projects.length === 1 ? 'project' : 'projects'}, and counting.
           </p>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* md, not sm. See the note on the matching grid in app/page.tsx. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

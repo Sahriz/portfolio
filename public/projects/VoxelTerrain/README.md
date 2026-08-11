@@ -2,7 +2,7 @@
 
 A high-performance, GPU-driven voxel terrain generation engine written in C++ and modern OpenGL (4.3+). 
 
-Inspired by Minecraft, this project pushes the boundaries of standard voxel rendering by offloading almost the entire generation and rendering pipeline—including 3D noise generation, surface culling, geometry assembly, and draw calls—directly to the GPU using **Compute Shaders** and **Indirect Drawing**.
+Inspired by Minecraft, this project pushes the boundaries of standard voxel rendering by offloading almost the entire generation and rendering pipeline, including 3D noise generation, surface culling, geometry assembly, and draw calls, directly to the GPU using **Compute Shaders** and **Indirect Drawing**.
 
 ## Key Features
 

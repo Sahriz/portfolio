@@ -2,6 +2,7 @@ export interface Paper {
   id: string;
   title: string;
   authors: string;
+  /** Shown in full on the card (no clamp). Two to four lines reads best. */
   description: string;
   paperUrl?: string;
   projectUrl?: string;
@@ -15,7 +16,7 @@ export const papers: Paper[] = [
     title: 'Gesture Recognition for Video Game Controllers',
     authors: 'Jonatan Ebenholm',
     description:
-      'Compares two approaches to real-time gesture recognition for game input: a custom CNN trained on the HaGRID dataset plus self-collected images, versus a Feed Forward Neural Network operating on 21 3D hand landmarks extracted with MediaPipe. The MediaPipe + FFNN hybrid reached 100% validation accuracy with sub-second per-epoch training, outperforming the CNN on both accuracy and rotation robustness.',
+      'Compares a CNN trained on HaGRID against a feed-forward network fed 21 hand landmarks from MediaPipe. The landmark version reached 100% validation accuracy, trained in under a second per epoch, and held up far better under rotation.',
     paperUrl: '/papers/gesture-recognition-tnm114.pdf',
     projectUrl: 'https://github.com/Sahriz/TNM114',
     featured: true,
@@ -25,7 +26,7 @@ export const papers: Paper[] = [
     title: 'Simple Path Tracer with BVH Acceleration Structure',
     authors: 'Ludwig Boge, Jonatan Ebenholm',
     description:
-      'A path tracer implemented entirely in a fragment shader (C++/OpenGL), targeting near real-time rendering of diffuse, specular, glossy, and transmissive materials. Accelerated with a CPU-built Bounding Volume Hierarchy traversed in the shader via Shader Storage Buffer Objects.',
+      'A path tracer written entirely in a fragment shader, handling diffuse, specular, glossy and transmissive materials at near real-time rates. The BVH is built on the CPU and traversed in the shader through SSBOs.',
     paperUrl: '/papers/pathtracer-bvh-tsbk07.pdf',
     projectUrl: 'https://github.com/eLdOchLagor/TSBK07-Raytracer',
     featured: true,
@@ -35,7 +36,7 @@ export const papers: Paper[] = [
     title: 'Monte Carlo Raytracer in C++',
     authors: 'Ludwig Boge, Jonatan Ebenholm',
     description:
-      'A Monte Carlo raytracer written from scratch in C++ for the TNCG15 Advanced Global Illumination course. Solves the rendering equation via Monte Carlo estimation across Lambertian reflectors, perfect mirrors, transparent surfaces, and area light sources; benchmarks the effect of shadow ray count and sample count on render quality.',
+      'A Monte Carlo raytracer built from scratch in C++ for TNCG15. Solves the rendering equation across Lambertian, mirror and transparent surfaces lit by area lights, and benchmarks how shadow ray and sample counts affect quality.',
     paperUrl: '/papers/monte-carlo-raytracer-tncg15.pdf',
     featured: true,
   },
@@ -44,16 +45,16 @@ export const papers: Paper[] = [
     title: 'AniMatch: A Content-Based Anime Recommendation System',
     authors: 'Berkay Orhan, Jonatan Ebenholm',
     description:
-      'A content-based recommendation system that suggests anime titles from intrinsic metadata using BERT embeddings and cosine similarity. Avoids the cold-start and privacy concerns of collaborative filtering — built around a quick "use and leave" web flow with no user accounts.',
+      'A content-based anime recommender using BERT embeddings and cosine similarity over title metadata. No accounts and no collaborative filtering, which sidesteps both cold-start and privacy problems.',
     paperUrl: '/papers/animatch.pdf',
     featured: true,
   },
   {
     id: 'face-recognition',
-    title: 'Face Recognition — Methods and Applications',
+    title: 'Face Recognition: Methods and Applications',
     authors: 'Andrea Åstrand, Jesper Larsson, Jonatan Ebenholm, Tobias Svensson',
     description:
-      'A complete face recognition pipeline (TNM034 — Advanced Image Processing): white-balance correction via Gray World / White Patch, YCbCr-based skin segmentation, Hough-transform eye localization, face normalization, and identity matching against a database. Written in Swedish.',
+      'A full face recognition pipeline for TNM034: Gray World and White Patch white balancing, YCbCr skin segmentation, Hough-transform eye location, then matching against a database. Written in Swedish.',
     paperUrl: '/papers/face-recognition-tnm034.pdf',
   },
   {
@@ -61,17 +62,17 @@ export const papers: Paper[] = [
     title: 'Solar System Simulator',
     authors: 'Ludwig Boge, Nikita Sidarovich, Jonatan Ebenholm, Berkay Orhan',
     description:
-      'A Blender add-on that simulates a customizable solar system via Euler integration of Newtonian gravity and auto-animates planets with procedurally generated materials. Custom Blender UI lets users construct their own solar systems from scratch.',
+      'A Blender add-on that simulates a solar system by Euler-integrating Newtonian gravity, then animates the planets with procedurally generated materials. Custom UI for building systems from scratch.',
     paperUrl: '/papers/solar-system-simulator.pdf',
     projectUrl: 'https://github.com/Sahriz/BlenderSolarsystemSim',
   },
   {
     id: 'elemental-clash',
-    title: 'Elemental Clash — Bachelor Thesis',
+    title: 'Elemental Clash: Bachelor Thesis',
     authors:
       'Emil Larsgärde, Ludwig Boge, Jonatan Ebenholm, Gayathri Naranath, Gustaf Kronholm, Armen Abedi, Mirijam Björn',
     description:
-      'Bachelor thesis (18 HP, LiU): a Unity card game played on a large touchscreen mixing physical and digital cards. ArUco markers + OpenCV read card placement from a top-down camera; user studies with 12 participants measured how physical cards affect tempo and perceived stress versus pure digital play. Written in Swedish.',
+      'Bachelor thesis (18 HP, LiU): a Unity card game on a large touchscreen where ArUco markers and OpenCV read physical card placement. User studies with 12 participants measured the effect on tempo and stress. Written in Swedish.',
     paperUrl: '/papers/elemental-clash-bachelor-thesis.pdf',
     projectUrl: 'https://github.com/eLdOchLagor/Digital-cardgame-with-physical-aruco-cards',
   },

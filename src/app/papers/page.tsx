@@ -24,7 +24,7 @@ export default function AllPapersPage() {
             Papers
           </h1>
           <p className="mt-3 font-mono text-sm text-muted-foreground">
-            {papers.length} {papers.length === 1 ? 'paper' : 'papers'} — research, course writeups, and the bachelor thesis.
+            {papers.length} {papers.length === 1 ? 'paper' : 'papers'}: research, course writeups, and the bachelor thesis.
           </p>
         </header>
 

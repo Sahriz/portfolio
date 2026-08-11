@@ -21,37 +21,37 @@ export const demos: Demo[] = [
     id: 'terrain',
     title: 'Procedural Terrain',
     description:
-      'Multi-octave simplex terrain with elevation biomes, water specular, and distance fog — drag to spin.',
+      'Multi-octave simplex terrain with elevation biomes, water specular and distance fog. Drag to spin.',
     featured: true,
   },
   {
     id: 'spinning-cube',
     title: 'Spinning Cube',
-    description: 'Reference demo — the minimal template every demo starts from.',
+    description: 'The minimal template every other demo is built from.',
     featured: false,
   },
   {
     id: 'cube-demo',
     title: 'Cube Demo',
-    description: 'A demo showing picking and instancing.',
+    description: 'Five thousand cubes in a single instanced draw call. Hover one to pick it out.',
     featured: true,
   },
   {
     id: 'wave',
     title: 'Wave Experiment',
-    description: 'Demo showcasing shader-based wave animation.',
+    description: 'A quarter of a million points rolling on a wave, animated entirely in a vertex shader.',
     featured: true,
   },
   {
     id: 'particle-wall-interactive',
     title: 'Particle Wall',
-    description: 'Demo showcasing interactive particle systems.',
+    description: 'Ten thousand points on a grid, pushed around by the cursor in a vertex shader.',
     featured: true,
   },
   {
     id: 'hole',
     title: 'Hole Demo',
-    description: 'A demo showing use of clipping planes to create a “hole” in the scene.',
+    description: 'Clipping planes cut a crater that follows your cursor, with balls rolling into it.',
     featured: true,
   }
 ];

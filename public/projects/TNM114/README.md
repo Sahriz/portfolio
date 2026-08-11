@@ -33,7 +33,7 @@ c:\Project\TNM114\HagridCNN\hagrid_data\processed_images
 ```
 
 ![Self-made gesture dataset](/images/TNM114/selfmade.png)
-*A subset of the self-made dataset — eleven distinct gestures recorded and labelled for training.*
+*A subset of the self-made dataset: eleven distinct gestures recorded and labelled for training.*
 
 ## Models
 
@@ -45,13 +45,13 @@ c:\Project\TNM114\HagridCNN\hagrid_data\processed_images
 Both approaches were trained and evaluated on held-out validation data. The figures below summarize their performance.
 
 ![CNN training accuracy and loss per epoch](/images/TNM114/cnn_epoch.png)
-*CNN training curves — accuracy and loss across epochs for the image-based model.*
+*CNN training curves: accuracy and loss across epochs for the image-based model.*
 
 ![CNN confusion matrix](/images/TNM114/confusion_matrix.png)
 *Confusion matrix for the CNN image-based classifier.*
 
 ![Landmark-based confusion matrix](/images/TNM114/landmarks_conf.png)
-*Confusion matrix for the landmark-based classifier — reached 100% validation accuracy with sub-second per-epoch training.*
+*Confusion matrix for the landmark-based classifier, which reached 100% validation accuracy with sub-second per-epoch training.*
 
 ## Usage
 

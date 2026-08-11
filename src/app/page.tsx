@@ -188,24 +188,27 @@ export default function Portfolio() {
           <dl className="grid gap-x-12 gap-y-4 font-mono text-sm sm:grid-cols-[10rem_1fr]">
             <dt className="text-foreground/50">Working on</dt>
             <dd className="text-foreground/90">
-              MSc thesis on inverse rendering for industrial inspection — at SICK IVP, Linköping.
+              MSc thesis on inverse rendering for industrial inspection, at SICK IVP in Linköping.
             </dd>
             <dt className="text-foreground/50">Graduating</dt>
             <dd className="text-foreground/90">June 2026.</dd>
             <dt className="text-foreground/50">Looking for</dt>
             <dd className="text-foreground/90">
-              Software or systems engineering roles starting summer / fall 2026 — C++, C#, Python.
+              Software or systems engineering roles starting summer / fall 2026. C++, C#, Python.
               Especially keen on graphics, GPU, computer vision, or simulation work.
             </dd>
             <dt className="text-foreground/50">Based in</dt>
             <dd className="text-foreground/90">
-              Norrköping, Sweden — open to roles across Östergötland, not relocating.
+              Norrköping, Sweden. Open to roles across Östergötland, not relocating.
             </dd>
           </dl>
         </section>
 
         <section id="scroll-target-projects" className="relative z-10 mt-32">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* 2 columns start at md, not sm: at 640px a two-column card is
+                narrower than the single-column one below it, which pushed
+                every description past the line-clamp-3 on ProjectCard. */}
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects
                 .filter((p) => p.featured)
                 .map((project, index) => (
@@ -378,30 +381,30 @@ export default function Portfolio() {
                   I&apos;m finishing an MSc in Media Technology and Engineering at Linköping University, with the
                   focus pulled hard toward computer graphics, GPU programming, and applied machine learning. My
                   master&apos;s thesis is hosted at SICK IVP in Linköping, where I&apos;m working on inverse rendering for
-                  industrial inspection — recovering scene geometry and materials from imagery to support automated
+                  industrial inspection, recovering scene geometry and materials from imagery to support automated
                   quality assessment.
                 </p>
                 <p>
-                  I came at graphics through art — years of figure and gesture studies, then a media technology
+                  I came at graphics through art: years of figure and gesture studies, then a media technology
                   degree for the practicality plus the graphics angle I&apos;d been curious about as a gamer. Code
                   turned out to be a way to build worlds the way drawing built faces and figures.{' '}
                   <strong className="font-semibold text-foreground">
-                    TNCG15 — Advanced Global Illumination
+                    TNCG15: Advanced Global Illumination
                   </strong>{' '}
                   is what made me a graphics programmer proper, and{' '}
-                  <strong className="font-semibold text-foreground">TSBK07 — Computer Graphics</strong> the semester
+                  <strong className="font-semibold text-foreground">TSBK07: Computer Graphics</strong> the semester
                   after dropped me into parallel programming. I haven&apos;t really left.
                 </p>
                 <p>
                   Most of what I build lives on the line between graphics and systems: GPU-driven voxel engines,
                   fragment-shader path tracers, procedurally generated worlds. I like the work that asks you to think
-                  at two levels at once — the high-level structure of what&apos;s being rendered, and the low-level
+                  at two levels at once: the high-level structure of what&apos;s being rendered, and the low-level
                   mechanics of how the GPU is actually executing it. The projects above are mostly me chasing that.
                 </p>
                 <p>
-                  After graduation I&apos;m looking for strong engineering work — systems, graphics, vision, or
+                  After graduation I&apos;m looking for strong engineering work in systems, graphics, vision, or
                   simulation. Graphics and GPU work is where I&apos;m strongest, and industry-adjacent work in the same
-                  space as my thesis — vision, simulation, perception — is just as compelling. A full-time research
+                  space as my thesis (vision, simulation, perception) is just as compelling. A full-time research
                   role would tempt me too, if the project is the right kind of strange.
                 </p>
               </div>
