@@ -87,6 +87,23 @@ export default function ProjectPage(props0: ProjectPageProps) {
               img: ({ node, ...props }) => <img alt="" className="mx-auto my-6 w-full max-w-3xl rounded-xl shadow" {...props} />,
               video: ({ node, ...props }) => <video className="mx-auto my-6 w-full max-w-3xl rounded-xl shadow" controls {...props} />,
               code: ({ node, ...props }) => <code className="rounded bg-muted px-2 py-1 text-sm" {...props} />,
+              // Tables need explicit styling like every other element here:
+              // the `prose` classes on the container are inert because
+              // @tailwindcss/typography isn't installed. Without this, th
+              // falls back to the browser default of text-align:center while
+              // td stays left, so headers sit off from their own columns.
+              table: ({ node, ...props }) => (
+                <div className="my-6 w-full overflow-x-auto">
+                  <table className="w-full border-collapse text-sm" {...props} />
+                </div>
+              ),
+              thead: ({ node, ...props }) => <thead className="border-b border-foreground/25" {...props} />,
+              th: ({ node, ...props }) => (
+                <th className="px-3 py-2 text-left font-semibold text-foreground" {...props} />
+              ),
+              td: ({ node, ...props }) => (
+                <td className="border-t border-foreground/10 px-3 py-2 text-left align-top text-muted-foreground" {...props} />
+              ),
               blockquote: ({ node, ...props }) => (
                 <blockquote className="my-6 border-l-4 border-primary/70 bg-muted/50 px-4 py-2 text-muted-foreground" {...props} />
               ),

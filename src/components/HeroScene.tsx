@@ -18,6 +18,27 @@ const heroDemos = demos.filter((d) => d.featured && d.id in demoComponents);
 // Auto-advance to the next demo after this long without user interaction.
 const AUTO_ADVANCE_MS = 20_000;
 
+// Phones get a fixed hero: the terrain demo, and only the terrain demo. No
+// random starting pick, no auto-advance, no arrows. The hero is the first
+// thing a visitor sees, and on a phone it's most of the first screen; a demo
+// that differs every visit and then swaps itself out mid-scroll reads as
+// instability rather than variety. Desktop keeps the full rotation.
+//
+// 640px is Tailwind's `sm`, which the rest of the page already keys its
+// layout off (`sm:grid-cols-2` etc.). globals.css separately uses 600px in a
+// few places; 640 is the better anchor for "is this a phone".
+const MOBILE_QUERY = '(max-width: 640px)';
+const FIXED_MOBILE_DEMO = 'terrain';
+
+function isMobileViewport() {
+  return window.matchMedia(MOBILE_QUERY).matches;
+}
+
+function fixedMobileIndex() {
+  const i = heroDemos.findIndex((d) => d.id === FIXED_MOBILE_DEMO);
+  return i === -1 ? 0 : i; // survives terrain being unfeatured or renamed later
+}
+
 /**
  * Fires onReady on the first rendered frame. Lives inside the same
  * <Suspense> boundary as the demo, so it only mounts once the demo's code
@@ -54,13 +75,19 @@ type SwapPhase = 'idle' | 'covering' | 'waiting' | 'revealing';
 function HeroScene({ onReady }: HeroSceneProps) {
   const [isVisible, setIsVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  // Random pick in the state initializer is safe from hydration mismatch
-  // only because page.tsx loads HeroScene with ssr: false — this component
-  // never renders on the server. If that ever changes, move the pick into
-  // a useEffect.
-  const [demoIndex, setDemoIndex] = useState(() =>
-    Math.floor(Math.random() * Math.max(heroDemos.length, 1))
-  );
+  // Touching window (matchMedia) and Math.random in state initializers is
+  // safe from hydration mismatch only because page.tsx loads HeroScene with
+  // ssr: false — this component never renders on the server. If that ever
+  // changes, both of these have to move into a useEffect together.
+  //
+  // The viewport check is evaluated once at mount by design: rotating a
+  // phone mid-session shouldn't start a rotation the visitor didn't ask for.
+  const [isMobile] = useState(isMobileViewport);
+  const [demoIndex, setDemoIndex] = useState(() => {
+    if (heroDemos.length === 0) return 0;
+    if (isMobile) return fixedMobileIndex();
+    return Math.floor(Math.random() * heroDemos.length);
+  });
   const [phase, setPhase] = useState<SwapPhase>('idle');
   const pendingIndexRef = useRef<number | null>(null);
 
@@ -91,9 +118,10 @@ function HeroScene({ onReady }: HeroSceneProps) {
   // Auto-advance. Armed only while idle and on screen, so a manual switch
   // (leaving idle) clears it and a fresh countdown starts once the new demo
   // settles. Pointer activity over the hero restarts the countdown — it
-  // would be rude to swap the terrain out from under a drag.
+  // would be rude to swap the terrain out from under a drag. Never armed on
+  // phones, where the hero is deliberately fixed to a single demo.
   useEffect(() => {
-    if (phase !== 'idle' || !isVisible || heroDemos.length < 2) return;
+    if (phase !== 'idle' || !isVisible || isMobile || heroDemos.length < 2) return;
     const el = containerRef.current;
     let timer = window.setTimeout(() => cycle(1), AUTO_ADVANCE_MS);
     const defer = () => {
@@ -107,7 +135,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
       el?.removeEventListener('pointerdown', defer);
       el?.removeEventListener('pointermove', defer);
     };
-  }, [phase, isVisible, cycle]);
+  }, [phase, isVisible, isMobile, cycle]);
 
   // The page-level blackout consumes onReady on first load (idempotent
   // afterwards); the swap machine consumes it on every later demo change.
@@ -128,6 +156,9 @@ function HeroScene({ onReady }: HeroSceneProps) {
   };
 
   const covered = phase === 'covering' || phase === 'waiting';
+  // On phones the demo can't change, so the arrows would be controls that do
+  // nothing. The title link stays, since it's the way into /demos/<id>.
+  const showArrows = !isMobile && heroDemos.length > 1;
 
   return (
     // No transform here on purpose: a transform creates a CSS stacking
@@ -166,14 +197,16 @@ function HeroScene({ onReady }: HeroSceneProps) {
           during transitions. min 40px buttons for touch. */}
       {heroDemos.length > 1 && demo && (
         <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-stretch gap-1 font-mono text-xs">
-          <button
-            aria-label="Previous demo"
-            onClick={() => cycle(-1)}
-            disabled={phase !== 'idle'}
-            className="flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
+          {showArrows && (
+            <button
+              aria-label="Previous demo"
+              onClick={() => cycle(-1)}
+              disabled={phase !== 'idle'}
+              className="flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+          )}
           <Link
             href={`/demos/${demo.id}`}
             aria-label={`Open ${demo.title} demo`}
@@ -181,14 +214,16 @@ function HeroScene({ onReady }: HeroSceneProps) {
           >
             {demo.title}
           </Link>
-          <button
-            aria-label="Next demo"
-            onClick={() => cycle(1)}
-            disabled={phase !== 'idle'}
-            className="flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+          {showArrows && (
+            <button
+              aria-label="Next demo"
+              onClick={() => cycle(1)}
+              disabled={phase !== 'idle'}
+              className="flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
         </div>
       )}
     </div>

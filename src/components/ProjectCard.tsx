@@ -15,9 +15,18 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
 	const wrapperRef = useRef<HTMLDivElement>(null);
+	const videoRef = useRef<HTMLVideoElement>(null);
 	const [visible, setVisible] = useState(false);
 	const [mediaLoaded, setMediaLoaded] = useState(false);
 	const isVideo = project.image.endsWith('.webm');
+
+	// A cached or locally served video reaches canplay before React attaches
+	// the onCanPlay handler, so the event is missed and the element stays at
+	// opacity 0 forever. Catch the already-ready case on mount.
+	useEffect(() => {
+		const el = videoRef.current;
+		if (el && el.readyState >= 3) setMediaLoaded(true);
+	}, []);
 
 	useEffect(() => {
 		const el = wrapperRef.current;
@@ -49,6 +58,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 					<div className="relative h-52 overflow-hidden bg-muted/20">
 						{isVideo ? (
 							<video
+								ref={videoRef}
 								autoPlay
 								loop
 								muted

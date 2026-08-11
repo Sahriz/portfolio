@@ -11,6 +11,15 @@ export interface Project {
 export const projects: Project[] = [
   // ===== Featured on landing page (in display order) =====
   {
+    title: "WIP: Cloud Sim",
+    description:
+      "Real-time volumetric cloud renderer in C++ and OpenGL. Compute shaders bake a Perlin-Worley density field into a 3D texture, which is then raymarched with multi-octave scattering and self-shadowing.",
+    image: "/images/CloudSim/cloudsim.webm",
+    link: "https://github.com/Sahriz/FluidSim",
+    id: "CloudSim",
+    featured: true,
+  },
+  {
     title: "Minecraft Terrain Engine",
     description:
       "High-performance GPU-driven voxel terrain engine in C++20 with OpenGL 4.3+ compute shaders, indirect drawing, spline-based terrain shaping, and a multi-threaded chunking architecture.",
@@ -46,14 +55,6 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    title: "Elemental Clash",
-    description: "Unity 3D 1v1 RTS using ArUco cards for unit placement; built for my bachelor thesis.",
-    image: "/spel.png",
-    link: "https://github.com/eLdOchLagor/Digital-cardgame-with-physical-aruco-cards",
-    id: "ElementalClash",
-    featured: true,
-  },
-  {
     title: "Solar system simulation",
     description: "Blender add-on to simulate and auto-animate solar systems with generated materials.",
     image: "/RedoVisning4.png",
@@ -63,6 +64,13 @@ export const projects: Project[] = [
   },
 
   // ===== Only on /projects page =====
+  {
+    title: "Elemental Clash",
+    description: "Unity 3D 1v1 RTS using ArUco cards for unit placement; built for my bachelor thesis.",
+    image: "/spel.png",
+    link: "https://github.com/eLdOchLagor/Digital-cardgame-with-physical-aruco-cards",
+    id: "ElementalClash",
+  },
   {
     title: "WIP: Terrain Library",
     description:
