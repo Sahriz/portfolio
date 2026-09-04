@@ -19,7 +19,7 @@ export const experience: ExperienceItem[] = [
     startDate: 'Jan 2026',
     endDate: 'Jun 2026',
     description:
-      'Recovering scene geometry, materials and lighting from images, and applying that to industrial inspection workflows.',
+      'Tested whether inverse rendering makes surface scratches easier to detect than plain photographs do. It mostly does not, but the recovered geometry still works when the material changes and the shape stays the same.',
   },
   {
     id: 'lithehack',

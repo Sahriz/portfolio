@@ -12,6 +12,15 @@ export interface Paper {
 
 export const papers: Paper[] = [
   {
+    id: 'inverse-rendering-thesis',
+    title: 'Inverse Rendering for Industry Inspections',
+    authors: 'Jonatan Ebenholm',
+    description:
+      "Master's thesis (30 HP, LiU), done at SICK IVP in Linköping. Tests whether surface scratches are easier to find in SVBRDF maps recovered by inverse rendering than in the photographs themselves. They aren't. Near-field image input found all 407 scratches and beat even ground-truth normal maps. The maps did win one case. When a material's appearance changed but its shape stayed the same, normal maps scored around 50% higher than image input, which is the useful result if you want one detector to work across materials.",
+    paperUrl: '/papers/inverse-rendering-masters-thesis.pdf',
+    featured: true,
+  },
+  {
     id: 'gesture-recognition',
     title: 'Gesture Recognition for Video Game Controllers',
     authors: 'Jonatan Ebenholm',
@@ -75,5 +84,6 @@ export const papers: Paper[] = [
       'Bachelor thesis (18 HP, LiU): a Unity card game on a large touchscreen where ArUco markers and OpenCV read physical card placement. User studies with 12 participants measured the effect on tempo and stress. Written in Swedish.',
     paperUrl: '/papers/elemental-clash-bachelor-thesis.pdf',
     projectUrl: 'https://github.com/eLdOchLagor/Digital-cardgame-with-physical-aruco-cards',
+    featured: true,
   },
 ];

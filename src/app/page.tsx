@@ -65,13 +65,15 @@ export default function Portfolio() {
   }, []);
 
   const skillIcons = [
-    // Languages
+    // Languages & runtimes
     { name: 'C++',          src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
     { name: 'C#',           src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-plain.svg' },
+    { name: '.NET',         src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg' },
     { name: 'Python',       src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
     { name: 'TypeScript',   src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
     // Graphics / rendering
     { name: 'OpenGL',       src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opengl/opengl-original.svg' },
+    { name: 'Vulkan',       src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vulkan/vulkan-original.svg' },
     { name: 'Three.js',     src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg' },
     // Game engines
     { name: 'Unity',        src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg' },
@@ -89,9 +91,8 @@ export default function Portfolio() {
     { name: 'Tailwind CSS', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
     // Tooling
     { name: 'Git',          src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
+    { name: 'CMake',        src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cmake/cmake-original.svg' },
   ];
-  const aboutBackground = 'color-mix(in srgb, var(--primary) 18%, var(--background) 82%)';
-
   return (
     <div className="relative w-full min-h-screen bg-background text-foreground">
       <div className={`page-blackout ${sceneReady ? 'page-blackout-open' : ''}`} aria-hidden>
@@ -188,8 +189,8 @@ export default function Portfolio() {
           <dl className="grid gap-x-12 gap-y-4 font-mono text-sm sm:grid-cols-[10rem_1fr]">
             <dt className="text-foreground/50">Working on</dt>
             <dd className="text-foreground/90">
-              Final course of the MSc, a volumetric cloud renderer in C++ / OpenGL, and starting
-              out on Vulkan, a C++ physics engine and .NET.
+              Last course of the MSc, a volumetric cloud renderer in C++ / OpenGL, and just starting
+              on Vulkan, a C++ physics engine and .NET.
             </dd>
             <dt className="text-foreground/50">Looking for</dt>
             <dd className="text-foreground/90">
@@ -357,36 +358,35 @@ export default function Portfolio() {
             </div>
           </section>
 
-          <div
-            aria-hidden
-            className="relative z-10 mt-32 h-14 w-full"
-            style={{
-              backgroundImage:
-                `linear-gradient(180deg, var(--background) 0%, ${aboutBackground} 100%)`,
-            }}
-          />
-
           <section
             id="scroll-target-aboutme"
-            className="relative w-full px-4 py-20"
-            style={{ backgroundColor: aboutBackground }}
+            className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
           >
-            <div className="mx-auto max-w-3xl">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+            <header className="mb-10">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.35em] text-foreground/50">
+                / background
+              </p>
+              <h2 className="mt-2 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
                 About
               </h2>
-              <div className="mt-8 flex flex-col gap-5 text-base sm:text-lg leading-relaxed text-foreground/80">
-                {/* TODO: after "quality assessment." add one sentence on what the thesis
-                    actually found. It is the strongest credential on the page and currently
-                    stops at the proposal. */}
+            </header>
+            {/* Prose sits at max-w-3xl inside the max-w-6xl section shell: the
+                section keeps the page's grid, the measure stays readable. */}
+            <div className="flex max-w-3xl flex-col gap-5 text-base sm:text-lg leading-relaxed text-foreground/80">
+              <ScrollReveal delay={0}>
                 <p>
                   I&apos;m finishing an MSc in Media Technology and Engineering at Linköping University, with the
-                  focus pulled hard toward computer graphics, GPU programming, and applied machine learning. The
-                  thesis is done — hosted at SICK IVP in Linköping, on inverse rendering for industrial
-                  inspection: recovering scene geometry and materials from imagery to support automated
-                  quality assessment. A final 6 HP course is all that&apos;s left between me and the degree. I&apos;m
-                  taking it now, and I&apos;m on track to finish in November 2026.
+                  focus pulled hard toward computer graphics, GPU programming, and applied machine learning. My
+                  thesis is done. It was hosted at SICK IVP in Linköping and asked a fairly blunt question about
+                  industrial inspection: if you recover a surface&apos;s geometry and material from photographs,
+                  do scratches get easier to find than they were in the photograph? Mostly they don&apos;t. The
+                  raw images won, even when I skipped the estimation step and handed the detector perfect ground
+                  truth. What did hold up was reuse. Change how a surface looks but leave its shape alone, and the
+                  recovered geometry still finds the scratches when the image-based version can&apos;t. One 6 HP
+                  course stands between me and the degree. I&apos;m taking it now, so November 2026.
                 </p>
+              </ScrollReveal>
+              <ScrollReveal delay={90}>
                 <p>
                   I came at graphics through art: years of figure and gesture studies, then a media technology
                   degree for the practicality plus the graphics angle I&apos;d been curious about as a gamer. Code
@@ -395,44 +395,41 @@ export default function Portfolio() {
                     TNCG15: Advanced Global Illumination
                   </strong>{' '}
                   is what made me a graphics programmer proper, and{' '}
-                  <strong className="font-semibold text-foreground">TSBK07: Computer Graphics</strong> the semester
-                  after dropped me into parallel programming. I haven&apos;t really left.
+                  <strong className="font-semibold text-foreground">TSBK07: Computer Graphics</strong>{' '}
+                  the semester after dropped me into parallel programming. I haven&apos;t really left.
                 </p>
+              </ScrollReveal>
+              <ScrollReveal delay={180}>
                 <p>
                   Most of what I build lives on the line between graphics and systems: GPU-driven voxel engines,
                   fragment-shader path tracers, procedurally generated worlds. Lately that&apos;s a volumetric cloud
-                  renderer in C++ and OpenGL, raymarching a 3D texture assembled in a compute shader. I like the
+                  renderer in C++ and OpenGL, raymarching a 3D texture built in a compute shader. I like the
                   work that asks you to think at two levels at once: the high-level structure of what&apos;s being
                   rendered, and the low-level
                   mechanics of how the GPU is actually executing it. The projects above are mostly me chasing that.
                 </p>
+              </ScrollReveal>
+              <ScrollReveal delay={270}>
                 <p>
-                  Right now I&apos;m pointing at the next layer down. I&apos;ve just started a physics engine in C++, and
-                  I&apos;m early into Vulkan, moving off OpenGL toward an API where the scheduling and the memory are
-                  mine to get wrong. I&apos;m working through .NET alongside that, since plenty of the engineering I
-                  want to do isn&apos;t rendering. Early days on all three, but that&apos;s where the next year of
-                  projects is going.
+                  The next things are further down the stack. I&apos;ve started a physics engine in C++, and
+                  I&apos;ve just begun with Vulkan after a few years of OpenGL, mostly because I want the memory
+                  and the scheduling to be my problem. I&apos;m working through .NET as well, since a lot of the
+                  engineering I want to do isn&apos;t rendering. All three are early. That&apos;s what the next
+                  year is for.
                 </p>
+              </ScrollReveal>
+              <ScrollReveal delay={360}>
                 <p>
                   I&apos;m looking for strong engineering work in systems, graphics, vision, or simulation.
                   Graphics and GPU work is where I&apos;m strongest, and industry-adjacent work in the same
                   space as my thesis (vision, simulation, perception) is just as compelling. A full-time research
                   role would tempt me too, if the project is the right kind of strange.
                 </p>
-              </div>
+              </ScrollReveal>
             </div>
           </section>
 
-          <div
-            aria-hidden
-            className="relative z-10 h-14 w-full"
-            style={{
-              backgroundImage:
-                `linear-gradient(180deg, ${aboutBackground} 0%, var(--background) 100%)`,
-            }}
-          />
-
-          <section className="relative z-10 mx-auto mt-16 w-full max-w-6xl px-4 pb-24 sm:px-6 lg:px-8">
+          <section className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 pb-24 sm:px-6 lg:px-8">
             <header className="mb-10">
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
                 Skills
