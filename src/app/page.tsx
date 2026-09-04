@@ -167,7 +167,7 @@ export default function Portfolio() {
             Jonatan Ebenholm&apos;s Portfolio
           </h1>
           <p className="mt-4 max-w-3xl text-lg sm:text-xl md:text-2xl font-semibold text-white/95 [text-shadow:_0_1px_2px_rgba(0,0,0,0.8),_0_0_10px_rgba(0,0,0,0.55),_0_1px_20px_rgba(0,0,0,0.45)]">
-            5th year student as Master of Science in Media Technology and Engineering
+            Finishing an MSc in Media Technology and Engineering at Linköping University
           </p>
         </div>
       </div>
@@ -188,18 +188,17 @@ export default function Portfolio() {
           <dl className="grid gap-x-12 gap-y-4 font-mono text-sm sm:grid-cols-[10rem_1fr]">
             <dt className="text-foreground/50">Working on</dt>
             <dd className="text-foreground/90">
-              MSc thesis on inverse rendering for industrial inspection, at SICK IVP in Linköping.
+              Final course of the MSc, a volumetric cloud renderer in C++ / OpenGL, and starting
+              out on Vulkan, a C++ physics engine and .NET.
             </dd>
-            <dt className="text-foreground/50">Graduating</dt>
-            <dd className="text-foreground/90">June 2026.</dd>
             <dt className="text-foreground/50">Looking for</dt>
             <dd className="text-foreground/90">
-              Software or systems engineering roles starting summer / fall 2026. C++, C#, Python.
+              Software or systems engineering roles starting late 2026 / early 2027. C++, C#, Python.
               Especially keen on graphics, GPU, computer vision, or simulation work.
             </dd>
             <dt className="text-foreground/50">Based in</dt>
             <dd className="text-foreground/90">
-              Norrköping, Sweden. Open to roles across Östergötland, not relocating.
+              Norrköping, Sweden. Open to roles across Östergötland, and outside Östergötland for hybrid work.
             </dd>
           </dl>
         </section>
@@ -377,12 +376,16 @@ export default function Portfolio() {
                 About
               </h2>
               <div className="mt-8 flex flex-col gap-5 text-base sm:text-lg leading-relaxed text-foreground/80">
+                {/* TODO: after "quality assessment." add one sentence on what the thesis
+                    actually found. It is the strongest credential on the page and currently
+                    stops at the proposal. */}
                 <p>
                   I&apos;m finishing an MSc in Media Technology and Engineering at Linköping University, with the
-                  focus pulled hard toward computer graphics, GPU programming, and applied machine learning. My
-                  master&apos;s thesis is hosted at SICK IVP in Linköping, where I&apos;m working on inverse rendering for
-                  industrial inspection, recovering scene geometry and materials from imagery to support automated
-                  quality assessment.
+                  focus pulled hard toward computer graphics, GPU programming, and applied machine learning. The
+                  thesis is done — hosted at SICK IVP in Linköping, on inverse rendering for industrial
+                  inspection: recovering scene geometry and materials from imagery to support automated
+                  quality assessment. A final 6 HP course is all that&apos;s left between me and the degree. I&apos;m
+                  taking it now, and I&apos;m on track to finish in November 2026.
                 </p>
                 <p>
                   I came at graphics through art: years of figure and gesture studies, then a media technology
@@ -397,13 +400,22 @@ export default function Portfolio() {
                 </p>
                 <p>
                   Most of what I build lives on the line between graphics and systems: GPU-driven voxel engines,
-                  fragment-shader path tracers, procedurally generated worlds. I like the work that asks you to think
-                  at two levels at once: the high-level structure of what&apos;s being rendered, and the low-level
+                  fragment-shader path tracers, procedurally generated worlds. Lately that&apos;s a volumetric cloud
+                  renderer in C++ and OpenGL, raymarching a 3D texture assembled in a compute shader. I like the
+                  work that asks you to think at two levels at once: the high-level structure of what&apos;s being
+                  rendered, and the low-level
                   mechanics of how the GPU is actually executing it. The projects above are mostly me chasing that.
                 </p>
                 <p>
-                  After graduation I&apos;m looking for strong engineering work in systems, graphics, vision, or
-                  simulation. Graphics and GPU work is where I&apos;m strongest, and industry-adjacent work in the same
+                  Right now I&apos;m pointing at the next layer down. I&apos;ve just started a physics engine in C++, and
+                  I&apos;m early into Vulkan, moving off OpenGL toward an API where the scheduling and the memory are
+                  mine to get wrong. I&apos;m working through .NET alongside that, since plenty of the engineering I
+                  want to do isn&apos;t rendering. Early days on all three, but that&apos;s where the next year of
+                  projects is going.
+                </p>
+                <p>
+                  I&apos;m looking for strong engineering work in systems, graphics, vision, or simulation.
+                  Graphics and GPU work is where I&apos;m strongest, and industry-adjacent work in the same
                   space as my thesis (vision, simulation, perception) is just as compelling. A full-time research
                   role would tempt me too, if the project is the right kind of strange.
                 </p>
