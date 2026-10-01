@@ -42,11 +42,29 @@ export default function About() {
         <ScrollReveal delay={180} className="grid grid-cols-2 gap-3.5">
           {skillGroups.map((group) => (
             <div key={group.title} className="border border-foreground/10 bg-foreground/[0.02] px-[18px] py-4">
-              <h3 className="mb-2.5 text-sm font-semibold leading-[1.2] text-foreground">{group.title}</h3>
-              <ul>
+              <h3 className="mb-3 border-b border-foreground/10 pb-2.5 text-sm font-semibold leading-[1.2] text-foreground">
+                {group.title}
+              </h3>
+              <ul className="flex flex-col gap-2.5">
                 {group.items.map((item) => (
-                  <li key={item} className="font-mono text-[13px] leading-[1.9] text-foreground/70">
-                    {item}
+                  <li key={item.name} className="flex items-center gap-2.5 font-mono text-[13px] leading-[1.3] text-foreground/75">
+                    {item.icon ? (
+                      // eslint-disable-next-line @next/next/no-img-element -- tiny local SVGs; next/image adds nothing here
+                      <img
+                        src={`/icons/skills/${item.icon}.svg`}
+                        alt=""
+                        width={18}
+                        height={18}
+                        loading="lazy"
+                        className={item.mono ? 'size-[18px] shrink-0 dark:invert' : 'size-[18px] shrink-0'}
+                      />
+                    ) : (
+                      // No logo for this one: a small accent square keeps the rows aligned.
+                      <span aria-hidden className="grid size-[18px] shrink-0 place-items-center">
+                        <span className="size-1.5 bg-brand" />
+                      </span>
+                    )}
+                    {item.name}
                   </li>
                 ))}
               </ul>
