@@ -18,7 +18,7 @@ export const profile = {
 
   // 4:5 headshot under /public, or null to show the placeholder box. This one
   // is the LinkedIn photo (800x800) cropped to 640x800.
-  photo: '/images/jonatan.webp' as string | null,
+  photo: '/images/jonatan-portrait.webp' as string | null,
 
   // A ~150-word cut of the longer About text that used to be on the home page.
   bio: [
