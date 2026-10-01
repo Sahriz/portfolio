@@ -1,6 +1,7 @@
 'use client';
 
-import { memo, useCallback, useRef, useState, useEffect, Suspense } from 'react';
+import { Component, memo, useCallback, useRef, useState, useEffect, Suspense } from 'react';
+import type { ReactNode } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -39,6 +40,46 @@ function fixedMobileIndex() {
   return i === -1 ? 0 : i; // survives terrain being unfeatured or renamed later
 }
 
+// Still of the terrain demo, shown whenever a WebGL canvas can't be.
+const HERO_POSTER = '/images/hero-terrain.webp';
+
+// Decided up front, before a <Canvas> is ever mounted: three r184 needs WebGL2.
+function hasWebGL2() {
+  try {
+    return !!document.createElement('canvas').getContext('webgl2');
+  } catch {
+    return false;
+  }
+}
+
+/** The no-WebGL hero. Reports ready on mount so the page's curtain still opens. */
+function HeroPoster({ onReady }: { onReady: () => void }) {
+  useEffect(() => {
+    onReady();
+  }, [onReady]);
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- fills the hero at any size; a plain img needs no dimensions
+    <img src={HERO_POSTER} alt="" className="h-full w-full object-cover" />
+  );
+}
+
+/**
+ * Catches a <Canvas> that throws (context creation can still fail after the
+ * up-front check, e.g. a blocklisted GPU) and tells the host to fall back.
+ */
+class CanvasErrorBoundary extends Component<{ onError: () => void; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch() {
+    this.props.onError();
+  }
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
 /**
  * Fires onReady on the first rendered frame. Lives inside the same
  * <Suspense> boundary as the demo, so it only mounts once the demo's code
@@ -74,6 +115,9 @@ type SwapPhase = 'idle' | 'covering' | 'waiting' | 'revealing';
 
 function HeroScene({ onReady }: HeroSceneProps) {
   const [isVisible, setIsVisible] = useState(true);
+  // False means: no WebGL2, or the canvas threw. Either way, show the poster.
+  const [canvasOk, setCanvasOk] = useState(hasWebGL2);
+  const handleCanvasError = useCallback(() => setCanvasOk(false), []);
   const containerRef = useRef<HTMLDivElement>(null);
   // Touching window (matchMedia) and Math.random in state initializers is
   // safe from hydration mismatch only because page.tsx loads HeroScene with
@@ -121,7 +165,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
   // would be rude to swap the terrain out from under a drag. Never armed on
   // phones, where the hero is deliberately fixed to a single demo.
   useEffect(() => {
-    if (phase !== 'idle' || !isVisible || isMobile || heroDemos.length < 2) return;
+    if (!canvasOk || phase !== 'idle' || !isVisible || isMobile || heroDemos.length < 2) return;
     const el = containerRef.current;
     let timer = window.setTimeout(() => cycle(1), AUTO_ADVANCE_MS);
     const defer = () => {
@@ -135,7 +179,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
       el?.removeEventListener('pointerdown', defer);
       el?.removeEventListener('pointermove', defer);
     };
-  }, [phase, isVisible, isMobile, cycle]);
+  }, [canvasOk, phase, isVisible, isMobile, cycle]);
 
   // The page-level blackout consumes onReady on first load (idempotent
   // afterwards); the swap machine consumes it on every later demo change.
@@ -160,11 +204,20 @@ function HeroScene({ onReady }: HeroSceneProps) {
   // nothing. The title link stays, since it's the way into /demos/<id>.
   const showArrows = !isMobile && heroDemos.length > 1;
 
+  if (!canvasOk) {
+    return (
+      <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
+        <HeroPoster onReady={onReady} />
+      </div>
+    );
+  }
+
   return (
     // No transform here on purpose: a transform creates a CSS stacking
     // context, which would flatten this subtree and let the page's overlay
     // gradients paint over the demo switcher regardless of its z-index.
     <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
+      <CanvasErrorBoundary onError={handleCanvasError}>
       <Canvas
         gl={{ alpha: false, antialias: false, stencil: false, depth: true }}
         style={{ width: '100%', height: '100%' }}
@@ -179,6 +232,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
           <ReadyNotifier key={demo?.id ?? 'none'} onReady={handleDemoReady} />
         </Suspense>
       </Canvas>
+      </CanvasErrorBoundary>
       {/* Swap cover. Inline transition (not a stylesheet class) so its
           duration can't be zeroed by a media query — a 0s transition never
           fires transitionend, which would wedge the state machine. */}

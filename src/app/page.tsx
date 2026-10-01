@@ -33,6 +33,13 @@ export default function Portfolio() {
 
   const [navHidden, setNavHidden] = useState(false);
 
+  // Last resort: the page must never wait on WebGL. If the hero hasn't
+  // reported ready by now (slow chunk, stalled GPU), open the curtain anyway.
+  useEffect(() => {
+    const timer = window.setTimeout(() => setSceneReady(true), 2500);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   // On refresh, reset to the hero — and stop the browser from restoring scroll on this tab.
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
