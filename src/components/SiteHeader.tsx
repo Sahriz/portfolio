@@ -23,7 +23,9 @@ export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground/10 bg-background/60 backdrop-blur-md">
+    // Solid white in light mode: a see-through bar over the dark hero turned
+    // grey. Dark mode keeps the translucent, blurred bar.
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-foreground/10 bg-background backdrop-blur-md dark:bg-background/60">
       <div className="mx-auto flex h-[60px] max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="text-base font-semibold tracking-[-0.01em] text-foreground hover:text-foreground">
           {profile.name}

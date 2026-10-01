@@ -8,11 +8,11 @@ import { useEffect, useRef } from 'react';
 // terrain reduced to its triangle edges: texture for the page edges, never
 // something to look at. Plain 2D canvas, no WebGL.
 
-const CELL = 92; // px between mesh vertices
-const JITTER = 0.32; // how far a vertex strays from its grid position, in cells
-const RELIEF = 26; // px a vertex is pushed up at the top of a "hill"
-const PARALLAX = 0.18; // mesh scroll speed relative to the page
-const FRAME_MS = 1000 / 30; // the motion is slow; 30 fps is plenty
+const CELL = 42; // px between mesh vertices
+const JITTER = 0.27; // how far a vertex strays from its grid position, in cells
+const RELIEF = 42; // px a vertex is pushed up at the top of a "hill"
+const PARALLAX = 0.2; // mesh scroll speed relative to the page
+const FRAME_MS = 1000 / 120; // frame-rate cap; in practice it runs at the display's refresh rate
 const MIN_WIDTH = 1280; // matches the CSS: below this there is no margin to draw in
 
 /** Stable pseudo-random number in [0, 1) for a grid coordinate. */
@@ -111,10 +111,17 @@ export default function TerrainWireframe() {
             }
             ctx.stroke();
 
-            // A dot on the peaks only.
-            if (a.h > 0.72) {
-              ctx.globalAlpha = 0.5 * (a.h - 0.72) * 3.5;
-              ctx.fillRect(a.x - 1.5, a.y - 1.5, 3, 3);
+            // A node on every vertex: bigger and brighter the higher it sits.
+            ctx.globalAlpha = 0.22 + 0.6 * a.h * a.h;
+            ctx.beginPath();
+            ctx.arc(a.x, a.y, 1.1 + 1.5 * a.h, 0, Math.PI * 2);
+            ctx.fill();
+            // The peaks also get a soft halo.
+            if (a.h > 0.7) {
+              ctx.globalAlpha = 0.16 * ((a.h - 0.7) / 0.3);
+              ctx.beginPath();
+              ctx.arc(a.x, a.y, 6, 0, Math.PI * 2);
+              ctx.fill();
             }
           }
         }
