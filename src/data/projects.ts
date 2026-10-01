@@ -7,8 +7,21 @@ export interface Project {
    * anything longer gets silently cut off. Keep new entries under that.
    */
   description: string;
+  /** Card media: an image, or a short muted .webm loop. */
   image: string;
+  /** Still shown before a video plays (and reusable as an og:image later). */
+  poster?: string;
+  /** Source repo. Empty when there is none to show. */
   link: string;
+  /** Only real, runnable demos. Never a GitHub link. */
+  demo?: string;
+  /** Stack chips on the card, e.g. ['C++20', 'OpenGL 4.3']. */
+  tags: string[];
+  /** Drives the "in progress" badge. Replaces the old "WIP:" title prefix. */
+  status?: 'in-progress';
+  year?: string;
+  role?: string;
+  team?: string;
   /** If true, the project appears on the landing page. Otherwise only on /projects. */
   featured?: boolean;
 }
@@ -16,10 +29,13 @@ export interface Project {
 export const projects: Project[] = [
   // ===== Featured on landing page (in display order) =====
   {
-    title: "WIP: Cloud Sim",
+    title: "Cloud Sim",
     description:
       "Real-time volumetric clouds in C++ and OpenGL, raymarched from a compute-built 3D texture.",
     image: "/images/CloudSim/cloudsim.webm",
+    poster: "/images/cards/CloudSim.webp",
+    tags: ['C++', 'OpenGL 4.6', 'compute', 'raymarching'],
+    status: 'in-progress',
     link: "https://github.com/Sahriz/FluidSim",
     id: "CloudSim",
     featured: true,
@@ -28,16 +44,20 @@ export const projects: Project[] = [
     title: "Minecraft Terrain Engine",
     description:
       "GPU-driven voxel terrain in C++20. Compute shaders build it, indirect draws render it.",
-    image: "/images/MinecraftTerrain/Mountains.png",
+    image: "/images/cards/MinecraftTerrain.webp",
+    tags: ['C++20', 'OpenGL 4.3', 'compute', 'indirect draw'],
     link: "https://github.com/Sahriz/MinecraftTerrain",
     id: "MinecraftTerrain",
     featured: true,
   },
   {
-    title: "WIP: DroneSim",
+    title: "DroneSim",
     description:
       "Autonomous drone flying through procedural terrain, meshed on the fly with marching cubes.",
-    image: "/images/DroneSim/marchingCubesImproved.webm",
+    image: "/images/cards/DroneSim.webm",
+    poster: "/images/cards/DroneSim.webp",
+    tags: ['C++', 'OpenGL', 'marching cubes'],
+    status: 'in-progress',
     link: "https://github.com/Sahriz/DroneSim",
     id: "DroneSim",
     featured: true,
@@ -47,6 +67,7 @@ export const projects: Project[] = [
     description:
       "Hand gestures drive a Godot game over WebSocket, via MediaPipe and a Keras CNN.",
     image: "/images/TNM114/confusion_matrix.png",
+    tags: ['Python', 'TensorFlow', 'MediaPipe', 'Godot'],
     link: "https://github.com/Sahriz/TNM114",
     id: "TNM114",
     featured: true,
@@ -54,7 +75,9 @@ export const projects: Project[] = [
   {
     title: "Pathtracer on GPU",
     description: "Path tracer running entirely in a fragment shader, accelerated by a CPU-built BVH.",
-    image: "/PathTracerFront.webm",
+    image: "/images/cards/TSBK07.webm",
+    poster: "/images/cards/TSBK07.webp",
+    tags: ['C++', 'GLSL', 'BVH', 'SSBO'],
     link: "https://github.com/eLdOchLagor/TSBK07-Raytracer",
     id: "TSBK07",
     featured: true,
@@ -63,6 +86,7 @@ export const projects: Project[] = [
     title: "Solar system simulation",
     description: "Blender add-on that simulates a solar system and animates it with generated materials.",
     image: "/RedoVisning4.png",
+    tags: ['Python', 'Blender API'],
     link: "https://github.com/Sahriz/BlenderSolarsystemSim?tab=readme-ov-file",
     id: "SolarSystem",
     featured: true,
@@ -73,21 +97,28 @@ export const projects: Project[] = [
     title: "Elemental Clash",
     description: "Unity 1v1 RTS where physical ArUco cards place your units. Built for my bachelor thesis.",
     image: "/spel.png",
+    tags: ['Unity', 'C#', 'OpenCV', 'ArUco'],
     link: "https://github.com/eLdOchLagor/Digital-cardgame-with-physical-aruco-cards",
     id: "ElementalClash",
   },
   {
-    title: "WIP: Terrain Library",
+    title: "Terrain Library",
     description:
       "C++ terrain library: heightmaps, marching cubes and voxel worlds, all on the GPU.",
-    image: "/VoxelCubes2.webm",
+    image: "/images/cards/TerrainLibrary.webm",
+    poster: "/images/cards/TerrainLibrary.webp",
+    tags: ['C++', 'OpenGL', 'compute', 'marching cubes'],
+    status: 'in-progress',
     link: "https://github.com/Sahriz/TerrainLibrary",
     id: "TerrainLibrary",
   },
   {
-    title: "WIP: Portals",
+    title: "Portals",
     description: "Unity portal experiment with smooth traversal. Visuals and mechanics still in progress.",
-    image: "/PortalGif.gif",
+    image: "/images/cards/Portals.webm",
+    poster: "/images/cards/Portals.webp",
+    tags: ['Unity', 'C#'],
+    status: 'in-progress',
     link: "https://github.com/Sahriz/PortalDevice",
     id: "Portals",
   },
@@ -95,6 +126,7 @@ export const projects: Project[] = [
     title: "Planet generator",
     description: "Unity planet generator that layers gradient and Voronoi noise into procedural worlds.",
     image: "/PlanetProgress17.png",
+    tags: ['Unity', 'C#', 'procedural noise'],
     link: "",
     id: "PlanetGenerator",
   },

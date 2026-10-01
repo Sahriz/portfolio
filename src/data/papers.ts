@@ -4,6 +4,10 @@ export interface Paper {
   authors: string;
   /** Shown in full on the card (no clamp). Two to four lines reads best. */
   description: string;
+  /** What kind of writeup it is, shown in the compact list: "Course paper · TNM114". */
+  type: string;
+  /** Publication year. Left out until Jonatan fills it in (see handoff §7). */
+  year?: string;
   paperUrl?: string;
   projectUrl?: string;
   /** If true, the paper appears on the landing page. Otherwise only on /papers. */
@@ -13,6 +17,8 @@ export interface Paper {
 export const papers: Paper[] = [
   {
     id: 'inverse-rendering-thesis',
+    type: "Master's thesis",
+    year: '2026',
     title: 'Inverse Rendering for Industry Inspections',
     authors: 'Jonatan Ebenholm',
     description:
@@ -22,6 +28,7 @@ export const papers: Paper[] = [
   },
   {
     id: 'gesture-recognition',
+    type: "Course paper · TNM114",
     title: 'Gesture Recognition for Video Game Controllers',
     authors: 'Jonatan Ebenholm',
     description:
@@ -32,6 +39,7 @@ export const papers: Paper[] = [
   },
   {
     id: 'pathtracer-gpu',
+    type: "Course paper · TSBK07",
     title: 'Simple Path Tracer with BVH Acceleration Structure',
     authors: 'Ludwig Boge, Jonatan Ebenholm',
     description:
@@ -42,6 +50,7 @@ export const papers: Paper[] = [
   },
   {
     id: 'monte-carlo-raytracer',
+    type: "Course paper · TNCG15",
     title: 'Monte Carlo Raytracer in C++',
     authors: 'Ludwig Boge, Jonatan Ebenholm',
     description:
@@ -51,6 +60,7 @@ export const papers: Paper[] = [
   },
   {
     id: 'animatch',
+    type: "Course paper",
     title: 'AniMatch: A Content-Based Anime Recommendation System',
     authors: 'Berkay Orhan, Jonatan Ebenholm',
     description:
@@ -60,6 +70,7 @@ export const papers: Paper[] = [
   },
   {
     id: 'face-recognition',
+    type: "Course paper · TNM034",
     title: 'Face Recognition: Methods and Applications',
     authors: 'Andrea Åstrand, Jesper Larsson, Jonatan Ebenholm, Tobias Svensson',
     description:
@@ -68,6 +79,7 @@ export const papers: Paper[] = [
   },
   {
     id: 'solar-system-simulator',
+    type: "Course paper",
     title: 'Solar System Simulator',
     authors: 'Ludwig Boge, Nikita Sidarovich, Jonatan Ebenholm, Berkay Orhan',
     description:
@@ -77,6 +89,7 @@ export const papers: Paper[] = [
   },
   {
     id: 'elemental-clash',
+    type: "Bachelor thesis",
     title: 'Elemental Clash: Bachelor Thesis',
     authors:
       'Emil Larsgärde, Ludwig Boge, Jonatan Ebenholm, Gayathri Naranath, Gustaf Kronholm, Armen Abedi, Mirijam Björn',

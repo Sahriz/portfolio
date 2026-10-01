@@ -4,6 +4,10 @@ export interface Demo {
   description: string;
   /** If true, eligible for the hero rotation on the landing page. */
   featured?: boolean;
+  /** Still under /public, used as the thumbnail in the home page's demo strip. */
+  poster?: string;
+  /** Keeps the demo's route alive but leaves it out of every public list. */
+  unlisted?: boolean;
 }
 
 // Adding a demo is three steps:
@@ -19,6 +23,7 @@ export interface Demo {
 export const demos: Demo[] = [
   {
     id: 'terrain',
+    poster: '/images/demos/terrain.webp',
     title: 'Procedural Terrain',
     description:
       'Multi-octave simplex terrain with elevation biomes, water specular and distance fog. Drag to spin.',
@@ -29,21 +34,25 @@ export const demos: Demo[] = [
     title: 'Spinning Cube',
     description: 'The minimal template every other demo is built from.',
     featured: false,
+    unlisted: true,
   },
   {
     id: 'cube-demo',
+    poster: '/images/demos/cube-demo.webp',
     title: 'Cube Demo',
     description: 'Five thousand cubes in a single instanced draw call. Hover one to pick it out.',
     featured: true,
   },
   {
     id: 'wave',
+    poster: '/images/demos/wave.webp',
     title: 'Wave Experiment',
     description: 'A quarter of a million points rolling on a wave, animated entirely in a vertex shader.',
     featured: true,
   },
   {
     id: 'particle-wall-interactive',
+    poster: '/images/demos/particle-wall-interactive.webp',
     title: 'Particle Wall',
     description: 'Ten thousand points on a grid, pushed around by the cursor in a vertex shader.',
     featured: true,
@@ -59,3 +68,6 @@ export const demos: Demo[] = [
 export function getDemo(id: string): Demo | undefined {
   return demos.find((d) => d.id === id);
 }
+
+/** Demos shown in public lists (/demos, the home page strip). */
+export const listedDemos = demos.filter((d) => !d.unlisted);
