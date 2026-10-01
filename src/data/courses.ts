@@ -28,7 +28,9 @@ export const CATEGORY_ORDER: CourseCategory[] = [
   'Other',
 ];
 
-// Sourced from LiU official transcript (print date 2026-02-18). 264 HP total across 42 courses.
+// Sourced from LiU official transcript (print date 2026-02-18): 264 HP across 42 courses.
+// The master's thesis (30 HP, finished June 2026) was added by hand afterwards, since it is
+// later than that transcript. With it: 294 HP across 43 entries.
 // Levels (A vs G) are inferred from course names + standard LiU classifications — verify against Ladok.
 export const courses: Course[] = [
   { name: 'Foundation Course in Mathematics',                        credits:  6, grade: '3', category: 'Other',                 level: 'G', date: '2021-10' },
@@ -73,4 +75,5 @@ export const courses: Course[] = [
   { name: 'Artificial Intelligence for Interactive Media, Project',  credits:  6, grade: 'G', category: 'Machine Learning & AI', level: 'A', date: '2026-01', featured: true },
   { name: 'Software Entrepreneurship',                               credits:  6, grade: '4', category: 'Other',                 level: 'A', date: '2026-01' },
   { name: 'Advanced Project Course: Game, App and Web Development', credits:  6, grade: 'G', category: 'Other',                 level: 'A', date: '2026-01' },
+  { name: "Media Technology: Master's Thesis",                       credits: 30, grade: 'G', category: 'Computer Graphics',     level: 'A', date: '2026-06', featured: true },
 ];
