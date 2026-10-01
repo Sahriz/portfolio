@@ -385,23 +385,27 @@
   transition: background-color 200ms ease-out, color 200ms ease-out;
 }
 
-/* Markdown content rendered on project detail pages */
+/* Rendered markdown: project pages and devlog posts. Left-aligned, square,
+   no card around it. */
 .markdown-content {
-  color: rgb(from var(--foreground) r g b / 0.85);
-  font-size: 0.95rem;
-  line-height: 1.7;
+  color: rgb(from var(--foreground) r g b / 0.75);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
 }
-.markdown-content h1 { font-size: 2rem;    font-weight: 700; margin: 2.5rem 0 1rem; letter-spacing: -0.02em; }
-.markdown-content h2 { font-size: 1.5rem;  font-weight: 700; margin: 2rem 0 0.75rem; border-bottom: 1px solid rgb(from var(--foreground) r g b / 0.18); padding-bottom: 0.4rem; }
-.markdown-content h3 { font-size: 1.2rem;  font-weight: 700; margin: 1.5rem 0 0.5rem; }
-.markdown-content h4 { font-size: 1rem;    font-weight: 700; margin: 1.25rem 0 0.5rem; }
+.markdown-content :is(h1, h2, h3, h4) { color: var(--foreground); }
+.markdown-content > :first-child { margin-top: 0; }
+.markdown-content h1 { font-size: 2rem;    font-weight: 600; margin: 2.5rem 0 1rem; letter-spacing: -0.03em; }
+.markdown-content h2 { font-size: 1.5rem;  font-weight: 600; margin: 2.5rem 0 0.75rem; letter-spacing: -0.02em; border-bottom: 1px solid rgb(from var(--foreground) r g b / 0.18); padding-bottom: 0.4rem; }
+.markdown-content h3 { font-size: 1.2rem;  font-weight: 600; margin: 1.5rem 0 0.5rem; }
+.markdown-content h4 { font-size: 1rem;    font-weight: 600; margin: 1.25rem 0 0.5rem; }
 .markdown-content p  { margin: 0 0 1rem; }
 .markdown-content ul, .markdown-content ol { margin: 0 0 1rem; padding-left: 1.5rem; }
 .markdown-content ul { list-style: disc; }
 .markdown-content ol { list-style: decimal; }
 .markdown-content li { margin-bottom: 0.25rem; }
 .markdown-content a  {
-  color: var(--foreground);
+  color: var(--brand);
   text-decoration: underline;
   text-underline-offset: 2px;
   transition: background-color 150ms ease-out, color 150ms ease-out;
@@ -410,8 +414,8 @@
 .markdown-content code {
   background-color: rgb(from var(--foreground) r g b / 0.08);
   padding: 0.15rem 0.4rem;
+  font-family: var(--font-mono);
   font-size: 0.875rem;
-  border-radius: 2px;
 }
 .markdown-content pre {
   background-color: rgb(from var(--foreground) r g b / 0.05);
@@ -430,8 +434,8 @@
   margin: 0 0 1rem;
 }
 .markdown-content hr { border: none; border-top: 1px solid rgb(from var(--foreground) r g b / 0.15); margin: 2.5rem 0; }
-.markdown-content img { max-width: 100%; height: auto; margin: 1.5rem auto; display: block; border: 1px solid rgb(from var(--foreground) r g b / 0.1); }
-.markdown-content strong { font-weight: 700; }
+.markdown-content :is(img, video) { max-width: 100%; height: auto; margin: 1.5rem auto; display: block; border: 1px solid rgb(from var(--foreground) r g b / 0.1); }
+.markdown-content strong { font-weight: 600; color: var(--foreground); }
 .markdown-content em { font-style: italic; }
 .markdown-content table { border-collapse: collapse; width: 100%; margin: 0 0 1.25rem; font-size: 0.9rem; }
 .markdown-content th, .markdown-content td { border: 1px solid rgb(from var(--foreground) r g b / 0.2); padding: 0.5rem 0.75rem; text-align: left; }
@@ -616,18 +620,6 @@
   opacity: 1;
   transform: translateY(0) scale(1);
 }
-
-/* Markdown content reusable styles */
-.markdown-content {
-  max-width: 900px;
-  margin: 0 auto;
-  background: var(--card);
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  font-family: var(--font-sans);
-  color: var(--card-foreground);
-}
-
 
 html {
   scroll-behavior: smooth;
