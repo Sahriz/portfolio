@@ -11,6 +11,10 @@ const START_Z = 6;            // close foreground view
 const END_Z   = 12;           // resting wide view
 const START_Y = 1.5;          // slightly lower at the start
 const END_Y   = 2.0;          // standard height
+// Fastest spin a flick can give the terrain, in rad/s. Without a cap, two
+// pointer events a fraction of a millisecond apart (high polling-rate mice)
+// produce absurd speeds and the terrain strobes for seconds.
+const MAX_SPIN_VELOCITY = 6;
 
 /**
  * The procedural terrain — flagship demo. Fully self-contained per the demo
@@ -41,6 +45,8 @@ export default function TerrainDemo() {
     let dragLastTime = 0;
 
     const handlePointerDown = (e: PointerEvent) => {
+      // Left button, touch or pen only: a middle or right click is not a drag.
+      if (e.button !== 0) return;
       isDraggingRef.current = true;
       dragStartX = e.clientX;
       dragStartSpin = spinRef.current;
@@ -57,7 +63,8 @@ export default function TerrainDemo() {
       const now = performance.now();
       const dt = (now - dragLastTime) / 1000;
       if (dt > 0) {
-        const velocity = -(e.clientX - dragLastX) * 0.005 / dt;
+        const raw = -(e.clientX - dragLastX) * 0.005 / dt;
+        const velocity = Math.max(-MAX_SPIN_VELOCITY, Math.min(MAX_SPIN_VELOCITY, raw));
         spinVelocityRef.current = velocity;
         if (Math.abs(velocity) > 0.001 && Math.sign(velocity) !== timeSpinDirRef.current) {
           timeSpinDirRef.current = Math.sign(velocity);
@@ -67,6 +74,11 @@ export default function TerrainDemo() {
       dragLastTime = now;
     };
 
+    // Ends a drag however it ends. pointerup alone is not enough: when a touch
+    // on the hero turns into a page scroll the browser sends pointercancel
+    // instead, and a mouse released outside the window sends nothing at all.
+    // Missing those left the terrain "held": it stopped spinning by itself and
+    // only moved when the pointer did.
     const handlePointerUp = () => {
       isDraggingRef.current = false;
       document.body.style.userSelect = '';
@@ -75,11 +87,15 @@ export default function TerrainDemo() {
     el.addEventListener('pointerdown', handlePointerDown);
     window.addEventListener('pointermove', handlePointerMove);
     window.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('pointercancel', handlePointerUp);
+    window.addEventListener('blur', handlePointerUp);
 
     return () => {
       el.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointercancel', handlePointerUp);
+      window.removeEventListener('blur', handlePointerUp);
       el.style.touchAction = prevTouchAction;
       document.body.style.userSelect = '';
     };

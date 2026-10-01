@@ -34,7 +34,11 @@ const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
 
   useFrame((_, delta) => {
     uniforms.u_time.value += delta;
-    uniforms.u_spin.value = spinRef.current;
+    // The spin angle only ever grows, and the shader gets it as a 32-bit
+    // float. Left on for hours it reaches the thousands, where a float can no
+    // longer represent one frame's worth of rotation and the terrain turns in
+    // visible steps. A full turn is a full turn, so send the remainder.
+    uniforms.u_spin.value = spinRef.current % (Math.PI * 2);
 
     // The sun belongs to the terrain, not to the screen. Its position is
     // worked out in the terrain's frame and then put through the same spin
