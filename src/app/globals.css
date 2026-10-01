@@ -507,6 +507,10 @@
 .glow-cta-project {
   --glow: 140 220 255;
 }
+/* "source" leaves the site for the repo, so it gets its own colour: yellow. */
+.glow-cta-source {
+  --glow: 250 204 21;
+}
 .glow-cta:hover,
 .glow-card:hover .glow-cta-follow,
 .glow-card:focus-within .glow-cta-follow {

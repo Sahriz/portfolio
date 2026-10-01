@@ -103,7 +103,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 						href={project.link}
 						target="_blank"
 						rel="noopener noreferrer"
-						className={cn(buttonVariants({ size: 'sm' }), 'relative z-20')}
+						className={cn(buttonVariants({ size: 'sm' }), 'glow-cta glow-cta-source glow-cta-follow relative z-20')}
 					>
 						source ↗
 					</a>

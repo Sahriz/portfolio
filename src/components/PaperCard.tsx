@@ -23,7 +23,7 @@ export default function PaperCard({ paper }: Props) {
             href={paper.paperUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(buttonVariants({ size: 'sm' }), 'glow-cta')}
+            className={cn(buttonVariants({ size: 'sm' }), 'glow-cta glow-cta-follow')}
           >
             <FileText className="h-3.5 w-3.5" />
             view paper
