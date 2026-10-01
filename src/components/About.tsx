@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import SectionHeader from './SectionHeader';
 import ScrollReveal from './ScrollReveal';
+import { buttonVariants } from '@/components/ui/button';
 import { profile } from '@/data/profile';
 import { skillGroups } from '@/data/skills';
 
@@ -10,33 +11,44 @@ export default function About() {
       <SectionHeader eyebrow="/ background" title="About" />
 
       <div className="grid items-start gap-7 lg:grid-cols-[260px_1fr_1.1fr] lg:gap-11">
-        <ScrollReveal className="w-full max-w-[220px] lg:max-w-none">
+        {/* Left column: photo, then the short "now" facts and the CV. Keeping
+            these under the photo, not under the bio, is what makes the three
+            columns end at about the same height. */}
+        <ScrollReveal>
           {profile.photo ? (
-            <div className="relative aspect-[4/5] w-full border border-foreground/15">
+            <div className="relative aspect-[4/5] w-full max-w-[220px] border border-foreground/15 lg:max-w-none">
               <Image src={profile.photo} alt={profile.name} fill sizes="260px" className="object-cover" />
             </div>
           ) : (
             // Placeholder until there is a headshot: set `photo` in data/profile.ts.
-            <div className="photo-placeholder grid aspect-[4/5] w-full place-items-center border border-dashed border-foreground/30 font-mono text-xs text-foreground/50">
+            <div className="photo-placeholder grid aspect-[4/5] w-full max-w-[220px] place-items-center lg:max-w-none border border-dashed border-foreground/30 font-mono text-xs text-foreground/50">
               your photo
             </div>
           )}
-        </ScrollReveal>
-
-        <ScrollReveal delay={90}>
-          {profile.bio.map((paragraph) => (
-            <p key={paragraph.slice(0, 24)} className="mb-3.5 text-base leading-[1.65] text-foreground/75">
-              {paragraph}
-            </p>
-          ))}
-          <dl className="mt-[18px] grid grid-cols-[7rem_1fr] gap-x-3.5 gap-y-2 font-mono text-[12.5px] leading-[1.5]">
+          <dl className="mt-5 flex flex-col gap-3 font-mono text-[12.5px] leading-[1.5]">
             {profile.now.map((row) => (
-              <div key={row.label} className="contents">
+              <div key={row.label}>
                 <dt className="text-foreground/45">{row.label}</dt>
                 <dd className="text-foreground/85">{row.value}</dd>
               </div>
             ))}
           </dl>
+          <a
+            href={profile.cv}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonVariants({ size: 'sm', className: 'mt-5' })}
+          >
+            download cv ↓
+          </a>
+        </ScrollReveal>
+
+        <ScrollReveal delay={90}>
+          {profile.bio.map((paragraph) => (
+            <p key={paragraph.slice(0, 24)} className="mb-3.5 text-base leading-[1.65] text-foreground/75 last:mb-0">
+              {paragraph}
+            </p>
+          ))}
         </ScrollReveal>
 
         <ScrollReveal delay={180} className="grid grid-cols-2 gap-3.5">
