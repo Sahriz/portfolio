@@ -7,6 +7,11 @@ import { ThemeProvider } from "@/components/theme-provider"
 const sans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
 const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' });
 
+// Runs before first paint: if the intro already played this session, flag
+// <html> so CSS can hide the curtain without a black flash.
+const skipIntroScript =
+  "try{if(sessionStorage.getItem('intro-seen'))document.documentElement.classList.add('skip-intro')}catch(e){}";
+
 type RootLayoutProps = {
   children: React.ReactNode;
 };
@@ -29,8 +34,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
-        <head />
+      <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${sans.variable} ${mono.variable}`}>
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: skipIntroScript }} />
+        </head>
         <body>
           <ThemeProvider
             attribute="class"

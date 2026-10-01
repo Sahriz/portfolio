@@ -327,6 +327,23 @@
   }
 }
 
+/* Content that fades in behind the opening curtain. */
+.intro-fade {
+  opacity: 0;
+  animation: fadeIn 1.5s ease-out 1.9s forwards;
+}
+
+/* Intro already seen this session: .skip-intro is put on <html> before first
+   paint by the inline script in layout.tsx. */
+.skip-intro .page-blackout,
+.skip-intro .star-effects {
+  display: none !important;
+}
+.skip-intro .intro-fade {
+  opacity: 1;
+  animation: none;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

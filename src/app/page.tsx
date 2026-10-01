@@ -40,13 +40,25 @@ export default function Portfolio() {
     return () => window.clearTimeout(timer);
   }, []);
 
-  // On refresh, reset to the hero — and stop the browser from restoring scroll on this tab.
+  // The intro plays once per session. The inline script in layout.tsx reads
+  // this flag before first paint on a full load; the class is also set here
+  // so a client-side Back to this page skips the curtain too. It goes on
+  // late (or on unmount) because hiding the curtain mid-split would cut the
+  // animation short.
   useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
+    if (!sceneReady) return;
+    try {
+      window.sessionStorage.setItem('intro-seen', '1');
+    } catch {
+      // Storage blocked: the intro just plays again next time.
     }
-    window.scrollTo(0, 0);
-  }, []);
+    const markSeen = () => document.documentElement.classList.add('skip-intro');
+    const timer = window.setTimeout(markSeen, 3500);
+    return () => {
+      window.clearTimeout(timer);
+      markSeen();
+    };
+  }, [sceneReady]);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -128,8 +140,7 @@ export default function Portfolio() {
       )}
       <nav
         aria-label="Primary"
-        className={`fixed top-4 left-1/2 z-50 border border-foreground/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 px-3 py-2.5 font-mono text-sm transition-transform duration-300 ease-out ${navHidden ? '-translate-x-1/2 -translate-y-[200%]' : '-translate-x-1/2 translate-y-0'}`}
-        style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 1.9s forwards' }}
+        className={`fixed top-4 left-1/2 z-50 border border-foreground/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 px-3 py-2.5 font-mono text-sm transition-transform duration-300 ease-out intro-fade ${navHidden ? '-translate-x-1/2 -translate-y-[200%]' : '-translate-x-1/2 translate-y-0'}`}
       >
         <ul className="flex items-center gap-1 text-foreground/70">
           <li>
@@ -165,8 +176,7 @@ export default function Portfolio() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
         <div
-          className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4"
-          style={{ opacity: 0, animation: 'fadeIn 1.5s ease-out 1.9s forwards' }}
+          className="intro-fade pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4"
         >
           {/* Always-white + layered dark halo, NOT theme tokens: this text sits
               over the demo canvas, whose colors are demo-chosen and ignore the
