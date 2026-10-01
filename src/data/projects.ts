@@ -85,7 +85,7 @@ export const projects: Project[] = [
   {
     title: "Solar system simulation",
     description: "Blender add-on that simulates a solar system and animates it with generated materials.",
-    image: "/RedoVisning4.png",
+    image: "/images/SolarSystem/RedoVisning4.png",
     tags: ['Python', 'Blender API'],
     link: "https://github.com/Sahriz/BlenderSolarsystemSim?tab=readme-ov-file",
     id: "SolarSystem",
@@ -96,7 +96,7 @@ export const projects: Project[] = [
   {
     title: "Elemental Clash",
     description: "Unity 1v1 RTS where physical ArUco cards place your units. Built for my bachelor thesis.",
-    image: "/spel.png",
+    image: "/images/ElementalClash/spel.png",
     tags: ['Unity', 'C#', 'OpenCV', 'ArUco'],
     link: "https://github.com/eLdOchLagor/Digital-cardgame-with-physical-aruco-cards",
     id: "ElementalClash",
@@ -125,7 +125,7 @@ export const projects: Project[] = [
   {
     title: "Planet generator",
     description: "Unity planet generator that layers gradient and Voronoi noise into procedural worlds.",
-    image: "/PlanetProgress17.png",
+    image: "/images/PlanetGenerator/PlanetProgress17.png",
     tags: ['Unity', 'C#', 'procedural noise'],
     link: "",
     id: "PlanetGenerator",
