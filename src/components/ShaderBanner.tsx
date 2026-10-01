@@ -2,6 +2,17 @@ import { useMemo, type RefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Vector3 } from 'three';
 
+// The sun's path, described in the terrain's own frame (y is up, before the
+// terrain is spun or tilted): one steady lap around the terrain, on a circle
+// that is tipped so the sun rides higher on one side than the other. It never
+// sets, so the hero is never dark, and it never jumps.
+const SUN_PERIOD = 80; // seconds for one lap around the terrain
+const SUN_START = -Math.PI / 3; // azimuth at load: ahead of the camera, off to the right
+const SUN_ELEVATION = (40 * Math.PI) / 180; // average height above the horizon
+const SUN_ELEVATION_SWING = (12 * Math.PI) / 180; // how much higher/lower it gets over a lap
+// Must match rotationXConst2 in the vertex shader: the terrain's tilt toward the camera.
+const TERRAIN_TILT = -Math.PI / 8;
+
 interface ShaderBannerProps {
   spinRef: RefObject<number>;
 }
@@ -11,7 +22,7 @@ const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
     () => ({
       u_time: { value: 1.0 },
       u_spin: { value: 0 },
-      // Sun direction is updated per-frame in useFrame (45s cycle).
+      // World-space sun direction, updated every frame in useFrame.
       u_sunDir: { value: new Vector3(0.5, 0.85, 0.3).normalize() },
       // Distance-fog parameters. Foreground stays crisp; back of terrain fades.
       u_fogColor: { value: new Vector3(0.10, 0.13, 0.18) },
@@ -25,34 +36,27 @@ const ShaderBanner: React.FC<ShaderBannerProps> = ({ spinRef }) => {
     uniforms.u_time.value += delta;
     uniforms.u_spin.value = spinRef.current;
 
-    // Non-uniform sun cycle:
-    //   • 80% of the 45 s cycle: slow east-to-west arc — sun is visibly moving,
-    //     this is the part the viewer notices.
-    //   • 20%: fast "snap back" west-to-east return at constant high altitude
-    //     so the loop closes without a discontinuity.
-    // Sun is constrained to the −Z half-space (in front of the viewer, in the
-    // direction the camera is looking) so the reflective glint on water can
-    // actually reach the camera at most positions in the cycle.
-    const t = uniforms.u_time.value;
-    const period = 45;
-    const slowFraction = 0.8;
-    const phase = (((t / period) % 1) + 1) % 1;  // safe positive mod, 0..1
+    // The sun belongs to the terrain, not to the screen. Its position is
+    // worked out in the terrain's frame and then put through the same spin
+    // and tilt the vertex shader applies to the terrain. So spinning the
+    // terrain (by itself or by dragging) carries the light with it, like
+    // walking around a landscape, and the shading on a slope changes only
+    // because the sun itself has moved.
+    const azimuth = SUN_START + ((uniforms.u_time.value - 1) / SUN_PERIOD) * Math.PI * 2;
+    const elevation = SUN_ELEVATION + SUN_ELEVATION_SWING * Math.sin(azimuth);
+    const lx = Math.cos(elevation) * Math.cos(azimuth);
+    const ly = Math.sin(elevation);
+    const lz = Math.cos(elevation) * Math.sin(azimuth);
 
-    let cycleParam: number;
-    if (phase < slowFraction) {
-      cycleParam = phase / slowFraction;                                 // 0 → 1 slowly
-    } else {
-      cycleParam = 1 + (phase - slowFraction) / (1 - slowFraction);      // 1 → 2 quickly
-    }
-    const angle = cycleParam * Math.PI;  // 0 → 2π over the cycle
-
-    uniforms.u_sunDir.value
-      .set(
-        Math.sin(angle) * 0.60,                  // east-west sweep
-        0.60 + Math.cos(angle) * 0.20,           // altitude: 0.40 → 0.80 (higher overall)
-        -0.55,                                   // in front of viewer (−Z)
-      )
-      .normalize();
+    // Spin about the terrain's up axis (rotationY in the vertex shader)...
+    const cs = Math.cos(spinRef.current);
+    const sn = Math.sin(spinRef.current);
+    const sx = cs * lx - sn * lz;
+    const sz = sn * lx + cs * lz;
+    // ...then the fixed tilt toward the camera (rotationXConst2).
+    const ct = Math.cos(TERRAIN_TILT);
+    const st = Math.sin(TERRAIN_TILT);
+    uniforms.u_sunDir.value.set(sx, ct * ly + st * sz, -st * ly + ct * sz).normalize();
   });
 
   return (

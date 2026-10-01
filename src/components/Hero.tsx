@@ -8,7 +8,7 @@ import { profile } from '@/data/profile';
 // The terrain demo's first frame, captured wide (2.8:1) so that on any
 // narrower hero `object-cover` crops it exactly the way the live camera
 // frames the scene. Recapture it if the terrain's look or start pose changes.
-const HERO_POSTER = '/images/hero-terrain-first-frame.webp';
+const HERO_POSTER = '/images/hero-terrain-first-frame-v2.webp';
 
 // No loading placeholder: the poster is already on screen behind it.
 const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false });
