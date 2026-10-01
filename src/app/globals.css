@@ -477,6 +477,45 @@
   }
 }
 
+/* TerrainWireframe.tsx: the faint terrain mesh in the page margins. It sits
+   behind all content (negative z-index, still above the body background) and
+   is masked so it is full strength at the screen edges and gone before it
+   reaches the content column. Hidden where there is no margin to speak of. */
+.terrain-wireframe {
+  display: none;
+}
+@media (min-width: 1280px) {
+  .terrain-wireframe {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    --fade-start: calc(var(--column-edge) * 0.4);
+    --fade-end: calc(var(--column-edge) - 0.75rem);
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      #000 0,
+      #000 var(--fade-start),
+      transparent var(--fade-end),
+      transparent calc(100% - var(--fade-end)),
+      #000 calc(100% - var(--fade-start)),
+      #000 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      #000 0,
+      #000 var(--fade-start),
+      transparent var(--fade-end),
+      transparent calc(100% - var(--fade-end)),
+      #000 calc(100% - var(--fade-start)),
+      #000 100%
+    );
+  }
+}
+
 /* Card glow. The colour says what the card is: cyan = project, green = paper,
    purple = demo. Unlayered on purpose, so these win over the Tailwind
    utilities on the cards and buttons they decorate. */

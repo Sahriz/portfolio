@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from "@/components/theme-provider"
 import SiteHeader from "@/components/SiteHeader"
+import TerrainWireframe from "@/components/TerrainWireframe"
 
 // next/font downloads the fonts at build time and serves them from the site itself.
 const sans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             enableSystem
             disableTransitionOnChange
           >
+            <TerrainWireframe />
             <SiteHeader />
             {children}
           </ThemeProvider>

@@ -57,7 +57,7 @@ export default function Portfolio() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen bg-background text-foreground">
+    <div className="relative w-full min-h-screen text-foreground">
       <div className={`page-blackout ${sceneReady ? 'page-blackout-open' : ''}`} aria-hidden>
         <div className="page-blackout-bar page-blackout-bar-top" />
         <div className="page-blackout-bar page-blackout-bar-bottom" />

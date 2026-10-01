@@ -21,7 +21,7 @@ export default function CoursesPage() {
   const totalHP = useMemo(() => courses.reduce((sum, c) => sum + c.credits, 0), []);
 
   return (
-    <div className="relative w-full min-h-screen bg-background text-foreground">
+    <div className="relative w-full min-h-screen text-foreground">
       <main className="mx-auto max-w-6xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <header className="mb-10">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">

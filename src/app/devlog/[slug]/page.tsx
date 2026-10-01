@@ -43,7 +43,7 @@ export default async function DevlogPostPage({ params }: PageProps) {
   const body = await loadPost(slug);
 
   return (
-    <div className="relative w-full min-h-screen bg-background text-foreground">
+    <div className="relative w-full min-h-screen text-foreground">
       <main className="mx-auto max-w-3xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <header className="mb-10">
           <p className="font-mono text-xs tracking-[0.2em] text-foreground/50">{post.date}</p>

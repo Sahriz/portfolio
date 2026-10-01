@@ -18,7 +18,7 @@ export default function DevlogIndex() {
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 
   return (
-    <div className="relative w-full min-h-screen bg-background text-foreground">
+    <div className="relative w-full min-h-screen text-foreground">
       <main className="mx-auto max-w-4xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <header className="mb-12">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.35em] text-foreground/50">
