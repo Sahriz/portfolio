@@ -1,6 +1,11 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from "@/components/theme-provider"
+
+// next/font downloads the fonts at build time and serves them from the site itself.
+const sans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' });
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' });
 
 type RootLayoutProps = {
   children: React.ReactNode;
@@ -24,7 +29,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
         <head />
         <body>
           <ThemeProvider
