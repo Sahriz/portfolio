@@ -9,6 +9,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import StatusBadge from '@/components/StatusBadge';
 import { projects } from '@/data/projects';
 import { papers } from '@/data/papers';
 
@@ -76,11 +77,7 @@ export default async function ProjectPage(props: ProjectPageProps) {
 
       <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-foreground sm:text-5xl">
         {project.title}
-        {project.status === 'in-progress' && (
-          <span className="ml-3 inline-block border border-brand/45 px-1.5 py-1 align-middle font-mono text-[10px] font-medium uppercase leading-none tracking-[0.12em] text-brand">
-            in progress
-          </span>
-        )}
+        <StatusBadge status={project.status} className="ml-3" />
       </h1>
       <p className="mt-3 max-w-3xl text-lg leading-[1.5] text-foreground/70">{project.description}</p>
 

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import StatusBadge from '@/components/StatusBadge';
 
 import type { Project } from '../data/projects';
 
@@ -103,11 +104,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 				<div className="flex flex-1 flex-col px-6 pb-4 pt-4">
 					<h3 className="text-xl font-semibold leading-tight tracking-tight">
 						{project.title}
-						{project.status === 'in-progress' && (
-							<span className="ml-2 inline-block border border-brand/45 px-1.5 py-1 align-middle font-mono text-[10px] font-medium uppercase leading-none tracking-[0.12em] text-brand">
-								in progress
-							</span>
-						)}
+						<StatusBadge status={project.status} className="ml-2" />
 					</h3>
 					<p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-3">{project.description}</p>
 					<ul className="mt-3.5 flex flex-wrap gap-1.5">

@@ -17,8 +17,12 @@ export interface Project {
   demo?: string;
   /** Stack chips on the card, e.g. ['C++20', 'OpenGL 4.3']. */
   tags: string[];
-  /** Drives the "in progress" badge. Replaces the old "WIP:" title prefix. */
-  status?: 'in-progress';
+  /**
+   * Drives the badge next to the title: 'in-progress' for work that is
+   * active now, 'on-hold' for unfinished work that is parked. Leave it out
+   * for finished projects.
+   */
+  status?: 'in-progress' | 'on-hold';
   year?: string;
   role?: string;
   team?: string;
@@ -57,7 +61,7 @@ export const projects: Project[] = [
     image: "/images/cards/DroneSim.webm",
     poster: "/images/cards/DroneSim.webp",
     tags: ['C++', 'OpenGL', 'marching cubes'],
-    status: 'in-progress',
+    status: 'on-hold',
     link: "https://github.com/Sahriz/DroneSim",
     id: "DroneSim",
     featured: true,
@@ -108,7 +112,7 @@ export const projects: Project[] = [
     image: "/images/cards/TerrainLibrary.webm",
     poster: "/images/cards/TerrainLibrary.webp",
     tags: ['C++', 'OpenGL', 'compute', 'marching cubes'],
-    status: 'in-progress',
+    status: 'on-hold',
     link: "https://github.com/Sahriz/TerrainLibrary",
     id: "TerrainLibrary",
   },
@@ -118,7 +122,7 @@ export const projects: Project[] = [
     image: "/images/cards/Portals.webm",
     poster: "/images/cards/Portals.webp",
     tags: ['Unity', 'C#'],
-    status: 'in-progress',
+    status: 'on-hold',
     link: "https://github.com/Sahriz/PortalDevice",
     id: "Portals",
   },
