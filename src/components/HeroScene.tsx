@@ -12,31 +12,24 @@ interface HeroSceneProps {
   onReady: () => void;
 }
 
-// Demos eligible for the hero rotation: flagged featured in data/demos.ts
-// AND registered in the component registry.
+// Demos the hero can show: flagged featured in data/demos.ts AND registered
+// in the component registry.
 const heroDemos = demos.filter((d) => d.featured && d.id in demoComponents);
 
-// Auto-advance to the next demo after this long without user interaction.
-const AUTO_ADVANCE_MS = 20_000;
-
-// Phones get a fixed hero: the terrain demo, and only the terrain demo. No
-// random starting pick, no auto-advance, no arrows. The hero is the first
-// thing a visitor sees, and on a phone it's most of the first screen; a demo
-// that differs every visit and then swaps itself out mid-scroll reads as
-// instability rather than variety. Desktop keeps the full rotation.
-//
-// 640px is Tailwind's `sm`, which the rest of the page already keys its
-// layout off (`sm:grid-cols-2` etc.). globals.css separately uses 600px in a
-// few places; 640 is the better anchor for "is this a phone".
+// The hero always opens on the terrain: it is the one demo that matches the
+// dark page. There is no random pick and no auto-advance; a hero that differs
+// every visit and swaps itself out mid-scroll reads as instability rather
+// than variety. On desktop the arrows still let a visitor flip through the
+// others by hand; phones (below Tailwind's `sm`) get the terrain only.
 const MOBILE_QUERY = '(max-width: 640px)';
-const FIXED_MOBILE_DEMO = 'terrain';
+const HERO_DEMO = 'terrain';
 
 function isMobileViewport() {
   return window.matchMedia(MOBILE_QUERY).matches;
 }
 
-function fixedMobileIndex() {
-  const i = heroDemos.findIndex((d) => d.id === FIXED_MOBILE_DEMO);
+function heroDemoIndex() {
+  const i = heroDemos.findIndex((d) => d.id === HERO_DEMO);
   return i === -1 ? 0 : i; // survives terrain being unfeatured or renamed later
 }
 
@@ -119,19 +112,14 @@ function HeroScene({ onReady }: HeroSceneProps) {
   const [canvasOk, setCanvasOk] = useState(hasWebGL2);
   const handleCanvasError = useCallback(() => setCanvasOk(false), []);
   const containerRef = useRef<HTMLDivElement>(null);
-  // Touching window (matchMedia) and Math.random in state initializers is
-  // safe from hydration mismatch only because page.tsx loads HeroScene with
-  // ssr: false — this component never renders on the server. If that ever
-  // changes, both of these have to move into a useEffect together.
+  // Touching window (matchMedia) in a state initializer is safe from
+  // hydration mismatch only because page.tsx loads HeroScene with
+  // ssr: false, so this component never renders on the server.
   //
   // The viewport check is evaluated once at mount by design: rotating a
-  // phone mid-session shouldn't start a rotation the visitor didn't ask for.
+  // phone mid-session shouldn't add controls the visitor didn't have.
   const [isMobile] = useState(isMobileViewport);
-  const [demoIndex, setDemoIndex] = useState(() => {
-    if (heroDemos.length === 0) return 0;
-    if (isMobile) return fixedMobileIndex();
-    return Math.floor(Math.random() * heroDemos.length);
-  });
+  const [demoIndex, setDemoIndex] = useState(heroDemoIndex);
   const [phase, setPhase] = useState<SwapPhase>('idle');
   const pendingIndexRef = useRef<number | null>(null);
 
@@ -158,28 +146,6 @@ function HeroScene({ onReady }: HeroSceneProps) {
     pendingIndexRef.current = (demoIndex + dir + heroDemos.length) % heroDemos.length;
     setPhase('covering');
   }, [phase, demoIndex]);
-
-  // Auto-advance. Armed only while idle and on screen, so a manual switch
-  // (leaving idle) clears it and a fresh countdown starts once the new demo
-  // settles. Pointer activity over the hero restarts the countdown — it
-  // would be rude to swap the terrain out from under a drag. Never armed on
-  // phones, where the hero is deliberately fixed to a single demo.
-  useEffect(() => {
-    if (!canvasOk || phase !== 'idle' || !isVisible || isMobile || heroDemos.length < 2) return;
-    const el = containerRef.current;
-    let timer = window.setTimeout(() => cycle(1), AUTO_ADVANCE_MS);
-    const defer = () => {
-      window.clearTimeout(timer);
-      timer = window.setTimeout(() => cycle(1), AUTO_ADVANCE_MS);
-    };
-    el?.addEventListener('pointerdown', defer);
-    el?.addEventListener('pointermove', defer);
-    return () => {
-      window.clearTimeout(timer);
-      el?.removeEventListener('pointerdown', defer);
-      el?.removeEventListener('pointermove', defer);
-    };
-  }, [canvasOk, phase, isVisible, isMobile, cycle]);
 
   // The page-level blackout consumes onReady on first load (idempotent
   // afterwards); the swap machine consumes it on every later demo change.
@@ -245,12 +211,12 @@ function HeroScene({ onReady }: HeroSceneProps) {
           transition: `opacity ${covered ? 250 : 450}ms ease`,
         }}
       />
-      {/* Demo switcher, centered at the hero's bottom edge (carousel-control
-          idiom). z-30: above the swap cover (z-10) and the page's hero
-          overlays (gradients at z-auto, title at z-20) so it stays crisp
-          during transitions. min 40px buttons for touch. */}
+      {/* Demo switcher: centred on phones, bottom right of the content column
+          from sm up, clear of the hero text. z-30: above the swap cover (z-10)
+          and the page's hero overlays (scrim at z-auto, text at z-20) so it
+          stays crisp during transitions. min 40px buttons for touch. */}
       {heroDemos.length > 1 && demo && (
-        <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-stretch gap-1 font-mono text-xs">
+        <div className="hero-switcher absolute bottom-6 z-30 flex items-stretch gap-1 font-mono text-xs">
           {showArrows && (
             <button
               aria-label="Previous demo"
