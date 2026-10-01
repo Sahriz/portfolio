@@ -356,6 +356,22 @@
 
 @layer components {
   /* The one H2 style. Layered, so utilities (margin, colour) still override it. */
+  /* The small mono label above a section title: "/ selected work". */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+  @media (min-width: 640px) {
+    .eyebrow {
+      letter-spacing: 0.28em;
+    }
+  }
+
   .section-title {
     font-size: clamp(2.25rem, 6vw, 3rem);
     font-weight: 600;
@@ -420,6 +436,42 @@
 .markdown-content table { border-collapse: collapse; width: 100%; margin: 0 0 1.25rem; font-size: 0.9rem; }
 .markdown-content th, .markdown-content td { border: 1px solid rgb(from var(--foreground) r g b / 0.2); padding: 0.5rem 0.75rem; text-align: left; }
 .markdown-content th { background-color: rgb(from var(--foreground) r g b / 0.05); font-weight: 700; }
+
+/* The content column's left/right edge, measured from the viewport: matches
+   max-w-6xl plus the page padding. For things positioned against the
+   viewport that must still line up with the column (hero text, switcher). */
+:root {
+  --column-edge: max(1rem, calc((100vw - 72rem) / 2 + 2rem));
+}
+
+/* Dark backing for the hero text. Fixed colours, not theme tokens: the
+   canvas behind it ignores the site theme. Top-to-bottom on phones, where
+   the text spans the full width; left-to-right from sm up. */
+.hero-scrim {
+  background: linear-gradient(180deg, rgb(10 10 10 / 0.35), rgb(10 10 10 / 0.75));
+}
+@media (min-width: 640px) {
+  .hero-scrim {
+    background: linear-gradient(90deg, rgb(10 10 10 / 0.82) 0%, rgb(10 10 10 / 0.55) 38%, rgb(10 10 10 / 0) 68%);
+  }
+}
+
+/* Striped stand-in for the About photo. */
+.photo-placeholder {
+  background: repeating-linear-gradient(135deg, rgb(from var(--foreground) r g b / 0.04) 0 10px, transparent 10px 20px);
+}
+
+.hero-switcher {
+  left: 50%;
+  translate: -50% 0;
+}
+@media (min-width: 640px) {
+  .hero-switcher {
+    left: auto;
+    right: var(--column-edge);
+    translate: none;
+  }
+}
 
 /* Card glow. The colour says what the card is: cyan = project, green = paper,
    purple = demo. Unlayered on purpose, so these win over the Tailwind
@@ -506,6 +558,12 @@
 }
 .glow-cta-project {
   --glow: 140 220 255;
+}
+.glow-cta-paper {
+  --glow: 74 222 128;
+}
+.glow-cta-demo {
+  --glow: 168 85 247;
 }
 /* "source" leaves the site for the repo, so it gets its own colour: yellow. */
 .glow-cta-source {

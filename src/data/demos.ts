@@ -52,7 +52,6 @@ export const demos: Demo[] = [
   },
   {
     id: 'particle-wall-interactive',
-    poster: '/images/demos/particle-wall-interactive.webp',
     title: 'Particle Wall',
     description: 'Ten thousand points on a grid, pushed around by the cursor in a vertex shader.',
     featured: true,
