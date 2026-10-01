@@ -418,14 +418,26 @@
   font-size: 0.875rem;
 }
 .markdown-content pre {
-  background-color: rgb(from var(--foreground) r g b / 0.05);
+  /* Opaque, so the page's background wireframe doesn't show through code. */
+  background-color: color-mix(in oklab, var(--foreground) 5%, var(--background));
   border: 1px solid rgb(from var(--foreground) r g b / 0.15);
   padding: 1rem;
   overflow-x: auto;
   font-size: 0.85rem;
+  line-height: 1.3;
   margin: 0 0 1.25rem;
 }
-.markdown-content pre code { background-color: transparent; padding: 0; border-radius: 0; }
+/* Code blocks use the system monospace font, not Geist Mono. The loaded Geist
+   Mono subset has no box-drawing or arrow characters, so ASCII diagrams fell
+   back to another font for those glyphs only, at a different width, and every
+   line came out a different length. One font for the whole block keeps the
+   columns aligned. */
+.markdown-content pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, Menlo, 'DejaVu Sans Mono', monospace;
+}
 .markdown-content blockquote {
   border-left: 2px solid rgb(from var(--foreground) r g b / 0.4);
   padding-left: 1rem;
