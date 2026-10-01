@@ -22,7 +22,7 @@ export default function PapersList({ papers }: Props) {
         return (
           <li
             key={paper.id}
-            className="glow-card glow-card-paper flex flex-col gap-3 border border-foreground/30 bg-card/40 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+            className="glow-card glow-card-paper flex flex-col gap-3 border border-foreground/30 surface px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
           >
             <div className="min-w-0">
               <h3 className="text-base font-semibold leading-snug tracking-tight text-foreground">{paper.title}</h3>

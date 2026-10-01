@@ -43,7 +43,7 @@ export default function DevlogIndex() {
                 <li>
                   <Link
                     href={`/devlog/${post.slug}`}
-                    className="group block border border-foreground/30 bg-card/40 p-6 transition-[translate,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-brand"
+                    className="group block border border-foreground/30 surface p-6 transition-[translate,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-brand"
                   >
                     <div className="flex items-baseline justify-between gap-4">
                       <p className="font-mono text-xs tracking-[0.2em] text-foreground/50">

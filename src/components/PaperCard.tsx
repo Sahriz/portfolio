@@ -9,7 +9,7 @@ type Props = { paper: Paper };
 // equal targets (the PDF and the project), so neither owns the whole card.
 export default function PaperCard({ paper }: Props) {
   return (
-    <article className="group relative flex h-full flex-col border border-foreground/30 bg-card/40 p-6 glow-card glow-card-paper">
+    <article className="group relative flex h-full flex-col border border-foreground/30 surface p-6 glow-card glow-card-paper">
       <div className="absolute top-4 right-4 text-foreground/20 glow-icon">
         <FileText className="h-6 w-6" />
       </div>

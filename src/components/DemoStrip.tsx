@@ -9,7 +9,7 @@ export default function DemoStrip({ demos }: Props) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {demos.map((demo) => (
-        <article key={demo.id} className="glow-card glow-card-demo group border border-foreground/30 bg-card/40">
+        <article key={demo.id} className="glow-card glow-card-demo group border border-foreground/30 surface">
           {/* Invisible link covering the whole card. */}
           <Link
             href={`/demos/${demo.id}`}

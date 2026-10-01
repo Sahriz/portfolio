@@ -2,15 +2,16 @@
 
 import { useEffect, useRef } from 'react';
 
-// A faint wireframe of low-poly terrain, drawn behind every page and visible
-// only in the side margins (globals.css masks it out over the content column
-// and hides it on screens too narrow to have margins). It is the hero's
-// terrain reduced to its triangle edges: texture for the page edges, never
-// something to look at. Plain 2D canvas, no WebGL.
+// A faint wireframe of low-poly terrain, drawn behind every page. Cards and
+// other solid surfaces sit on top of it, so it shows in the side margins and
+// in the gaps between them; globals.css dims it across the content column,
+// where text sits directly on it, and hides it on small screens. It is the
+// hero's terrain reduced to its triangle edges: texture, never something to
+// look at. Plain 2D canvas, no WebGL.
 
 const CELL = 42; // px between mesh vertices
 const JITTER = 0.27; // how far a vertex strays from its grid position, in cells
-const RELIEF = 42; // px a vertex is pushed up at the top of a "hill"
+const RELIEF = 22; // px a vertex is pushed up at the top of a "hill"
 const PARALLAX = 0.2; // mesh scroll speed relative to the page
 const FRAME_MS = 1000 / 120; // frame-rate cap; in practice it runs at the display's refresh rate
 // How much a vertex's height decides how strongly it is drawn (lines, node
@@ -19,8 +20,8 @@ const FRAME_MS = 1000 / 120; // frame-rate cap; in practice it runs at the displ
 //    0  height makes no difference, everything is drawn the same
 //   -1  reversed: the valleys are highlighted and the peaks fade
 // Values in between soften the effect; beyond +-1 (try 2 or -2) exaggerate it.
-const HEIGHT_HIGHLIGHT = 1;
-const MIN_WIDTH = 1280; // matches the CSS: below this there is no margin to draw in
+const HEIGHT_HIGHLIGHT = 1.0;
+const MIN_WIDTH = 768; // matches the CSS: hidden on phones, where it would only be clutter
 
 /** Stable pseudo-random number in [0, 1) for a grid coordinate. */
 function hash(ix: number, iy: number, salt: number) {
@@ -42,8 +43,8 @@ function noise(x: number, y: number, salt: number) {
   return top * (1 - v) + bottom * v;
 }
 
-const HILL = 230; // px across one broad hill
-const BUMP = 95; // px across the smaller bumps on top of the hills
+const HILL = 150; // px across one broad hill
+const BUMP = 25; // px across the smaller bumps on top of the hills
 
 /**
  * Terrain height in [0, 1] at a world position: a height map seen from above,
@@ -78,6 +79,10 @@ export default function TerrainWireframe() {
     let colour = 'rgb(140 220 255)';
     let raf = 0;
     let last = 0;
+    // Per-frame vertex buffers, reused so drawing allocates nothing.
+    let xs = new Float32Array(0);
+    let ys = new Float32Array(0);
+    let es = new Float32Array(0);
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -97,67 +102,77 @@ export default function TerrainWireframe() {
       ctx.clearRect(0, 0, width, height_);
       if (width < MIN_WIDTH) return;
 
-      // Only the margins are ever visible, so only those columns are drawn.
-      const column = Math.min(width, 72 * 16);
-      const margin = (width - column) / 2 + 32;
-      const cols = Math.ceil(margin / CELL) + 1;
+      const cols = Math.ceil(width / CELL) + 2;
       const offset = reducedMotion.matches ? 0 : window.scrollY * PARALLAX;
       const firstRow = Math.floor(offset / CELL) - 1;
       const rows = Math.ceil(height_ / CELL) + 3;
 
-      // Vertex position on screen for grid coordinate (ix, iy). `side` mirrors
-      // the mesh so both margins are built outward from their screen edge.
-      const vertex = (ix: number, iy: number, side: number) => {
-        const wx = (ix + (hash(ix, iy, side) - 0.5) * 2 * JITTER) * CELL;
-        const wy = (iy + (hash(ix, iy, side + 9) - 0.5) * 2 * JITTER) * CELL;
-        const h = height(wx + side * 4000, wy, seconds);
-        const x = side === 0 ? wx : width - wx;
-        // `e` is what the drawing below uses; `h` only moves the vertex.
-        return { x, y: wy - offset - (h - 0.5) * 2 * RELIEF, e: emphasis(h) };
-      };
+      // Work out every vertex once per frame: screen position plus highlight
+      // strength. One extra row and column, so each cell can reach its
+      // right-hand and lower neighbours.
+      const stride = cols + 2;
+      const count = stride * (rows + 1);
+      if (xs.length < count) {
+        xs = new Float32Array(count);
+        ys = new Float32Array(count);
+        es = new Float32Array(count);
+      }
+      for (let r = 0; r <= rows; r++) {
+        const iy = firstRow + r;
+        for (let q = 0; q < stride; q++) {
+          const ix = q - 1;
+          const wx = (ix + (hash(ix, iy, 0) - 0.5) * 2 * JITTER) * CELL;
+          const wy = (iy + (hash(ix, iy, 9) - 0.5) * 2 * JITTER) * CELL;
+          const h = height(wx, wy, seconds);
+          const i = r * stride + q;
+          xs[i] = wx;
+          // Height only moves the vertex; `es` is what decides how it is drawn.
+          ys[i] = wy - offset - (h - 0.5) * 2 * RELIEF;
+          es[i] = emphasis(h);
+        }
+      }
 
       ctx.strokeStyle = colour;
       ctx.fillStyle = colour;
       ctx.lineWidth = 1;
 
-      for (let side = 0; side < 2; side++) {
-        for (let iy = firstRow; iy < firstRow + rows; iy++) {
-          for (let ix = -1; ix < cols; ix++) {
-            const a = vertex(ix, iy, side);
-            const b = vertex(ix + 1, iy, side);
-            const c = vertex(ix, iy + 1, side);
-            const d = vertex(ix + 1, iy + 1, side);
+      for (let r = 0; r < rows; r++) {
+        for (let q = 0; q < stride - 1; q++) {
+          const a = r * stride + q;
+          const b = a + 1;
+          const c = a + stride;
+          const d = c + 1;
 
-            // Each cell contributes its top edge, left edge and one diagonal;
-            // the neighbours supply the rest, so no edge is drawn twice.
-            // Highlighted ground is drawn brighter, like lit ridges.
-            ctx.globalAlpha = 0.05 + 0.2 * ((a.e + b.e + c.e) / 3) ** 2;
-            ctx.beginPath();
-            ctx.moveTo(b.x, b.y);
-            ctx.lineTo(a.x, a.y);
-            ctx.lineTo(c.x, c.y);
-            // Alternate the diagonal so the triangles don't all lean one way.
-            if ((ix + iy) % 2 === 0) {
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(d.x, d.y);
-            } else {
-              ctx.moveTo(b.x, b.y);
-              ctx.lineTo(c.x, c.y);
-            }
-            ctx.stroke();
+          // Each cell contributes its top edge, left edge and one diagonal;
+          // the neighbours supply the rest, so no edge is drawn twice.
+          // Highlighted ground is drawn brighter, like lit ridges.
+          ctx.globalAlpha = 0.05 + 0.2 * ((es[a] + es[b] + es[c]) / 3) ** 2;
+          ctx.beginPath();
+          ctx.moveTo(xs[b], ys[b]);
+          ctx.lineTo(xs[a], ys[a]);
+          ctx.lineTo(xs[c], ys[c]);
+          // Alternate the diagonal so the triangles don't all lean one way.
+          if ((q + r + firstRow) % 2 === 0) {
+            ctx.moveTo(xs[a], ys[a]);
+            ctx.lineTo(xs[d], ys[d]);
+          } else {
+            ctx.moveTo(xs[b], ys[b]);
+            ctx.lineTo(xs[c], ys[c]);
+          }
+          ctx.stroke();
 
-            // A node on every vertex: bigger and brighter the more it is highlighted.
-            ctx.globalAlpha = 0.22 + 0.6 * a.e * a.e;
+          // A node on every vertex: bigger and brighter the more it is highlighted.
+          const e = es[a];
+          ctx.globalAlpha = 0.22 + 0.6 * e * e;
+          ctx.beginPath();
+          ctx.arc(xs[a], ys[a], 1.1 + 1.5 * e, 0, Math.PI * 2);
+          ctx.fill();
+          // The most highlighted ones also get a soft halo.
+          if (e > 0.7) {
+            ctx.globalAlpha = 0.16 * ((e - 0.7) / 0.3);
             ctx.beginPath();
-            ctx.arc(a.x, a.y, 1.1 + 1.5 * a.e, 0, Math.PI * 2);
+            ctx.arc(xs[a], ys[a], 6, 0, Math.PI * 2);
             ctx.fill();
-            // The most highlighted ones also get a soft halo.
-            if (a.e > 0.7) {
-              ctx.globalAlpha = 0.16 * ((a.e - 0.7) / 0.3);
-              ctx.beginPath();
-              ctx.arc(a.x, a.y, 6, 0, Math.PI * 2);
-              ctx.fill();
-            }
           }
         }
       }

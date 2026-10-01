@@ -41,7 +41,7 @@ export default function About() {
 
         <ScrollReveal delay={180} className="grid grid-cols-2 gap-3.5">
           {skillGroups.map((group) => (
-            <div key={group.title} className="border border-foreground/10 bg-foreground/[0.02] px-[18px] py-4">
+            <div key={group.title} className="border border-foreground/10 surface-faint px-[18px] py-4">
               <h3 className="mb-3 border-b border-foreground/10 pb-2.5 text-sm font-semibold leading-[1.2] text-foreground">
                 {group.title}
               </h3>

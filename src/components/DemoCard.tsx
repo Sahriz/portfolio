@@ -10,7 +10,7 @@ type DemoCardProps = {
 
 export default function DemoCard({ demo }: DemoCardProps) {
 	return (
-		<article className="group relative flex h-full flex-col border border-foreground/30 bg-card/40 p-6 glow-card glow-card-demo">
+		<article className="group relative flex h-full flex-col border border-foreground/30 surface p-6 glow-card glow-card-demo">
 			{/* Invisible link covering the whole card. */}
 			<Link
 				href={`/demos/${demo.id}`}
