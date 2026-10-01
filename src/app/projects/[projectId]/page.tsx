@@ -5,7 +5,6 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 
 interface ProjectPageProps {
@@ -57,15 +56,10 @@ export default function ProjectPage(props0: ProjectPageProps) {
 
   return (
     <>
-      <div className="fixed top-6 left-6 z-50 flex gap-2">
-        <Button asChild className="bg-background/80 backdrop-blur">
-          <Link href="/projects">&#8592; Back to All Projects</Link>
-        </Button>
-        <Button asChild className="bg-background/80 backdrop-blur">
-          <Link href="/">Home</Link>
-        </Button>
-      </div>
-      <div className="mx-auto max-w-4xl px-4 pb-12 pt-20">
+      <div className="mx-auto max-w-4xl px-4 pb-12 pt-24">
+        <Link href="/projects" className="mb-6 inline-block font-mono text-[13px] text-brand hover:text-foreground">
+          ← all projects
+        </Link>
         {loading ? (
           <div className="grid min-h-[240px] place-items-center border bg-card text-card-foreground shadow-sm">
             <Spinner className="size-6 text-primary" />

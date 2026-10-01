@@ -3,8 +3,6 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
-import PrimaryNav from '../../components/PrimaryNav';
-import { ThemeToggle } from '../../components/ThemeToggle';
 import { courses, CATEGORY_ORDER, type CourseCategory } from '../../data/courses';
 import { buttonVariants } from '@/components/ui/button';
 
@@ -24,11 +22,6 @@ export default function CoursesPage() {
 
   return (
     <div className="relative w-full min-h-screen bg-background text-foreground">
-      <PrimaryNav />
-      <div className="fixed right-4 top-4 z-50">
-        <ThemeToggle />
-      </div>
-
       <main className="mx-auto max-w-6xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <header className="mb-10">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">

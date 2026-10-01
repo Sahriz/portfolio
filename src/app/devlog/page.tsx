@@ -1,7 +1,5 @@
 import Link from 'next/link';
-import PrimaryNav from '../../components/PrimaryNav';
 import ScrollReveal from '../../components/ScrollReveal';
-import { ThemeToggle } from '../../components/ThemeToggle';
 import { devlogPosts } from '../../data/devlog';
 import { buttonVariants } from '@/components/ui/button';
 
@@ -18,11 +16,6 @@ export default function DevlogIndex() {
 
   return (
     <div className="relative w-full min-h-screen bg-background text-foreground">
-      <PrimaryNav />
-      <div className="fixed right-4 top-4 z-50">
-        <ThemeToggle />
-      </div>
-
       <main className="mx-auto max-w-4xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <header className="mb-12">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.35em] text-foreground/50">

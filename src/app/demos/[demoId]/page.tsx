@@ -39,15 +39,12 @@ export default async function DemoPage(props: DemoPageProps) {
 
       {/* Overlays float above the canvas; pointer-events-none keeps them
           from stealing mouse interaction from the demo. */}
-      <div className="fixed top-6 left-6 z-50 flex gap-3">
+      <div className="fixed top-20 left-6 z-40 flex gap-3">
         <Button asChild className="bg-background/80 backdrop-blur">
           <Link href="/demos">&#8592; All Demos</Link>
         </Button>
-        <Button asChild className="bg-background/80 backdrop-blur">
-          <Link href="/">Home</Link>
-        </Button>
       </div>
-      <div className="pointer-events-none absolute inset-x-0 top-6 z-40 mx-auto max-w-xl px-4 text-center">
+      <div className="pointer-events-none absolute inset-x-0 top-20 z-40 mx-auto max-w-xl px-4 text-center">
         {/* Scrim chip: foreground-on-background is the one pairing the theme
             guarantees readable, whatever the demo renders behind it. */}
         <div className="inline-block border bg-background/70 px-4 py-2 backdrop-blur">

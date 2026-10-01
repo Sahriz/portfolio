@@ -573,6 +573,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchor targets stop below the fixed SiteHeader (60px) with some air. */
+  scroll-padding-top: 5rem;
 }
 
 body {

@@ -8,7 +8,6 @@ import PaperCard from '../components/PaperCard';
 import DemoCard from '../components/DemoCard';
 import ExperienceTimeline from '../components/ExperienceTimeline';
 import ScrollReveal from '../components/ScrollReveal';
-import { ThemeToggle } from '../components/ThemeToggle';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -30,8 +29,6 @@ const HeroScene = dynamic(() => import('../components/HeroScene'), {
 export default function Portfolio() {
   const [sceneReady, setSceneReady] = useState(false);
   const handleSceneReady = useCallback(() => setSceneReady(true), []);
-
-  const [navHidden, setNavHidden] = useState(false);
 
   // Last resort: the page must never wait on WebGL. If the hero hasn't
   // reported ready by now (slow chunk, stalled GPU), open the curtain anyway.
@@ -59,30 +56,6 @@ export default function Portfolio() {
       markSeen();
     };
   }, [sceneReady]);
-
-  useEffect(() => {
-    let lastY = window.scrollY;
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const currentY = window.scrollY;
-        const delta = currentY - lastY;
-        if (currentY < 80) {
-          setNavHidden(false);
-        } else if (delta > 4) {
-          setNavHidden(true);
-        } else if (delta < -4) {
-          setNavHidden(false);
-        }
-        lastY = currentY;
-        ticking = false;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   const skillIcons = [
     // Languages & runtimes
@@ -138,40 +111,10 @@ export default function Portfolio() {
           <div className="shooting-star" />
         </div>
       )}
-      <nav
-        aria-label="Primary"
-        className={`fixed top-4 left-4 z-50 sm:left-1/2 sm:-translate-x-1/2 border border-foreground/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 px-1.5 py-1.5 font-mono text-xs sm:px-3 sm:py-2.5 sm:text-sm transition-transform duration-300 ease-out intro-fade ${navHidden ? '-translate-y-[200%]' : 'translate-y-0'}`}
-      >
-        <ul className="flex items-center gap-1 text-foreground/70">
-          <li>
-            <a href="#scroll-target-projects" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
-              projects
-            </a>
-          </li>
-          <li>
-            <a href="#scroll-target-demos" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
-              demos
-            </a>
-          </li>
-          <li>
-            <a href="#scroll-target-aboutme" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
-              about
-            </a>
-          </li>
-          <li>
-            <a href="#scroll-target-contactme" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
-              contact
-            </a>
-          </li>
-        </ul>
-      </nav>
       <div
         className="relative w-full overflow-hidden"
         style={{ zIndex: 9, height: '75vh', pointerEvents: 'auto' }}
       >
-        <div className="absolute right-4 top-4 z-20">
-          <ThemeToggle />
-        </div>
         <HeroScene onReady={handleSceneReady} />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />

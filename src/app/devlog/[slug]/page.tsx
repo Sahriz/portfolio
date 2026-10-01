@@ -6,8 +6,6 @@ import { ChevronLeft } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import PrimaryNav from '../../../components/PrimaryNav';
-import { ThemeToggle } from '../../../components/ThemeToggle';
 import { devlogPosts } from '../../../data/devlog';
 import { buttonVariants } from '@/components/ui/button';
 
@@ -45,11 +43,6 @@ export default async function DevlogPostPage({ params }: PageProps) {
 
   return (
     <div className="relative w-full min-h-screen bg-background text-foreground">
-      <PrimaryNav />
-      <div className="fixed right-4 top-4 z-50">
-        <ThemeToggle />
-      </div>
-
       <main className="mx-auto max-w-3xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <header className="mb-10">
           <p className="font-mono text-xs tracking-[0.2em] text-foreground/50">{post.date}</p>

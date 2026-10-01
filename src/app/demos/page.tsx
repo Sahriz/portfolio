@@ -1,10 +1,8 @@
 import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import DemoCard from '../../components/DemoCard';
-import PrimaryNav from '../../components/PrimaryNav';
 import ScrollReveal from '../../components/ScrollReveal';
-import { ThemeToggle } from '../../components/ThemeToggle';
-import { demos } from '../../data/demos';
+import { listedDemos as demos } from '../../data/demos';
 import { buttonVariants } from '@/components/ui/button';
 
 export const metadata = {
@@ -14,11 +12,6 @@ export const metadata = {
 export default function AllDemosPage() {
   return (
     <div className="relative w-full min-h-screen bg-background text-foreground">
-      <PrimaryNav />
-      <div className="fixed right-4 top-4 z-50">
-        <ThemeToggle />
-      </div>
-
       <main className="mx-auto max-w-6xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <header className="mb-12">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
