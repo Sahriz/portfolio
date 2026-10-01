@@ -41,24 +41,26 @@ export default function PrimaryNav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Below sm the pill sits left with tighter padding so it clears the theme
+  // toggle on 360px phones. The phase-2 top bar replaces this.
   return (
     <nav
       aria-label="Primary"
-      className={`fixed top-4 left-1/2 z-50 border border-foreground/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/50 px-3 py-2.5 font-mono text-sm transition-transform duration-300 ease-out ${navHidden ? '-translate-x-1/2 -translate-y-[200%]' : '-translate-x-1/2 translate-y-0'}`}
+      className={`fixed top-4 left-4 z-50 sm:left-1/2 sm:-translate-x-1/2 border border-foreground/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/50 px-1.5 py-1.5 font-mono text-xs sm:px-3 sm:py-2.5 sm:text-sm transition-transform duration-300 ease-out ${navHidden ? '-translate-y-[200%]' : 'translate-y-0'}`}
     >
       <ul className="flex items-center gap-1 text-foreground/70">
         <li>
-          <Link href="/" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
+          <Link href="/" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
             home
           </Link>
         </li>
         <li>
-          <Link href="/#scroll-target-aboutme" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
+          <Link href="/#scroll-target-aboutme" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
             about
           </Link>
         </li>
         <li>
-          <Link href="/#scroll-target-contactme" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
+          <Link href="/#scroll-target-contactme" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
             contact
           </Link>
         </li>

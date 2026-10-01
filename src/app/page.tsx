@@ -140,26 +140,26 @@ export default function Portfolio() {
       )}
       <nav
         aria-label="Primary"
-        className={`fixed top-4 left-1/2 z-50 border border-foreground/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 px-3 py-2.5 font-mono text-sm transition-transform duration-300 ease-out intro-fade ${navHidden ? '-translate-x-1/2 -translate-y-[200%]' : '-translate-x-1/2 translate-y-0'}`}
+        className={`fixed top-4 left-4 z-50 sm:left-1/2 sm:-translate-x-1/2 border border-foreground/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 px-1.5 py-1.5 font-mono text-xs sm:px-3 sm:py-2.5 sm:text-sm transition-transform duration-300 ease-out intro-fade ${navHidden ? '-translate-y-[200%]' : 'translate-y-0'}`}
       >
         <ul className="flex items-center gap-1 text-foreground/70">
           <li>
-            <a href="#scroll-target-projects" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
+            <a href="#scroll-target-projects" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
               projects
             </a>
           </li>
           <li>
-            <a href="#scroll-target-demos" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
+            <a href="#scroll-target-demos" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
               demos
             </a>
           </li>
           <li>
-            <a href="#scroll-target-aboutme" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
+            <a href="#scroll-target-aboutme" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
               about
             </a>
           </li>
           <li>
-            <a href="#scroll-target-contactme" className="nav-link inline-block px-3 py-1.5 text-foreground/70 hover:bg-foreground hover:text-background">
+            <a href="#scroll-target-contactme" className="nav-link inline-block px-2 py-1.5 sm:px-3 text-foreground/70 hover:bg-foreground hover:text-background">
               contact
             </a>
           </li>
