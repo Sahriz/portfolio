@@ -1,12 +1,8 @@
 # Cloud Sim
 
-> The README in the GitHub repo still describes the original fluid simulation plan. This page describes what the program actually does.
-
 A real-time volumetric cloud renderer written in C++ and OpenGL 4.6.
 
 It started as an Eulerian fluid simulation, which is where the repository name and the `FluidSim` class come from, and turned into a cloud renderer somewhere along the way. Two compute shaders bake a noise field into a 3D texture, and a fullscreen raymarch lights that volume and draws it. Every number in the pipeline is wired to a Dear ImGui slider, so most of the time I spend in it goes to dragging values around and watching what the clouds do.
-
-<video src="/images/CloudSim/cloudsim.webm" autoplay loop muted playsinline width="100%"></video>
 
 ## Building the density field
 

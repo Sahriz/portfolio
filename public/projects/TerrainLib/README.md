@@ -71,6 +71,3 @@ This project is a WIP library for personal use, but open for anyone to use or mo
 - **Make physics work for player controller**
 - **Make a state machine for player character**
 - **Allow interaction with terrain by for example detroying terrain**
-
-## [Back To Start Page](/)
-

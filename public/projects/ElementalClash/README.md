@@ -34,6 +34,3 @@ This project was done as part of my bachelors thesis in the course TNM094 at *Li
 
 Here is the [Thesis](../../images/ElementalClash/KandidatProjekt_Rapport.pdf) for anybody interested! It is written in swedish as that was mandatory for the course. 
 ****
-
-## [Back To Start Page](/)
-

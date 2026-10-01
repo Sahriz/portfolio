@@ -1,7 +1,5 @@
 # DroneSim
 
-> ⚠️ This repository doesn't have a written README on GitHub yet. The page below is a stub. The figures are progress shots from local development. When a real README is pushed to the repo, it can replace this file.
-
 Autonomous drone navigating procedurally generated terrain in C++ / OpenGL. A control loop steers the drone through the simulated environment in real time, with the surrounding world meshed on the fly using marching cubes over a 3D scalar field.
 
 ## Progress

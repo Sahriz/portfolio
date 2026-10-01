@@ -19,6 +19,3 @@ This is a work in progress passion project where I try to recreate a portal effe
 - **Make shadows pass through portal**: Currently, the shadows are cut of by the portal sufrace and are not rendering on the other side of the portal. This is most likely something I will fix using a shader.
 - **Slice gameobjects to allow smooth transition of objects**: Currently, if another gameobject moves through the portal, it looks horrible as an onlooker, this can be fixed by slicing the object where it intersects the portal surface, and then duplicating its visuals to the other side of the other portal, allowing it to appear in two spots at once, but only working with one physics object. 
 - **Portal effect when switching links**: I want portals to be able to, in real time, switch its target portal to new one. This would probably look pretty lame if the portal just turned on a switch, and BAM, new portal surface. I want to make a shader that handles transitions between portals, to make it smoother and prettier.
-
-## [Back To Start Page](/)
-

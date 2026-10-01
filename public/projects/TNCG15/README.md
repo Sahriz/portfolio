@@ -18,7 +18,3 @@ This project was made by me and Ludwig Boge, and was made for the course *TNCG15
 ![image](../../images/TNCG15/FyrkanHD.png)
 
 ## [Link to project](https://github.com/eLdOchLagor/TNCG15-Monte-Carlo-Pathtracer)
-
-
-## [Back To Start Page](/)
-

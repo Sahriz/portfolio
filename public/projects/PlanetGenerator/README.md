@@ -30,5 +30,3 @@ A procedurall planet generator demo, which uses multiple types of noise function
 ![image](../../images/PlanetGenerator/PlanetProgress1.png)
 ![image](../../images/PlanetGenerator/PlanetProgress6.png)
 ![image](../../images/PlanetGenerator/PlanetProgress7.png)
-## [Back To Start Page](/)
-
