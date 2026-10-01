@@ -28,13 +28,34 @@ function hash(ix: number, iy: number, salt: number) {
   return n - Math.floor(n);
 }
 
-/** Smooth rolling "height" in [0, 1] at a world position, drifting with time. */
+/** Smooth 2D value noise in [0, 1]: random values on a lattice, blended between. */
+function noise(x: number, y: number, salt: number) {
+  const ix = Math.floor(x);
+  const iy = Math.floor(y);
+  const fx = x - ix;
+  const fy = y - iy;
+  // Smoothstep weights, so the blend has no creases at the lattice lines.
+  const u = fx * fx * (3 - 2 * fx);
+  const v = fy * fy * (3 - 2 * fy);
+  const top = hash(ix, iy, salt) * (1 - u) + hash(ix + 1, iy, salt) * u;
+  const bottom = hash(ix, iy + 1, salt) * (1 - u) + hash(ix + 1, iy + 1, salt) * u;
+  return top * (1 - v) + bottom * v;
+}
+
+const HILL = 230; // px across one broad hill
+const BUMP = 95; // px across the smaller bumps on top of the hills
+
+/**
+ * Terrain height in [0, 1] at a world position: a height map seen from above,
+ * with hills and hollows scattered in both directions. Two layers of noise,
+ * each sliding slowly so the landscape drifts over time.
+ */
 function height(x: number, y: number, t: number) {
-  const h =
-    Math.sin(x * 0.0041 + t * 0.11) +
-    Math.sin(y * 0.0052 - t * 0.08) +
-    Math.sin((x + y) * 0.0029 + t * 0.05);
-  return h / 6 + 0.5;
+  const hills = noise(x / HILL + t * 0.02, y / HILL - t * 0.015, 3);
+  const bumps = noise(x / BUMP - t * 0.03, y / BUMP + t * 0.025, 7);
+  const h = hills * 0.7 + bumps * 0.3;
+  // Blended noise bunches up around 0.5; stretch it to use the whole range.
+  return Math.min(1, Math.max(0, (h - 0.5) * 1.9 + 0.5));
 }
 
 /** A vertex's highlight strength in [0, 1], from its height and HEIGHT_HIGHLIGHT. */
