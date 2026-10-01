@@ -5,7 +5,7 @@ type Props = { paper: Paper };
 
 export default function PaperCard({ paper }: Props) {
   return (
-    <article className="paper-card-wrapper group relative flex h-full flex-col overflow-hidden rounded-xl paper-card-custom">
+    <article className="paper-card-wrapper group relative flex h-full flex-col overflow-hidden paper-card-custom">
       
       {/* Main card content */}
       <div className="flex h-full flex-col border border-foreground/30 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 group-hover:border-emerald-400/60 group-hover:bg-card/60 group-hover:shadow-lg group-hover:shadow-emerald-500/10">

@@ -58,21 +58,21 @@ export default function ProjectPage(props0: ProjectPageProps) {
   return (
     <>
       <div className="fixed top-6 left-6 z-50 flex gap-2">
-        <Button asChild variant="ghost" className="border bg-background/80 backdrop-blur">
+        <Button asChild className="bg-background/80 backdrop-blur">
           <Link href="/projects">&#8592; Back to All Projects</Link>
         </Button>
-        <Button asChild variant="ghost" className="border bg-background/80 backdrop-blur">
+        <Button asChild className="bg-background/80 backdrop-blur">
           <Link href="/">Home</Link>
         </Button>
       </div>
       <div className="mx-auto max-w-4xl px-4 pb-12 pt-20">
         {loading ? (
-          <div className="grid min-h-[240px] place-items-center rounded-2xl border bg-card text-card-foreground shadow-sm">
+          <div className="grid min-h-[240px] place-items-center border bg-card text-card-foreground shadow-sm">
             <Spinner className="size-6 text-primary" />
           </div>
         ) : (
           <ReactMarkdown
-            className="prose prose-slate dark:prose-invert max-w-none rounded-2xl border bg-card p-6 text-card-foreground shadow-sm"
+            className="prose prose-slate dark:prose-invert max-w-none border bg-card p-6 text-card-foreground shadow-sm"
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
             components={{
@@ -84,9 +84,9 @@ export default function ProjectPage(props0: ProjectPageProps) {
               li: ({ node, ...props }) => <li className="text-base leading-6" {...props} />,
               a: ({ node, ...props }) => <a className="text-primary underline" {...props} />,
               // eslint-disable-next-line @next/next/no-img-element -- markdown images have arbitrary sources/sizes; next/image needs known dimensions
-              img: ({ node, ...props }) => <img alt="" className="mx-auto my-6 w-full max-w-3xl rounded-xl shadow" {...props} />,
-              video: ({ node, ...props }) => <video className="mx-auto my-6 w-full max-w-3xl rounded-xl shadow" controls {...props} />,
-              code: ({ node, ...props }) => <code className="rounded bg-muted px-2 py-1 text-sm" {...props} />,
+              img: ({ node, ...props }) => <img alt="" className="mx-auto my-6 w-full max-w-3xl shadow" {...props} />,
+              video: ({ node, ...props }) => <video className="mx-auto my-6 w-full max-w-3xl shadow" controls {...props} />,
+              code: ({ node, ...props }) => <code className="bg-muted px-2 py-1 text-sm" {...props} />,
               // Tables need explicit styling like every other element here:
               // the `prose` classes on the container are inert because
               // @tailwindcss/typography isn't installed. Without this, th

@@ -42,6 +42,8 @@
   --font-serif: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --radius: 0rem;
+  /* The one accent. Named brand because shadcn already owns --accent. */
+  --brand: rgb(0 112 150);
   --shadow-x: 0px;
   --shadow-y: 1px;
   --shadow-blur: 0px;
@@ -97,6 +99,7 @@
   --font-serif: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --radius: 0rem;
+  --brand: rgb(140 220 255);
   --shadow-x: 0px;
   --shadow-y: 1px;
   --shadow-blur: 0px;
@@ -133,6 +136,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-brand: var(--brand);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -330,6 +334,16 @@
   body {
     @apply bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
+  }
+}
+
+@layer components {
+  /* The one H2 style. Layered, so utilities (margin, colour) still override it. */
+  .section-title {
+    font-size: clamp(2.25rem, 6vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
   }
 }
 

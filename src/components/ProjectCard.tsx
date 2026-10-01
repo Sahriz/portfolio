@@ -53,7 +53,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 			className={`project-card-reveal ${visible ? 'project-card-reveal-visible' : 'opacity-0 translate-y-8 scale-[0.98]'} h-full`}
 			style={{ transitionDelay: visible ? staggerDelay : '0s' }}
 		>
-				<Card className="project-card-custom flex h-full flex-col overflow-hidden rounded-xl border border-foreground/30 bg-card text-card-foreground shadow-sm transition-all duration-300">
+				<Card className="project-card-custom flex h-full flex-col overflow-hidden border border-foreground/30 bg-card text-card-foreground shadow-sm transition-all duration-300">
 				<CardContent className="p-0">
 					<div className="relative h-52 overflow-hidden bg-muted/20">
 						{isVideo ? (
@@ -86,7 +86,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 					<CardHeader className="gap-2 pb-4 pt-4 flex-1">
 						<div className="flex items-start justify-between gap-4">
 							<CardTitle className="flex-1 text-xl font-semibold leading-tight">{project.title}</CardTitle>
-							<div className="pointer-events-none mt-1 rounded-full border border-foreground/15 bg-background/50 p-2 text-foreground/30 backdrop-blur-sm transition-all duration-300 project-card-icon">
+							<div className="pointer-events-none mt-1 border border-foreground/15 bg-background/50 p-2 text-foreground/30 backdrop-blur-sm transition-all duration-300 project-card-icon">
 								<Joystick className="h-4 w-4" />
 							</div>
 						</div>

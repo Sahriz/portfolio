@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import PrimaryNav from '../components/PrimaryNav';
 import { ThemeToggle } from '../components/ThemeToggle';
+import { buttonVariants } from '@/components/ui/button';
 
 export const metadata = {
   title: 'Not found',
@@ -33,26 +34,26 @@ export default function NotFound() {
         <div className="mt-4 flex flex-wrap gap-3">
           <Link
             href="/"
-            className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+            className={buttonVariants()}
           >
             <ChevronLeft className="h-4 w-4" />
             back to home
           </Link>
           <Link
             href="/projects"
-            className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+            className={buttonVariants()}
           >
             projects
           </Link>
           <Link
             href="/papers"
-            className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+            className={buttonVariants()}
           >
             papers
           </Link>
           <Link
             href="/courses"
-            className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+            className={buttonVariants()}
           >
             coursework
           </Link>

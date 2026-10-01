@@ -6,6 +6,7 @@ import { ChevronLeft } from 'lucide-react';
 import PrimaryNav from '../../components/PrimaryNav';
 import { ThemeToggle } from '../../components/ThemeToggle';
 import { courses, CATEGORY_ORDER, type CourseCategory } from '../../data/courses';
+import { buttonVariants } from '@/components/ui/button';
 
 type Filter = 'All' | CourseCategory;
 
@@ -93,7 +94,7 @@ export default function CoursesPage() {
         <div className="mt-16 flex justify-center">
           <Link
             href="/"
-            className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+            className={buttonVariants()}
           >
             <ChevronLeft className="h-4 w-4" />
             back to home

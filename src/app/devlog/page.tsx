@@ -3,6 +3,7 @@ import PrimaryNav from '../../components/PrimaryNav';
 import ScrollReveal from '../../components/ScrollReveal';
 import { ThemeToggle } from '../../components/ThemeToggle';
 import { devlogPosts } from '../../data/devlog';
+import { buttonVariants } from '@/components/ui/button';
 
 export const metadata = {
   title: 'Devlog',
@@ -84,7 +85,7 @@ export default function DevlogIndex() {
         <div className="mt-16 flex justify-center">
           <Link
             href="/"
-            className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+            className={buttonVariants()}
           >
             ← back to home
           </Link>

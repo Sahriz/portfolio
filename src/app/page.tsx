@@ -17,6 +17,7 @@ import { papers } from '../data/papers';
 import { demos } from '../data/demos';
 import { experience } from '../data/experience';
 import { courses, CATEGORY_ORDER } from '../data/courses';
+import { buttonVariants } from '@/components/ui/button';
 
 // Dust trail behind the shooting star: 10 small bright particles staggered behind it.
 // Each has a slight vertical offset and varying size for a "cloud" feel rather than a line.
@@ -182,7 +183,7 @@ export default function Portfolio() {
             <p className="font-mono text-[0.65rem] uppercase tracking-[0.35em] text-foreground/50">
               / status
             </p>
-            <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
+            <h2 className="section-title mt-2">
               Now
             </h2>
           </header>
@@ -218,7 +219,7 @@ export default function Portfolio() {
             <div className="mt-14 flex justify-center">
               <Link
                 href="/projects"
-                className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+                className={buttonVariants()}
               >
                 view all projects
                 <ChevronRight className="h-4 w-4" />
@@ -231,7 +232,7 @@ export default function Portfolio() {
             className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
           >
             <header className="mb-10">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+              <h2 className="section-title text-foreground">
                 Papers
               </h2>
               <p className="mt-2 font-mono text-sm text-muted-foreground">
@@ -250,7 +251,7 @@ export default function Portfolio() {
             <div className="mt-14 flex justify-center">
               <Link
                 href="/papers"
-                className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+                className={buttonVariants()}
               >
                 view all papers
                 <ChevronRight className="h-4 w-4" />
@@ -263,7 +264,7 @@ export default function Portfolio() {
             className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
           >
             <header className="mb-10">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+              <h2 className="section-title text-foreground">
                 Demos
               </h2>
               <p className="mt-2 font-mono text-sm text-muted-foreground">
@@ -280,7 +281,7 @@ export default function Portfolio() {
             <div className="mt-14 flex justify-center">
               <Link
                 href="/demos"
-                className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+                className={buttonVariants()}
               >
                 view all demos
                 <ChevronRight className="h-4 w-4" />
@@ -293,7 +294,7 @@ export default function Portfolio() {
             className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
           >
             <header className="mb-10">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+              <h2 className="section-title text-foreground">
                 Education &amp; Experience
               </h2>
             </header>
@@ -305,7 +306,7 @@ export default function Portfolio() {
             className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 sm:px-6 lg:px-8"
           >
             <header className="mb-10">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+              <h2 className="section-title text-foreground">
                 Coursework
               </h2>
               <p className="mt-2 font-mono text-sm text-muted-foreground">
@@ -350,7 +351,7 @@ export default function Portfolio() {
             <div className="mt-14 flex justify-center">
               <Link
                 href="/courses"
-                className="nav-link inline-flex items-center gap-2 border border-foreground/60 px-5 py-2.5 font-mono text-sm text-foreground/80 hover:bg-foreground hover:text-background"
+                className={buttonVariants()}
               >
                 view all coursework
                 <ChevronRight className="h-4 w-4" />
@@ -366,7 +367,7 @@ export default function Portfolio() {
               <p className="font-mono text-[0.65rem] uppercase tracking-[0.35em] text-foreground/50">
                 / background
               </p>
-              <h2 className="mt-2 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+              <h2 className="section-title mt-2 text-foreground">
                 About
               </h2>
             </header>
@@ -431,7 +432,7 @@ export default function Portfolio() {
 
           <section className="relative z-10 mx-auto mt-32 w-full max-w-6xl px-4 pb-24 sm:px-6 lg:px-8">
             <header className="mb-10">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground">
+              <h2 className="section-title text-foreground">
                 Skills
               </h2>
             </header>

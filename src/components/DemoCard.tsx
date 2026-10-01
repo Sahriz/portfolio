@@ -10,7 +10,7 @@ type DemoCardProps = {
 
 export default function DemoCard({ demo }: DemoCardProps) {
 	return (
-		<article className="demo-card-wrapper group relative flex h-full flex-col overflow-hidden rounded-xl demo-card-custom">
+		<article className="demo-card-wrapper group relative flex h-full flex-col overflow-hidden demo-card-custom">
 
 			{/* Main card content */}
 			<div className="flex h-full flex-col border border-foreground/30 bg-card/40 p-6 backdrop-blur-sm transition-all duration-300 group-hover:border-purple-400/60 group-hover:bg-card/60 group-hover:shadow-lg group-hover:shadow-purple-500/10">
