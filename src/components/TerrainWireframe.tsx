@@ -9,9 +9,9 @@ import { useEffect, useRef } from 'react';
 // hero's terrain reduced to its triangle edges: texture, never something to
 // look at. Plain 2D canvas, no WebGL.
 
-const CELL = 42; // px between mesh vertices
+const CELL = 62; // px between mesh vertices
 const JITTER = 0.27; // how far a vertex strays from its grid position, in cells
-const RELIEF = 22; // px a vertex is pushed up at the top of a "hill"
+const RELIEF = 42; // px a vertex is pushed up at the top of a "hill"
 const PARALLAX = 0.2; // mesh scroll speed relative to the page
 const FRAME_MS = 1000 / 120; // frame-rate cap; in practice it runs at the display's refresh rate
 // How much a vertex's height decides how strongly it is drawn (lines, node
@@ -20,7 +20,10 @@ const FRAME_MS = 1000 / 120; // frame-rate cap; in practice it runs at the displ
 //    0  height makes no difference, everything is drawn the same
 //   -1  reversed: the valleys are highlighted and the peaks fade
 // Values in between soften the effect; beyond +-1 (try 2 or -2) exaggerate it.
-const HEIGHT_HIGHLIGHT = 1.0;
+const HEIGHT_HIGHLIGHT = 0.7;
+// Scales every node and its halo. 1 was the original size, which read as
+// blobs on a dense mesh.
+const NODE_SIZE = 0.6;
 const MIN_WIDTH = 768; // matches the CSS: hidden on phones, where it would only be clutter
 
 /** Stable pseudo-random number in [0, 1) for a grid coordinate. */
@@ -43,8 +46,8 @@ function noise(x: number, y: number, salt: number) {
   return top * (1 - v) + bottom * v;
 }
 
-const HILL = 150; // px across one broad hill
-const BUMP = 25; // px across the smaller bumps on top of the hills
+const HILL = 50; // px across one broad hill
+const BUMP = 10; // px across the smaller bumps on top of the hills
 
 /**
  * Terrain height in [0, 1] at a world position: a height map seen from above,
@@ -165,13 +168,13 @@ export default function TerrainWireframe() {
           const e = es[a];
           ctx.globalAlpha = 0.22 + 0.6 * e * e;
           ctx.beginPath();
-          ctx.arc(xs[a], ys[a], 1.1 + 1.5 * e, 0, Math.PI * 2);
+          ctx.arc(xs[a], ys[a], (1.1 + 1.5 * e) * NODE_SIZE, 0, Math.PI * 2);
           ctx.fill();
           // The most highlighted ones also get a soft halo.
           if (e > 0.7) {
             ctx.globalAlpha = 0.16 * ((e - 0.7) / 0.3);
             ctx.beginPath();
-            ctx.arc(xs[a], ys[a], 6, 0, Math.PI * 2);
+            ctx.arc(xs[a], ys[a], 6 * NODE_SIZE, 0, Math.PI * 2);
             ctx.fill();
           }
         }

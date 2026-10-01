@@ -495,7 +495,7 @@
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    --dim: rgb(0 0 0 / 0.4);
+    --dim: rgba(0, 0, 0, 0.05);
     --fade-start: calc(var(--column-edge) * 0.4);
     --fade-end: calc(var(--column-edge) + 1rem);
     -webkit-mask-image: linear-gradient(
