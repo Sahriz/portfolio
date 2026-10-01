@@ -421,6 +421,112 @@
 .markdown-content th, .markdown-content td { border: 1px solid rgb(from var(--foreground) r g b / 0.2); padding: 0.5rem 0.75rem; text-align: left; }
 .markdown-content th { background-color: rgb(from var(--foreground) r g b / 0.05); font-weight: 700; }
 
+/* Card glow. The colour says what the card is: cyan = project, green = paper,
+   purple = demo. Unlayered on purpose, so these win over the Tailwind
+   utilities on the cards and buttons they decorate. */
+.glow-card {
+  --glow: 140 220 255;
+  position: relative;
+  transition: translate 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.glow-card-paper { --glow: 74 222 128; }
+.glow-card-demo  { --glow: 168 85 247; }
+
+/* Project cards carry a faint cyan border even at rest. */
+.glow-card-project {
+  border-color: rgb(var(--glow) / 0.3);
+}
+
+.glow-card:hover,
+.glow-card:focus-within {
+  translate: 0 -4px;
+  border-color: rgb(var(--glow) / 0.6);
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgb(var(--glow) / 0.2),
+    0 0 48px rgb(var(--glow) / 0.14),
+    0 0 72px rgb(var(--glow) / 0.08);
+}
+
+/* Gradient glare along the top-left edge */
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(135deg, rgb(var(--glow) / 0.42), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.glow-card:hover::before,
+.glow-card:focus-within::before {
+  opacity: 1;
+}
+
+.glow-card-paper:hover :is(h3, p),
+.glow-card-demo:hover :is(h3, p) {
+  text-shadow:
+    0 0 10px rgb(var(--glow) / 0.18),
+    0 0 18px rgb(var(--glow) / 0.08);
+}
+
+.glow-icon,
+.glow-icon-box {
+  transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+.glow-card:hover .glow-icon {
+  color: rgb(var(--glow));
+  filter: drop-shadow(0 0 6px rgb(var(--glow) / 0.35));
+}
+.glow-card:hover .glow-icon-box {
+  border-color: rgb(var(--glow) / 0.28);
+  color: rgb(var(--glow));
+  box-shadow:
+    0 0 14px rgb(var(--glow) / 0.2),
+    0 0 28px rgb(var(--glow) / 0.12),
+    inset 0 0 12px rgb(var(--glow) / 0.06);
+}
+.glow-card:hover .glow-icon-box svg {
+  filter: drop-shadow(0 0 6px rgb(var(--glow) / 0.4));
+}
+
+/* Card buttons. A .glow-cta lights up in its card's colour when hovered;
+   add .glow-cta-follow to light it whenever the card is hovered.
+   "view project" is always cyan, even on a green paper card: it leads to
+   the project, not the paper. */
+.glow-cta {
+  transition: transform 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glow-cta-project {
+  --glow: 140 220 255;
+}
+.glow-cta:hover,
+.glow-card:hover .glow-cta-follow,
+.glow-card:focus-within .glow-cta-follow {
+  background-color: transparent;
+  border-color: rgb(var(--glow) / 0.6);
+  color: rgb(var(--glow));
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.3),
+    0 0 24px rgb(var(--glow) / 0.2),
+    0 0 48px rgb(var(--glow) / 0.14),
+    0 0 72px rgb(var(--glow) / 0.08);
+}
+.glow-cta:hover svg,
+.glow-card:hover .glow-cta-follow svg {
+  filter: drop-shadow(0 0 6px rgb(var(--glow) / 0.4));
+}
+.glow-cta:hover {
+  transform: scale(1.05);
+}
+
 /* ScrollReveal.tsx: fade + slide up on first entry into the viewport */
 .scroll-reveal {
   opacity: 0;

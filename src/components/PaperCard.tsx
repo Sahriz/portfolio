@@ -1,5 +1,6 @@
 import { FileText, Joystick } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import type { Paper } from '../data/papers';
 
 type Props = { paper: Paper };
@@ -8,8 +9,8 @@ type Props = { paper: Paper };
 // equal targets (the PDF and the project), so neither owns the whole card.
 export default function PaperCard({ paper }: Props) {
   return (
-    <article className="group relative flex h-full flex-col border border-foreground/30 bg-card/40 p-6 transition-[translate,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-brand focus-within:border-brand">
-      <div className="absolute top-4 right-4 text-foreground/20 transition-colors duration-300 group-hover:text-brand">
+    <article className="group relative flex h-full flex-col border border-foreground/30 bg-card/40 p-6 glow-card glow-card-paper">
+      <div className="absolute top-4 right-4 text-foreground/20 glow-icon">
         <FileText className="h-6 w-6" />
       </div>
 
@@ -22,7 +23,7 @@ export default function PaperCard({ paper }: Props) {
             href={paper.paperUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={buttonVariants({ size: 'sm' })}
+            className={cn(buttonVariants({ size: 'sm' }), 'glow-cta')}
           >
             <FileText className="h-3.5 w-3.5" />
             view paper
@@ -33,7 +34,7 @@ export default function PaperCard({ paper }: Props) {
             href={paper.projectUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={buttonVariants({ size: 'sm' })}
+            className={cn(buttonVariants({ size: 'sm' }), 'glow-cta glow-cta-project glow-cta-follow')}
           >
             <Joystick className="h-3.5 w-3.5" />
             view project

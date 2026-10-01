@@ -10,14 +10,14 @@ type DemoCardProps = {
 
 export default function DemoCard({ demo }: DemoCardProps) {
 	return (
-		<article className="group relative flex h-full flex-col border border-foreground/30 bg-card/40 p-6 transition-[translate,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-brand focus-within:border-brand">
+		<article className="group relative flex h-full flex-col border border-foreground/30 bg-card/40 p-6 glow-card glow-card-demo">
 			{/* Invisible link covering the whole card. */}
 			<Link
 				href={`/demos/${demo.id}`}
 				aria-label={`Open ${demo.title} demo`}
 				className="absolute inset-0 z-10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand"
 			/>
-			<div className="absolute right-4 top-4 text-foreground/20 transition-colors duration-300 group-hover:text-brand">
+			<div className="absolute right-4 top-4 text-foreground/20 glow-icon">
 				<Sparkles className="h-6 w-6" />
 			</div>
 
@@ -27,7 +27,7 @@ export default function DemoCard({ demo }: DemoCardProps) {
 				{/* Looks like a button, but the stretched link above does the work. */}
 				<span
 					aria-hidden
-					className={cn(buttonVariants({ size: 'sm' }), 'group-hover:border-brand group-hover:text-brand')}
+					className={cn(buttonVariants({ size: 'sm' }), 'glow-cta glow-cta-follow')}
 				>
 					<Play className="h-3.5 w-3.5" />
 					view demo

@@ -54,7 +54,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 			className={`project-card-reveal ${visible ? 'project-card-reveal-visible' : ''} h-full`}
 			style={{ transitionDelay: visible ? staggerDelay : '0s' }}
 		>
-			<article className="group relative flex h-full flex-col overflow-hidden border border-foreground/30 bg-card text-card-foreground transition-[translate,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-brand focus-within:border-brand">
+			<article className="group relative flex h-full flex-col overflow-hidden border border-foreground/30 bg-card text-card-foreground glow-card glow-card-project">
 				{/* Invisible link covering the whole card. z-10 puts it above the
 				    media and text; the actions row sits above it at z-20. */}
 				<Link
@@ -92,7 +92,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 				<div className="flex flex-1 flex-col gap-2 px-6 pb-4 pt-4">
 					<div className="flex items-start justify-between gap-4">
 						<h3 className="flex-1 text-xl font-semibold leading-tight tracking-tight">{project.title}</h3>
-						<div className="mt-1 border border-foreground/15 bg-background/50 p-2 text-foreground/30 transition-colors duration-300 group-hover:border-brand/40 group-hover:text-brand">
+						<div className="mt-1 border border-foreground/15 bg-background/50 p-2 text-foreground/30 glow-icon-box">
 							<Joystick className="h-4 w-4" />
 						</div>
 					</div>
@@ -110,7 +110,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 					{/* Looks like a button, but the stretched link above does the work. */}
 					<span
 						aria-hidden
-						className={cn(buttonVariants({ size: 'sm' }), 'group-hover:border-brand group-hover:text-brand')}
+						className={cn(buttonVariants({ size: 'sm' }), 'glow-cta glow-cta-follow')}
 					>
 						<Joystick className="h-3.5 w-3.5" />
 						view project
