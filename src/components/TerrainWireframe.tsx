@@ -13,6 +13,13 @@ const JITTER = 0.27; // how far a vertex strays from its grid position, in cells
 const RELIEF = 42; // px a vertex is pushed up at the top of a "hill"
 const PARALLAX = 0.2; // mesh scroll speed relative to the page
 const FRAME_MS = 1000 / 120; // frame-rate cap; in practice it runs at the display's refresh rate
+// How much a vertex's height decides how strongly it is drawn (lines, node
+// size and brightness, halo):
+//    1  taller = brighter and bigger (the default)
+//    0  height makes no difference, everything is drawn the same
+//   -1  reversed: the valleys are highlighted and the peaks fade
+// Values in between soften the effect; beyond +-1 (try 2 or -2) exaggerate it.
+const HEIGHT_HIGHLIGHT = 1;
 const MIN_WIDTH = 1280; // matches the CSS: below this there is no margin to draw in
 
 /** Stable pseudo-random number in [0, 1) for a grid coordinate. */
@@ -28,6 +35,12 @@ function height(x: number, y: number, t: number) {
     Math.sin(y * 0.0052 - t * 0.08) +
     Math.sin((x + y) * 0.0029 + t * 0.05);
   return h / 6 + 0.5;
+}
+
+/** A vertex's highlight strength in [0, 1], from its height and HEIGHT_HIGHLIGHT. */
+function emphasis(h: number) {
+  const e = 0.5 + (h - 0.5) * HEIGHT_HIGHLIGHT;
+  return Math.min(1, Math.max(0, e));
 }
 
 export default function TerrainWireframe() {
@@ -78,7 +91,8 @@ export default function TerrainWireframe() {
         const wy = (iy + (hash(ix, iy, side + 9) - 0.5) * 2 * JITTER) * CELL;
         const h = height(wx + side * 4000, wy, seconds);
         const x = side === 0 ? wx : width - wx;
-        return { x, y: wy - offset - (h - 0.5) * 2 * RELIEF, h };
+        // `e` is what the drawing below uses; `h` only moves the vertex.
+        return { x, y: wy - offset - (h - 0.5) * 2 * RELIEF, e: emphasis(h) };
       };
 
       ctx.strokeStyle = colour;
@@ -95,8 +109,8 @@ export default function TerrainWireframe() {
 
             // Each cell contributes its top edge, left edge and one diagonal;
             // the neighbours supply the rest, so no edge is drawn twice.
-            // Higher ground is drawn brighter, like lit ridges.
-            ctx.globalAlpha = 0.05 + 0.2 * ((a.h + b.h + c.h) / 3) ** 2;
+            // Highlighted ground is drawn brighter, like lit ridges.
+            ctx.globalAlpha = 0.05 + 0.2 * ((a.e + b.e + c.e) / 3) ** 2;
             ctx.beginPath();
             ctx.moveTo(b.x, b.y);
             ctx.lineTo(a.x, a.y);
@@ -111,14 +125,14 @@ export default function TerrainWireframe() {
             }
             ctx.stroke();
 
-            // A node on every vertex: bigger and brighter the higher it sits.
-            ctx.globalAlpha = 0.22 + 0.6 * a.h * a.h;
+            // A node on every vertex: bigger and brighter the more it is highlighted.
+            ctx.globalAlpha = 0.22 + 0.6 * a.e * a.e;
             ctx.beginPath();
-            ctx.arc(a.x, a.y, 1.1 + 1.5 * a.h, 0, Math.PI * 2);
+            ctx.arc(a.x, a.y, 1.1 + 1.5 * a.e, 0, Math.PI * 2);
             ctx.fill();
-            // The peaks also get a soft halo.
-            if (a.h > 0.7) {
-              ctx.globalAlpha = 0.16 * ((a.h - 0.7) / 0.3);
+            // The most highlighted ones also get a soft halo.
+            if (a.e > 0.7) {
+              ctx.globalAlpha = 0.16 * ((a.e - 0.7) / 0.3);
               ctx.beginPath();
               ctx.arc(a.x, a.y, 6, 0, Math.PI * 2);
               ctx.fill();
