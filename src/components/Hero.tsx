@@ -1,13 +1,17 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { profile } from '@/data/profile';
 
-const HeroScene = dynamic(() => import('./HeroScene'), {
-  ssr: false,
-  loading: () => <div style={{ width: '100%', height: '100%', background: 'var(--background)' }} />,
-});
+// The terrain demo's first frame, captured wide (2.8:1) so that on any
+// narrower hero `object-cover` crops it exactly the way the live camera
+// frames the scene. Recapture it if the terrain's look or start pose changes.
+const HERO_POSTER = '/images/hero-terrain-first-frame.webp';
+
+// No loading placeholder: the poster is already on screen behind it.
+const HeroScene = dynamic(() => import('./HeroScene'), { ssr: false });
 
 type Props = {
   /** Fires once the scene (or its poster) is on screen; opens the page's curtain. */
@@ -17,7 +21,23 @@ type Props = {
 export default function Hero({ onReady }: Props) {
   return (
     <div className="relative z-[9] h-[78vh] w-full overflow-hidden sm:h-[70vh]">
-      <HeroScene onReady={onReady} />
+      {/* The poster is in the server-rendered HTML, so the hero is never an
+          empty box: it shows while the three.js bundle downloads and the
+          shaders compile, and the live canvas then fades in on top of it.
+          It also opens the page's curtain, which no longer waits for WebGL. */}
+      <Image
+        src={HERO_POSTER}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+        onLoad={onReady}
+        onError={onReady}
+      />
+      <div className="absolute inset-0">
+        <HeroScene onReady={onReady} />
+      </div>
       {/* Scrim instead of a text-shadow halo: the canvas ignores the site
           theme, so the text gets its own dark backing. */}
       <div className="hero-scrim pointer-events-none absolute inset-0" />

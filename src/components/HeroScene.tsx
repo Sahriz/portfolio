@@ -33,9 +33,6 @@ function heroDemoIndex() {
   return i === -1 ? 0 : i; // survives terrain being unfeatured or renamed later
 }
 
-// Still of the terrain demo, shown whenever a WebGL canvas can't be.
-const HERO_POSTER = '/images/hero-terrain.webp';
-
 // Decided up front, before a <Canvas> is ever mounted: three r184 needs WebGL2.
 function hasWebGL2() {
   try {
@@ -45,15 +42,15 @@ function hasWebGL2() {
   }
 }
 
-/** The no-WebGL hero. Reports ready on mount so the page's curtain still opens. */
-function HeroPoster({ onReady }: { onReady: () => void }) {
+/**
+ * The no-WebGL hero. Renders nothing: Hero.tsx already shows the poster
+ * behind this component. It only reports ready so the page's curtain opens.
+ */
+function NoCanvas({ onReady }: { onReady: () => void }) {
   useEffect(() => {
     onReady();
   }, [onReady]);
-  return (
-    // eslint-disable-next-line @next/next/no-img-element -- fills the hero at any size; a plain img needs no dimensions
-    <img src={HERO_POSTER} alt="" className="h-full w-full object-cover" />
-  );
+  return null;
 }
 
 /**
@@ -108,7 +105,8 @@ type SwapPhase = 'idle' | 'covering' | 'waiting' | 'revealing';
 
 function HeroScene({ onReady }: HeroSceneProps) {
   const [isVisible, setIsVisible] = useState(true);
-  // False means: no WebGL2, or the canvas threw. Either way, show the poster.
+  // False means: no WebGL2, or the canvas threw. Either way the poster in
+  // Hero.tsx stays as the hero.
   const [canvasOk, setCanvasOk] = useState(hasWebGL2);
   const handleCanvasError = useCallback(() => setCanvasOk(false), []);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -121,6 +119,11 @@ function HeroScene({ onReady }: HeroSceneProps) {
   const [isMobile] = useState(isMobileViewport);
   const [demoIndex, setDemoIndex] = useState(heroDemoIndex);
   const [phase, setPhase] = useState<SwapPhase>('idle');
+  // The canvas stays invisible until it has drawn a frame, then fades in over
+  // the poster that Hero.tsx shows from the first paint. The poster is a
+  // capture of the terrain's own first frame, so the fade reads as the still
+  // image starting to move rather than as one picture replacing another.
+  const [live, setLive] = useState(false);
   const pendingIndexRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -151,6 +154,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
   // afterwards); the swap machine consumes it on every later demo change.
   const handleDemoReady = useCallback(() => {
     onReady();
+    setLive(true);
     setPhase((p) => (p === 'waiting' ? 'revealing' : p));
   }, [onReady]);
 
@@ -173,7 +177,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
   if (!canvasOk) {
     return (
       <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
-        <HeroPoster onReady={onReady} />
+        <NoCanvas onReady={onReady} />
       </div>
     );
   }
@@ -184,6 +188,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
     // gradients paint over the demo switcher regardless of its z-index.
     <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
       <CanvasErrorBoundary onError={handleCanvasError}>
+      <div style={{ width: '100%', height: '100%', opacity: live ? 1 : 0, transition: 'opacity 900ms ease' }}>
       <Canvas
         gl={{ alpha: false, antialias: false, stencil: false, depth: true }}
         style={{ width: '100%', height: '100%' }}
@@ -198,6 +203,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
           <ReadyNotifier key={demo?.id ?? 'none'} onReady={handleDemoReady} />
         </Suspense>
       </Canvas>
+      </div>
       </CanvasErrorBoundary>
       {/* Swap cover. Inline transition (not a stylesheet class) so its
           duration can't be zeroed by a media query — a 0s transition never
