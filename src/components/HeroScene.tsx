@@ -214,7 +214,8 @@ function HeroScene({ onReady }: HeroSceneProps) {
       {/* Demo switcher: centred on phones, bottom right of the content column
           from sm up, clear of the hero text. z-30: above the swap cover (z-10)
           and the page's hero overlays (scrim at z-auto, text at z-20) so it
-          stays crisp during transitions. min 40px buttons for touch. */}
+          stays crisp during transitions. min 40px buttons for touch. The
+          controls light up purple, the demo colour everywhere else. */}
       {heroDemos.length > 1 && demo && (
         <div className="hero-switcher absolute bottom-6 z-30 flex items-stretch gap-1 font-mono text-xs">
           {showArrows && (
@@ -222,7 +223,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
               aria-label="Previous demo"
               onClick={() => cycle(-1)}
               disabled={phase !== 'idle'}
-              className="flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
+              className="glow-cta glow-cta-demo flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -230,7 +231,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
           <Link
             href={`/demos/${demo.id}`}
             aria-label={`Open ${demo.title} demo`}
-            className="flex items-center whitespace-nowrap border border-foreground/60 bg-background/60 px-4 text-foreground/70 backdrop-blur transition-colors hover:bg-foreground hover:text-background"
+            className="glow-cta glow-cta-demo flex items-center whitespace-nowrap border border-foreground/60 bg-background/60 px-4 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background"
           >
             {demo.title}
           </Link>
@@ -239,7 +240,7 @@ function HeroScene({ onReady }: HeroSceneProps) {
               aria-label="Next demo"
               onClick={() => cycle(1)}
               disabled={phase !== 'idle'}
-              className="flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
+              className="glow-cta glow-cta-demo flex min-h-10 min-w-10 items-center justify-center border border-foreground/60 bg-background/60 text-foreground/70 backdrop-blur hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-50"
             >
               <ChevronRight className="h-5 w-5" />
             </button>

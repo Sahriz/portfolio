@@ -125,7 +125,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 					{/* Looks like a button, but the stretched link above does the work. */}
 					<span
 						aria-hidden
-						className={cn(buttonVariants({ variant: 'solid', size: 'sm' }), 'glow-cta glow-cta-follow')}
+						className={cn(buttonVariants({ variant: 'primary', size: 'sm' }), 'glow-cta glow-cta-follow')}
 					>
 						details →
 					</span>

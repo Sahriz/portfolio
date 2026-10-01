@@ -592,6 +592,11 @@
 .glow-cta:hover {
   transform: scale(1.05);
 }
+/* Over the hero canvas a see-through button is unreadable, so the demo
+   switcher keeps a backing when lit. */
+.hero-switcher .glow-cta:hover {
+  background-color: var(--background);
+}
 
 /* ScrollReveal.tsx: fade + slide up on first entry into the viewport */
 .scroll-reveal {

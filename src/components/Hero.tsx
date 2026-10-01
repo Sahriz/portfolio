@@ -23,8 +23,8 @@ export default function Hero({ onReady }: Props) {
       <div className="hero-scrim pointer-events-none absolute inset-0" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
       {/* `dark` on purpose, whatever the site theme: this block always sits on
-          the dark scrim, so it uses the dark tokens (white text, white solid
-          button, cyan accent). */}
+          the dark scrim, so it uses the dark tokens (white text and borders,
+          cyan accent). */}
       <div
         className="dark intro-fade pointer-events-none absolute inset-0 z-20 flex flex-col items-start justify-center pt-[60px] text-left"
         style={{ paddingInline: 'var(--column-edge)' }}
@@ -38,7 +38,7 @@ export default function Hero({ onReady }: Props) {
         </p>
         <p className="mt-3.5 max-w-[34rem] text-[16.5px] leading-[1.6] text-white/65">{profile.hero.sentence}</p>
         <div className="pointer-events-auto mt-7 flex gap-2.5">
-          <Button asChild variant="solid">
+          <Button asChild variant="primary" className="bg-black/35">
             <a href="#scroll-target-projects">view projects ↓</a>
           </Button>
           <Button asChild variant="outline" className="bg-black/35 text-foreground">

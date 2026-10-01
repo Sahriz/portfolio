@@ -20,7 +20,7 @@ export default function ThesisFeature() {
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5">
             {/* A paper, so it lights up green like the paper cards do. */}
-            <Button asChild variant="solid" className="glow-cta glow-cta-paper">
+            <Button asChild variant="primary" className="glow-cta glow-cta-paper">
               <a href={thesis.pdf} target="_blank" rel="noopener noreferrer">
                 read the thesis ↗
               </a>
