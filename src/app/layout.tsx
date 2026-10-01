@@ -17,13 +17,20 @@ type RootLayoutProps = {
   children: React.ReactNode;
 };
 
+// The favicon is src/app/icon.svg (Next picks it up by file name).
+// Open Graph image URLs need an absolute base. On Vercel, Next derives it from
+// the deployment URL; set `metadataBase` here if the site moves elsewhere.
 export const metadata: Metadata = {
-  title: "Jonatan Ebenholm's Portfolio",
-  description: "5th year student as Master of Science in Media Technology and Engineering - Portfolio showcasing projects in Computer Graphics, GPU programming, and game development",
-  icons: {
-    icon: '/browserTab.png',
-    shortcut: '/browserTab.png',
-    apple: '/browserTab.png',
+  title: {
+    default: 'Jonatan Ebenholm — Systems and software engineer',
+    template: '%s · Jonatan Ebenholm',
+  },
+  description:
+    'Jonatan Ebenholm, systems and software engineer finishing an MSc in Media Technology and Engineering at Linköping University. Projects in computer graphics, GPU programming and simulation.',
+  openGraph: {
+    type: 'website',
+    siteName: 'Jonatan Ebenholm',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Procedural terrain rendered in WebGL' }],
   },
 };
 

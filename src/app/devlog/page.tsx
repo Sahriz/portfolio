@@ -3,8 +3,11 @@ import ScrollReveal from '../../components/ScrollReveal';
 import { devlogPosts } from '../../data/devlog';
 import { buttonVariants } from '@/components/ui/button';
 
+// Kept out of search results until there is a real post: the only one so
+// far is the "how to add a post" note.
 export const metadata = {
   title: 'Devlog',
+  robots: { index: false },
 };
 
 export default function DevlogIndex() {

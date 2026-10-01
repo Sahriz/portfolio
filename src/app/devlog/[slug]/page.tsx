@@ -31,7 +31,8 @@ export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const post = devlogPosts.find((p) => p.slug === slug);
   if (!post) return { title: 'Not found' };
-  return { title: post.title, description: post.excerpt };
+  // noindex for the same reason as the devlog index page.
+  return { title: post.title, description: post.excerpt, robots: { index: false } };
 }
 
 export default async function DevlogPostPage({ params }: PageProps) {
